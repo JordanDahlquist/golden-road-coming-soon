@@ -2,6 +2,13 @@ import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png";
+import HeroBackground from "./HeroBackground";
+
+const HEADLINE_LINES = [
+  "Build the financial",
+  "infrastructure your next",
+  "stage demands.",
+];
 
 const Hero = () => {
   const reduce = useReducedMotion();
@@ -9,7 +16,10 @@ const Hero = () => {
   const container: Variants = {
     hidden: {},
     show: {
-      transition: { staggerChildren: reduce ? 0 : 0.15, delayChildren: reduce ? 0 : 0.1 },
+      transition: {
+        staggerChildren: reduce ? 0 : 0.12,
+        delayChildren: reduce ? 0 : 0.15,
+      },
     },
   };
 
@@ -23,10 +33,19 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen bg-background text-off-white flex flex-col">
-      {/* Slim header bar */}
-      <header className="w-full px-6 md:px-12 lg:px-20 pt-8 md:pt-10">
-        <a href="/" aria-label="Golden Road Strategies" className="inline-block">
+    <section className="relative min-h-screen overflow-hidden bg-background text-off-white">
+      <HeroBackground />
+
+      {/* Barely-there nav (logo only for now; structured for scroll-fade nav next pass) */}
+      <header
+        data-hero-nav
+        className="relative z-20 w-full px-6 md:px-12 lg:px-20 pt-8 md:pt-10"
+      >
+        <a
+          href="/"
+          aria-label="Golden Road Strategies"
+          className="inline-block"
+        >
           <img
             src={logo}
             alt="Golden Road Strategies"
@@ -37,34 +56,51 @@ const Hero = () => {
       </header>
 
       {/* Content */}
-      <div className="flex-1 flex items-center px-6 md:px-12 lg:px-20 py-16 md:py-24">
+      <div className="relative z-10 flex min-h-[calc(100vh-7rem)] items-center px-6 md:px-12 lg:px-20 pb-32 pt-16 md:pt-24">
         <motion.div
           variants={container}
           initial="hidden"
           animate="show"
-          className="w-full max-w-3xl"
+          className="w-full max-w-[1400px] mx-auto"
         >
           <motion.h1
             variants={item}
-            className="font-serif text-off-white text-5xl sm:text-6xl md:text-7xl lg:text-[4.5rem] xl:text-[5rem] leading-[1.05] tracking-tight"
+            className="font-serif text-off-white tracking-tight"
+            style={{
+              fontSize: "clamp(2.75rem, 8vw, 8rem)",
+              lineHeight: 1.02,
+              letterSpacing: "-0.015em",
+            }}
           >
-            Build the financial infrastructure your next stage demands.
+            {HEADLINE_LINES.map((line, i) => (
+              <span
+                key={i}
+                className="block overflow-hidden"
+                data-hero-line={i}
+              >
+                <span className="block">{line}</span>
+              </span>
+            ))}
           </motion.h1>
 
           <motion.p
             variants={item}
-            className="mt-8 md:mt-10 font-sans text-base md:text-lg leading-relaxed text-off-white/70 max-w-[55ch]"
+            className="mt-8 md:mt-10 font-sans leading-relaxed text-off-white/70 max-w-[52ch]"
+            style={{ fontSize: "clamp(1rem, 1.25vw, 1.25rem)" }}
           >
-            Golden Road Strategies gives forward-thinking CEOs, founders, and boards
-            the forward-looking CFO leadership to optimize capital, sharpen
-            decisions, and clear a path to sustainable scale.
+            Golden Road Strategies gives forward-thinking CEOs, founders, and
+            boards the forward-looking CFO leadership to optimize capital,
+            sharpen decisions, and clear a path to sustainable scale.
           </motion.p>
 
-          <motion.div variants={item} className="mt-10 md:mt-12 flex flex-col items-start gap-5">
+          <motion.div
+            variants={item}
+            className="mt-12 md:mt-16 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-8"
+          >
             <Button
               asChild
               size="lg"
-              className="w-full sm:w-auto bg-gold text-background hover:bg-gold/90 font-sans tracking-wide px-8 py-6 text-sm uppercase rounded-none"
+              className="w-full sm:w-auto bg-gold text-background hover:bg-gold/90 font-sans uppercase tracking-[0.14em] text-xs md:text-sm px-8 py-6 rounded-[5px]"
             >
               <a href="#contact">Start the Conversation</a>
             </Button>
@@ -78,6 +114,14 @@ const Hero = () => {
             </a>
           </motion.div>
         </motion.div>
+      </div>
+
+      {/* Scroll cue */}
+      <div className="absolute bottom-8 left-6 md:left-12 lg:left-20 z-10 flex flex-col items-start gap-3">
+        <span className="font-sans text-[10px] uppercase tracking-[0.3em] text-off-white/40">
+          Scroll
+        </span>
+        <span className="hero-scroll-line block h-10 w-px bg-off-white/30" />
       </div>
     </section>
   );
