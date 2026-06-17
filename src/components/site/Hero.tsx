@@ -65,7 +65,7 @@ const Hero = () => {
       {/* Content (scroll-tied handoff: scale + fade as hero exits) */}
       <motion.div
         style={{ scale: handoffScale, opacity: handoffOpacity, willChange: "transform, opacity" }}
-        className="relative z-10 flex min-h-[calc(100vh-7rem)] items-center px-6 md:px-12 lg:px-20 pb-32 pt-16 md:pt-24"
+        className="relative z-10 flex min-h-[calc(100vh-7rem)] items-center px-6 md:px-12 lg:px-20 pb-16 pt-12 md:pt-20"
       >
         <div className="w-full max-w-[1400px] mx-auto">
           <MaskedLines

@@ -26,12 +26,12 @@ const LogoBar = () => {
   const slots = Array.from({ length: 6 }, (_, i) => i);
 
   return (
-    <section className="relative bg-background py-20 md:py-28 px-6 md:px-12 lg:px-20">
+    <section className="relative bg-background py-14 md:py-20 px-6 md:px-12 lg:px-20">
       <div className="mx-auto w-full max-w-[1200px]">
         <SectionEnter delayChildren={0} staggerChildren={0.1}>
           {/* Label */}
           <FadeRise trigger="child" y={16} duration={0.6}>
-            <p className="text-center font-sans text-[10px] md:text-[11px] uppercase tracking-[0.3em] text-off-white/50 mb-10 md:mb-14">
+            <p className="text-center font-sans text-[10px] md:text-[11px] uppercase tracking-[0.3em] text-off-white/50 mb-8 md:mb-10">
               Selected experience
             </p>
           </FadeRise>

@@ -22,7 +22,7 @@ const PainSection = () => {
       <SectionEnter
         as="section"
         aria-labelledby="pain-lead-heading"
-        className="relative bg-background text-off-white px-6 md:px-12 lg:px-20 pt-32 md:pt-40 pb-24 md:pb-32"
+        className="relative bg-background text-off-white px-6 md:px-12 lg:px-20 pt-20 md:pt-28 pb-16 md:pb-20"
         amount={0.35}
       >
         <div className="mx-auto w-full max-w-[1100px]">
@@ -41,7 +41,7 @@ const PainSection = () => {
               <>You did everything right.</>,
               <>The growth still stalled.</>,
             ]}
-            className="mt-6 font-serif tracking-tight text-off-white"
+            className="mt-5 font-serif tracking-tight text-off-white"
             style={{
               fontSize: "clamp(1.875rem, 4.4vw, 4rem)",
               lineHeight: 1.08,
@@ -52,7 +52,7 @@ const PainSection = () => {
           <FadeRise
             trigger="child"
             as="p"
-            className="mt-10 font-sans leading-relaxed text-off-white/70 max-w-[52ch]"
+            className="mt-6 md:mt-8 font-sans leading-relaxed text-off-white/70 max-w-[52ch]"
             style={{ fontSize: "clamp(1rem, 1.2vw, 1.2rem)" }}
           >
             You hit a number. Maybe five million, maybe forty. Revenue climbs,
@@ -70,7 +70,7 @@ const PainSection = () => {
       <SectionEnter
         as="section"
         aria-labelledby="pain-resolve-heading"
-        className="relative bg-background text-off-white px-6 md:px-12 lg:px-20 pt-24 md:pt-32 pb-32 md:pb-48"
+        className="relative bg-background text-off-white px-6 md:px-12 lg:px-20 pt-16 md:pt-24 pb-24 md:pb-32"
         amount={0.35}
       >
         <div className="mx-auto w-full max-w-[1100px]">
@@ -92,7 +92,7 @@ const PainSection = () => {
           <FadeRise
             trigger="child"
             as="p"
-            className="mt-10 font-sans leading-relaxed text-off-white/70 max-w-[52ch]"
+            className="mt-6 md:mt-8 font-sans leading-relaxed text-off-white/70 max-w-[52ch]"
             style={{ fontSize: "clamp(1rem, 1.2vw, 1.2rem)" }}
           >
             Backward-looking accounting tells you where the money went. A
@@ -105,7 +105,7 @@ const PainSection = () => {
           <FadeRise
             trigger="child"
             as="p"
-            className="mt-16 md:mt-20 font-serif italic text-gold"
+            className="mt-12 md:mt-14 font-serif italic text-gold"
             style={{
               fontSize: "clamp(1.5rem, 2.6vw, 2.25rem)",
               lineHeight: 1.2,
