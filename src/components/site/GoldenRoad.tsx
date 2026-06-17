@@ -86,7 +86,7 @@ const GoldenRoad = () => {
     <div
       ref={wrapperRef}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-0 overflow-hidden"
+      className="pointer-events-none absolute inset-0 z-20 overflow-hidden"
     >
       {/* Desktop: winding road through negative-space column */}
       <svg
@@ -111,10 +111,10 @@ const GoldenRoad = () => {
              S 56 780, 50 870
              S 42 960, 44 1000"
           stroke={GOLD}
-          strokeWidth="0.35"
+          strokeWidth="2"
           strokeLinecap="round"
           vectorEffect="non-scaling-stroke"
-          opacity="0.85"
+          opacity="0.95"
         />
         <circle ref={glowRef} r="6" fill="url(#gr-glow)" opacity="0" />
       </svg>
@@ -139,10 +139,10 @@ const GoldenRoad = () => {
              C 10 200, 14 400, 12 600
              S 8 850, 10 1000"
           stroke={GOLD}
-          strokeWidth="0.4"
+          strokeWidth="2"
           strokeLinecap="round"
           vectorEffect="non-scaling-stroke"
-          opacity="0.8"
+          opacity="0.95"
         />
         <circle ref={mobileGlowRef} r="5" fill="url(#gr-glow-m)" opacity="0" />
       </svg>
