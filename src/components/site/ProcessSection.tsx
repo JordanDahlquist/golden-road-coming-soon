@@ -56,7 +56,6 @@ const ProcessSection = () => {
             <>A clear path from where you are</>,
             <>to where you're going.</>,
           ]}
-          id="process-heading"
           className="mt-5 font-serif tracking-tight text-off-white"
           style={{
             fontSize: "clamp(1.875rem, 3.8vw, 3.5rem)",
