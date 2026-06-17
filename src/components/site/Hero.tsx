@@ -2,7 +2,6 @@ import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import logo from "@/assets/logo.png";
 import HeroBackground from "./HeroBackground";
 import { FadeRise, MaskedLines, MotionGroup } from "./motion";
 
