@@ -138,7 +138,7 @@ const ContactSection = () => {
             {/* Locations line */}
             <FadeRise trigger="child" as="div" className="mt-2">
               <p className="font-sans text-off-white/40 text-sm">
-                Southern California — Available Globally
+                Southern California | Available Globally
               </p>
             </FadeRise>
           </div>
