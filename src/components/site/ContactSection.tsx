@@ -51,12 +51,12 @@ const ContactSection = () => {
   };
 
   return (
-    <SectionEnter
-      as="section"
-      id="contact"
-      className="relative bg-background text-off-white px-6 md:px-12 lg:px-20 pt-16 md:pt-24 pb-24 md:pb-32"
-      amount={0.25}
-    >
+    <section id="contact">
+      <SectionEnter
+        as="div"
+        className="relative bg-background text-off-white px-6 md:px-12 lg:px-20 pt-16 md:pt-24 pb-24 md:pb-32"
+        amount={0.25}
+      >
       <div className="mx-auto w-full max-w-[1100px]">
         {/* ── Section intro ────────────────────────────────────────── */}
         <FadeRise
