@@ -1,4 +1,11 @@
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { useRef } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type Variants,
+} from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png";
@@ -14,6 +21,24 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 const Hero = () => {
   const reduce = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Scroll-tied handoff: as the hero scrolls out, gently scale down + fade
+  // so it feels like it recedes and hands off to the next scene.
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const handoffScale = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [1, reduce ? 1 : 0.96],
+  );
+  const handoffOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.85],
+    [1, reduce ? 1 : 0],
+  );
 
   // Headline: line-by-line masked reveal (rise from behind overflow-hidden wrapper)
   const headlineGroup: Variants = {
