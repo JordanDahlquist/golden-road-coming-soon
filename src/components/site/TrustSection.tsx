@@ -7,17 +7,17 @@ const PLACEHOLDER_QUOTES = [
   {
     quote:
       "Pull-quote from a client engagement will appear here. This space is reserved for a testimonial that speaks to the outcome of our work together.",
-    attribution: "Name, Title — Company",
+    attribution: "Name, Title, Company",
   },
   {
     quote:
       "Pull-quote from a client engagement will appear here. This space is reserved for a testimonial that speaks to the outcome of our work together.",
-    attribution: "Name, Title — Company",
+    attribution: "Name, Title, Company",
   },
   {
     quote:
       "Pull-quote from a client engagement will appear here. This space is reserved for a testimonial that speaks to the outcome of our work together.",
-    attribution: "Name, Title — Company",
+    attribution: "Name, Title, Company",
   },
 ] as const;
 
