@@ -1,3 +1,4 @@
+import tracyPortrait from "@/assets/tracy-portrait.webp.asset.json";
 import { FadeRise, MaskedLines, SectionEnter } from "./motion";
 
 /**
