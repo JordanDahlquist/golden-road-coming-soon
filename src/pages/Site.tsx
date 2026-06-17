@@ -3,6 +3,7 @@ import LogoBar from "@/components/site/LogoBar";
 import PainSection from "@/components/site/PainSection";
 import ServicesSection from "@/components/site/ServicesSection";
 import ExpertiseSection from "@/components/site/ExpertiseSection";
+import TrustSection from "@/components/site/TrustSection";
 
 const Site = () => {
   return (
@@ -12,6 +13,7 @@ const Site = () => {
       <PainSection />
       <ServicesSection />
       <ExpertiseSection />
+      <TrustSection />
     </main>
   );
 };
