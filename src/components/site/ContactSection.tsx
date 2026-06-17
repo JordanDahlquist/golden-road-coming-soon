@@ -10,11 +10,11 @@ import { FadeRise, MaskedLines, SectionEnter } from "./motion";
 
 const SOCIAL_LINKS = [
   {
-    label: "LinkedIn — Tracy Golden",
+    label: "LinkedIn, Tracy Golden",
     href: "#", // PLACEHOLDER: confirm URL before going live
   },
   {
-    label: "LinkedIn — Golden Road Strategies",
+    label: "LinkedIn, Golden Road Strategies",
     href: "#", // PLACEHOLDER: confirm URL before going live
   },
 ] as const;
