@@ -189,7 +189,7 @@ const PainScene = () => {
                 fontSize: "clamp(1rem, 1.2vw, 1.2rem)",
                 willChange: "transform, opacity",
               }}
-              transition={{ ease: EASE }}
+              transition={{ ease: SITE_EASE }}
               className="mt-10 md:mt-12 font-sans leading-relaxed text-off-white/70 max-w-[52ch]"
             >
               You&rsquo;re scaling past what your financial systems were built
