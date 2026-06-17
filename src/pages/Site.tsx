@@ -5,6 +5,7 @@ import ServicesSection from "@/components/site/ServicesSection";
 import ExpertiseSection from "@/components/site/ExpertiseSection";
 import TrustSection from "@/components/site/TrustSection";
 import ProcessSection from "@/components/site/ProcessSection";
+import StorySection from "@/components/site/StorySection";
 
 const Site = () => {
   return (
@@ -16,6 +17,7 @@ const Site = () => {
       <ExpertiseSection />
       <TrustSection />
       <ProcessSection />
+      <StorySection />
     </main>
   );
 };
