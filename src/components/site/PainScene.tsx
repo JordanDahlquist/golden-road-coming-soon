@@ -6,8 +6,8 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
-
-const EASE = [0.22, 1, 0.36, 1] as const;
+import { FadeRise } from "./motion";
+import { SITE_EASE } from "@/lib/motion";
 
 /**
  * Pinned, scroll-driven Pain scene.
