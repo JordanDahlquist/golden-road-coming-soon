@@ -45,25 +45,12 @@ const StorySection = () => {
           {/* Portrait */}
           <FadeRise trigger="child" as="div" className="relative w-full">
             <div className="relative aspect-[3/4] w-full bg-secondary overflow-hidden rounded-sm">
-              {/*
-                PORTFOLIO PLACEHOLDER
-                Replace the <img> below with Tracy's actual photo when available.
-                The .grayscale + .sepia + .brightness treatment keeps it in the
-                dark editorial register; remove or adjust the filter classes
-                if the supplied image is already graded for this palette.
-              */}
               <img
-                src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1' height='1'%3E%3Crect width='1' height='1' fill='%23302e2c'/%3E%3C/svg%3E"
+                src={tracyPortrait.url}
                 alt="Portrait of Tracy Golden"
                 className="absolute inset-0 w-full h-full object-cover grayscale sepia-[.15] brightness-[.85]"
                 loading="lazy"
               />
-              {/* Subtle "Portrait" affordance over the placeholder */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <span className="font-sans uppercase tracking-[0.25em] text-off-white/25 text-xs">
-                  Portrait
-                </span>
-              </div>
             </div>
           </FadeRise>
 
