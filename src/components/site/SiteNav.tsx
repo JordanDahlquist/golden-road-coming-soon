@@ -149,7 +149,7 @@ const SiteNav = () => {
             aria-label="Golden Road Strategies — home"
             className="inline-flex items-center"
           >
-            <img src={logo} alt="Golden Road Strategies" className="h-9 w-auto" draggable={false} />
+            <img src={logo} alt="Golden Road Strategies" className="h-7 w-auto" draggable={false} />
           </a>
           <button
             type="button"
