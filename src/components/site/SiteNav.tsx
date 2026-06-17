@@ -125,7 +125,7 @@ const SiteNav = () => {
             onClick={() => setOpen((v) => !v)}
             className="md:hidden inline-flex items-center justify-center text-gold p-2 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
-            {open ? <Menu size={24} strokeWidth={1.5} className="opacity-0" /> : <Menu size={24} strokeWidth={1.5} />}
+            {open ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
           </button>
         </nav>
       </header>
