@@ -40,26 +40,9 @@ const Hero = () => {
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen overflow-hidden bg-background text-off-white"
+      className="relative min-h-screen overflow-hidden bg-background text-off-white pt-20 md:pt-24"
     >
       <HeroBackground />
-
-      {/* Barely-there nav: fade only (no rise) */}
-      <FadeRise
-        as="header"
-        y={0}
-        duration={0.8}
-        className="relative z-20 w-full px-6 md:px-12 lg:px-20 pt-8 md:pt-10"
-      >
-        <a href="/" aria-label="Golden Road Strategies" className="inline-block">
-          <img
-            src={logo}
-            alt="Golden Road Strategies"
-            className="h-10 md:h-12 w-auto select-none"
-            draggable={false}
-          />
-        </a>
-      </FadeRise>
 
       {/* Content (scroll-tied handoff: scale + fade as hero exits) */}
       <motion.div
