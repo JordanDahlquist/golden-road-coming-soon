@@ -1,4 +1,11 @@
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { useRef } from "react";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type Variants,
+} from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png";
@@ -14,6 +21,24 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 const Hero = () => {
   const reduce = useReducedMotion();
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // Scroll-tied handoff: as the hero scrolls out, gently scale down + fade
+  // so it feels like it recedes and hands off to the next scene.
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const handoffScale = useTransform(
+    scrollYProgress,
+    [0, 1],
+    [1, reduce ? 1 : 0.96],
+  );
+  const handoffOpacity = useTransform(
+    scrollYProgress,
+    [0, 0.85],
+    [1, reduce ? 1 : 0],
+  );
 
   // Headline: line-by-line masked reveal (rise from behind overflow-hidden wrapper)
   const headlineGroup: Variants = {
@@ -57,7 +82,10 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-background text-off-white">
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen overflow-hidden bg-background text-off-white"
+    >
       <HeroBackground />
 
       {/* Barely-there nav */}
@@ -78,8 +106,11 @@ const Hero = () => {
         </a>
       </motion.header>
 
-      {/* Content */}
-      <div className="relative z-10 flex min-h-[calc(100vh-7rem)] items-center px-6 md:px-12 lg:px-20 pb-32 pt-16 md:pt-24">
+      {/* Content (scroll-tied handoff: scale + fade as hero exits) */}
+      <motion.div
+        style={{ scale: handoffScale, opacity: handoffOpacity, willChange: "transform, opacity" }}
+        className="relative z-10 flex min-h-[calc(100vh-7rem)] items-center px-6 md:px-12 lg:px-20 pb-32 pt-16 md:pt-24"
+      >
         <div className="w-full max-w-[1400px] mx-auto">
           <motion.h1
             variants={headlineGroup}
@@ -138,7 +169,7 @@ const Hero = () => {
             </motion.div>
           </motion.div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Scroll cue */}
       <motion.div
