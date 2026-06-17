@@ -1,5 +1,5 @@
 import Hero from "@/components/site/Hero";
-import LogoBar from "@/components/site/LogoBar";
+
 import PainSection from "@/components/site/PainSection";
 import ServicesSection from "@/components/site/ServicesSection";
 import ExpertiseSection from "@/components/site/ExpertiseSection";
@@ -23,7 +23,6 @@ const Site = () => {
       </div>
       <div className="relative">
         <GoldenRoad />
-        <LogoBar />
         <div id="pain" className={ANCHOR_CLASS}>
           <PainSection />
         </div>
