@@ -35,7 +35,6 @@ const ProcessSection = () => {
   return (
     <SectionEnter
       as="section"
-      aria-labelledby="process-heading"
       className="relative bg-background text-off-white px-6 md:px-12 lg:px-20 pt-16 md:pt-24 pb-24 md:pb-32"
       amount={0.25}
     >
