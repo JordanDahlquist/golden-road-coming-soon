@@ -82,7 +82,10 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen overflow-hidden bg-background text-off-white">
+    <section
+      ref={sectionRef}
+      className="relative min-h-screen overflow-hidden bg-background text-off-white"
+    >
       <HeroBackground />
 
       {/* Barely-there nav */}
