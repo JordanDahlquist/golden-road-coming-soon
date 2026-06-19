@@ -1,19 +1,39 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 
 /**
- * Fixed cinematic background: golden road in perspective receding to a glowing
- * horizon. Pure CSS / SVG, GPU-friendly. Brand colors only.
+ * Fixed cinematic background: a winding golden road in perspective receding
+ * to a glowing horizon. As the user scrolls, the road's vanishing point
+ * gently sweeps left/right, giving the sensation of traveling forward along
+ * a real winding road. Pure SVG/CSS, GPU-friendly. Brand colors only.
  *
- * Layers (back to front):
- *  1. Deep background wash (charcoal → background)
- *  2. Horizon glow (radial gold bloom at vanishing point)
- *  3. Horizon hairline
- *  4. Road plane (perspective-warped trapezoid via clip-path)
- *  5. Animated lane stripes traveling toward viewer
- *  6. Soft vignette
+ * No lane markers. The road surface is a clean, continuous golden path with
+ * faint perspective bands and grain for material warmth.
+ *
+ * Reduced motion: the road is rendered statically (no winding, no animation).
  */
 const RoadBackground = () => {
   const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll(); // entire page scroll
+
+  // Vanishing point X (in SVG user units, 0-100). Gentle sine-like sweep.
+  const vx = useTransform(
+    scrollYProgress,
+    [0, 0.2, 0.4, 0.6, 0.8, 1],
+    [50, 56, 44, 55, 47, 50],
+  );
+
+  // Road path: bottom-left (12,100) curves up to vanishing point at top,
+  // mirrors back down to bottom-right (88,100). Quadratic curves through
+  // a single control point at mid-height aligned with the vanishing point.
+  const d = useTransform(vx, (v) =>
+    `M 12 100 Q ${v} 62 ${v - 1.2} 0 L ${v + 1.2} 0 Q ${v} 62 88 100 Z`,
+  );
+
+  // Horizon glow horizontal position follows the vanishing point.
+  const horizonLeft = useTransform(vx, (v) => `${v}%`);
+
+  // Static fallback values for reduced motion.
+  const staticD = "M 12 100 Q 50 62 48.8 0 L 51.2 0 Q 50 62 88 100 Z";
 
   return (
     <div
@@ -30,10 +50,11 @@ const RoadBackground = () => {
         }}
       />
 
-      {/* Horizon bloom (vanishing point) */}
-      <div
-        className="absolute left-1/2 top-[58%] -translate-x-1/2 -translate-y-1/2"
+      {/* Horizon bloom (follows vanishing point) */}
+      <motion.div
+        className="absolute top-[58%] -translate-x-1/2 -translate-y-1/2"
         style={{
+          left: reduce ? "50%" : horizonLeft,
           width: "85vw",
           height: "55vh",
           background:
@@ -42,9 +63,10 @@ const RoadBackground = () => {
           mixBlendMode: "screen",
         }}
       />
-      <div
-        className="absolute left-1/2 top-[58%] -translate-x-1/2 -translate-y-1/2"
+      <motion.div
+        className="absolute top-[58%] -translate-x-1/2 -translate-y-1/2"
         style={{
+          left: reduce ? "50%" : horizonLeft,
           width: "28vw",
           height: "14vh",
           background:
@@ -66,17 +88,72 @@ const RoadBackground = () => {
         }}
       />
 
-      {/* The road plane — perspective trapezoid from horizon to bottom */}
-      <div
+      {/* The road — winding SVG path from horizon to viewer */}
+      <svg
         className="absolute inset-x-0 bottom-0"
-        style={{
-          height: "42vh",
-          clipPath: "polygon(48.5% 0%, 51.5% 0%, 88% 100%, 12% 100%)",
-          background:
-            "linear-gradient(180deg, hsl(var(--gold) / 0.0) 0%, hsl(var(--gold) / 0.10) 14%, hsl(var(--gold) / 0.22) 55%, hsl(var(--gold) / 0.32) 100%)",
-        }}
-      />
-      {/* Road edges (warm highlight) */}
+        style={{ height: "42vh", width: "100%" }}
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+      >
+        <defs>
+          <linearGradient id="road-gold" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="hsl(var(--gold))" stopOpacity="0" />
+            <stop offset="14%" stopColor="hsl(var(--gold))" stopOpacity="0.14" />
+            <stop offset="55%" stopColor="hsl(var(--gold))" stopOpacity="0.28" />
+            <stop offset="100%" stopColor="hsl(var(--gold))" stopOpacity="0.40" />
+          </linearGradient>
+          <linearGradient id="road-rim" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="hsl(var(--gold))" stopOpacity="0" />
+            <stop offset="30%" stopColor="hsl(var(--gold))" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="hsl(var(--gold))" stopOpacity="0.75" />
+          </linearGradient>
+          {/* Subtle surface texture via turbulence */}
+          <filter id="road-texture" x="0" y="0" width="100%" height="100%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch" />
+            <feColorMatrix type="matrix" values="0 0 0 0 0.898  0 0 0 0 0.710  0 0 0 0 0.333  0 0 0 0.22 0" />
+            <feComposite in2="SourceGraphic" operator="in" />
+          </filter>
+          {/* Clip future overlays (perspective bands, texture) to the road shape */}
+          <clipPath id="road-clip" clipPathUnits="userSpaceOnUse">
+            <motion.path d={reduce ? staticD : d} />
+          </clipPath>
+        </defs>
+
+        {/* Road fill */}
+        <motion.path d={reduce ? staticD : d} fill="url(#road-gold)" />
+
+        {/* Faint perspective bands across the road, clipped to its shape.
+            These are NOT center-line markers — they span the full width of
+            the road and read as distance/atmosphere, not lane dividers. */}
+        <g clipPath="url(#road-clip)" opacity="0.18">
+          {[18, 30, 42, 54, 66, 78, 90].map((y) => (
+            <rect
+              key={y}
+              x="0"
+              y={y}
+              width="100"
+              height="0.25"
+              fill="hsl(var(--gold))"
+            />
+          ))}
+        </g>
+
+        {/* Surface texture */}
+        <g clipPath="url(#road-clip)" opacity="0.55">
+          <rect x="0" y="0" width="100" height="100" filter="url(#road-texture)" />
+        </g>
+
+        {/* Warm rim along road edges */}
+        <motion.path
+          d={reduce ? staticD : d}
+          fill="none"
+          stroke="url(#road-rim)"
+          strokeWidth="0.4"
+          vectorEffect="non-scaling-stroke"
+        />
+      </svg>
+
+      {/* Warm ground bloom beneath road (depth) */}
       <div
         className="absolute inset-x-0 bottom-0"
         style={{
@@ -87,41 +164,7 @@ const RoadBackground = () => {
         }}
       />
 
-      {/* Lane stripes — animated forward motion */}
-      <div
-        className="absolute inset-x-0 bottom-0"
-        style={{
-          height: "42vh",
-          clipPath: "polygon(49.7% 0%, 50.3% 0%, 54% 100%, 46% 100%)",
-          maskImage:
-            "linear-gradient(180deg, transparent 0%, black 12%, black 100%)",
-          WebkitMaskImage:
-            "linear-gradient(180deg, transparent 0%, black 12%, black 100%)",
-        }}
-      >
-        {!reduce && (
-          <motion.div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                "repeating-linear-gradient(180deg, hsl(var(--gold) / 0.95) 0px, hsl(var(--gold) / 0.95) 60px, transparent 60px, transparent 140px)",
-            }}
-            animate={{ backgroundPositionY: ["0px", "200px"] }}
-            transition={{ duration: 2.4, ease: "linear", repeat: Infinity }}
-          />
-        )}
-        {reduce && (
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                "repeating-linear-gradient(180deg, hsl(var(--gold) / 0.7) 0px, hsl(var(--gold) / 0.7) 60px, transparent 60px, transparent 140px)",
-            }}
-          />
-        )}
-      </div>
-
-      {/* Atmospheric haze across horizon to soften road meeting glow */}
+      {/* Atmospheric haze across horizon */}
       <div
         className="absolute left-0 right-0"
         style={{
