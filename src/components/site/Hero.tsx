@@ -49,12 +49,12 @@ const Hero = () => {
           className="absolute inset-0 h-full w-full object-cover object-[center_70%] select-none"
           draggable={false}
         />
-        {/* Top-down scrim for headline legibility */}
+        {/* Top-down scrim for headline legibility in the dark upper zone */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(22,21,21,0.85) 0%, rgba(22,21,21,0.55) 28%, rgba(22,21,21,0.18) 52%, rgba(22,21,21,0) 70%)",
+              "linear-gradient(to bottom, rgba(22,21,21,0.90) 0%, rgba(22,21,21,0.60) 32%, rgba(22,21,21,0.22) 56%, rgba(22,21,21,0) 74%)",
           }}
         />
         {/* Soft bottom scrim behind meta strip */}
