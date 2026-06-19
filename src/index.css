@@ -139,7 +139,7 @@
     border-image: linear-gradient(135deg, hsl(40, 74%, 52%), hsl(40, 74%, 72%), hsl(40, 74%, 52%)) 1;
   }
 
-  /* Hero: slow-drifting radial glow. GPU-only (transform). */
+  /* Hero atmosphere: horizon breathing, light shaft drift, hairline pulse. */
   .hero-glow {
     animation: hero-glow-drift 38s ease-in-out infinite alternate;
   }
@@ -147,14 +147,35 @@
     animation-duration: 52s;
     animation-direction: alternate-reverse;
   }
+  .hero-horizon {
+    animation: hero-horizon-breathe 14s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate;
+  }
+  .hero-horizon--alt {
+    animation-duration: 22s;
+    animation-direction: alternate-reverse;
+  }
+  .hero-shaft {
+    animation: hero-shaft-drift 28s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate;
+  }
+  .hero-horizon-line {
+    animation: hero-horizon-line-pulse 9s cubic-bezier(0.4, 0, 0.6, 1) infinite alternate;
+  }
 
   @keyframes hero-glow-drift {
-    0% {
-      transform: translate3d(0, 0, 0) scale(1);
-    }
-    100% {
-      transform: translate3d(4%, -3%, 0) scale(1.08);
-    }
+    0% { transform: translate3d(0, 0, 0) scale(1); }
+    100% { transform: translate3d(4%, -3%, 0) scale(1.08); }
+  }
+  @keyframes hero-horizon-breathe {
+    0% { transform: translate3d(-50%, 0, 0) scale(1); opacity: 0.9; }
+    100% { transform: translate3d(-50%, -2%, 0) scale(1.06); opacity: 1; }
+  }
+  @keyframes hero-shaft-drift {
+    0% { transform: rotate(14deg) translate3d(-2%, -10%, 0); opacity: 0.7; }
+    100% { transform: rotate(14deg) translate3d(3%, -6%, 0); opacity: 1; }
+  }
+  @keyframes hero-horizon-line-pulse {
+    0% { opacity: 0.55; }
+    100% { opacity: 1; }
   }
 
   /* Hero scroll cue: gentle fade pulse on the hairline */
@@ -189,6 +210,9 @@
 
   @media (prefers-reduced-motion: reduce) {
     .hero-glow,
+    .hero-horizon,
+    .hero-shaft,
+    .hero-horizon-line,
     .hero-scroll-line {
       animation: none;
     }
