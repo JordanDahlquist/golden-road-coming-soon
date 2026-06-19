@@ -78,9 +78,9 @@ const Hero = () => {
       {/* Foreground content */}
       <motion.div
         style={{ opacity: handoffOpacity, willChange: "opacity" }}
-        className="relative z-10 flex min-h-[calc(100vh-7rem)] flex-col px-6 md:px-12 lg:px-20 pb-20 pt-10 md:pt-16"
+        className="relative z-10 flex min-h-[calc(100vh-7rem)] flex-col px-6 md:px-12 lg:px-20 pb-20 pt-16 md:pt-24 lg:pt-32"
       >
-        <div className="w-full max-w-[1400px] mx-auto flex-1 flex flex-col justify-center">
+        <div className="w-full max-w-[1400px] mx-auto flex-1 flex flex-col justify-start pt-4 md:pt-8">
           {/* Eyebrow */}
           <FadeRise
             as="div"
