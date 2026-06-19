@@ -46,7 +46,7 @@ const Hero = () => {
         <img
           src={heroRoad.url}
           alt=""
-          className="absolute inset-0 h-full w-full object-cover object-center select-none"
+          className="absolute inset-0 h-full w-full object-cover object-[center_70%] select-none"
           draggable={false}
         />
         {/* Top-down scrim for headline legibility */}
