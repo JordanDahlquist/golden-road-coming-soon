@@ -34,13 +34,10 @@ const RoadStation = ({ children, heightVh = 220 }: RoadStationProps) => {
     offset: ["start end", "end start"],
   });
 
-  const ease = [0.22, 1, 0.36, 1] as const;
-
   const scale = useTransform(
     scrollYProgress,
     [0.0, 0.28, 0.55, 0.85],
-    [0.18, 1.0, 1.0, 1.35],
-    { ease: [ease, ease, ease] as any }
+    [0.18, 1.0, 1.0, 1.35]
   );
   const opacity = useTransform(
     scrollYProgress,
