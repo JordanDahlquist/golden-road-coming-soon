@@ -46,15 +46,15 @@ const Hero = () => {
         <img
           src={heroRoad.url}
           alt=""
-          className="absolute inset-0 h-full w-full object-cover object-center select-none"
+          className="absolute inset-0 h-full w-full object-cover object-[center_70%] select-none"
           draggable={false}
         />
-        {/* Top-down scrim for headline legibility */}
+        {/* Top-down scrim for headline legibility in the dark upper zone */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(22,21,21,0.85) 0%, rgba(22,21,21,0.55) 28%, rgba(22,21,21,0.18) 52%, rgba(22,21,21,0) 70%)",
+              "linear-gradient(to bottom, rgba(22,21,21,0.90) 0%, rgba(22,21,21,0.60) 32%, rgba(22,21,21,0.22) 56%, rgba(22,21,21,0) 74%)",
           }}
         />
         {/* Soft bottom scrim behind meta strip */}
@@ -78,9 +78,9 @@ const Hero = () => {
       {/* Foreground content */}
       <motion.div
         style={{ opacity: handoffOpacity, willChange: "opacity" }}
-        className="relative z-10 flex min-h-[calc(100vh-7rem)] flex-col px-6 md:px-12 lg:px-20 pb-20 pt-10 md:pt-16"
+        className="relative z-10 flex min-h-[calc(100vh-7rem)] flex-col px-6 md:px-12 lg:px-20 pb-20 pt-16 md:pt-24 lg:pt-32"
       >
-        <div className="w-full max-w-[1400px] mx-auto flex-1 flex flex-col justify-center">
+        <div className="w-full max-w-[1400px] mx-auto flex-1 flex flex-col justify-start pt-4 md:pt-8">
           {/* Eyebrow */}
           <FadeRise
             as="div"
