@@ -36,23 +36,23 @@ const RoadStation = ({ children, heightVh = 220 }: RoadStationProps) => {
 
   const scale = useTransform(
     scrollYProgress,
-    [0.0, 0.28, 0.55, 0.85],
-    [0.18, 1.0, 1.0, 1.35]
+    [0.0, 0.30, 0.60, 0.92],
+    [0.16, 1.0, 1.0, 0.22]
   );
   const opacity = useTransform(
     scrollYProgress,
-    [0.05, 0.28, 0.6, 0.85],
+    [0.05, 0.30, 0.60, 0.90],
     [0, 1, 1, 0]
   );
   const y = useTransform(
     scrollYProgress,
-    [0.0, 0.28, 0.6, 0.85],
-    ["6vh", "0vh", "0vh", "-10vh"]
+    [0.0, 0.30, 0.60, 0.92],
+    ["8vh", "0vh", "0vh", "8vh"]
   );
   const blur = useTransform(
     scrollYProgress,
-    [0.0, 0.28, 0.6, 0.85],
-    [10, 0, 0, 6]
+    [0.0, 0.30, 0.60, 0.92],
+    [12, 0, 0, 8]
   );
   const filter = useTransform(blur as MotionValue<number>, (b) => `blur(${b}px)`);
 
