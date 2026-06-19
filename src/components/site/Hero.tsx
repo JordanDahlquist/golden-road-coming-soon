@@ -37,12 +37,42 @@ const Hero = () => {
       ref={sectionRef}
       className="relative min-h-screen overflow-hidden bg-background text-off-white pt-20 md:pt-24"
     >
-      {/* Parallax atmosphere */}
+      {/* Cinematic full-bleed background image with parallax */}
       <motion.div
         style={{ scale: bgScale, y: bgY, willChange: "transform" }}
         className="absolute inset-0"
+        aria-hidden
       >
-        <HeroBackground />
+        <img
+          src={heroRoad.url}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover object-center select-none"
+          draggable={false}
+        />
+        {/* Top-down scrim for headline legibility */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(22,21,21,0.85) 0%, rgba(22,21,21,0.55) 28%, rgba(22,21,21,0.18) 52%, rgba(22,21,21,0) 70%)",
+          }}
+        />
+        {/* Soft bottom scrim behind meta strip */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-40"
+          style={{
+            background:
+              "linear-gradient(to top, rgba(22,21,21,0.7) 0%, rgba(22,21,21,0) 100%)",
+          }}
+        />
+        {/* Side vignette */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(120% 80% at 50% 55%, rgba(22,21,21,0) 55%, rgba(22,21,21,0.55) 100%)",
+          }}
+        />
       </motion.div>
 
       {/* Foreground content */}
