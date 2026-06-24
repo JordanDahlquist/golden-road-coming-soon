@@ -108,8 +108,7 @@ const ContactSection = () => {
                   <p className={fieldLabel}>Email</p>
                   <a
                     href="mailto:info@goldenroadstrategies.com"
-                    className="luxe-link mt-2 inline-flex items-center gap-3 font-sans text-off-white"
-                    style={{ fontSize: "clamp(0.95rem, 1.05vw, 1.0625rem)" }}
+                    className="luxe-link mt-2 inline-flex items-center gap-3 t-body text-off-white"
                   >
                     <Mail className="h-4 w-4 shrink-0 text-gold" strokeWidth={1.5} />
                     <span>info@goldenroadstrategies.com</span>
@@ -125,8 +124,7 @@ const ContactSection = () => {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="luxe-link inline-flex items-center gap-3 font-sans text-off-white/80"
-                        style={{ fontSize: "clamp(0.9rem, 1vw, 1rem)" }}
+                        className="luxe-link inline-flex items-center gap-3 t-body text-off-white/80"
                       >
                         <Linkedin className="h-4 w-4 shrink-0 text-gold" strokeWidth={1.5} />
                         <span>{link.label}</span>
@@ -136,7 +134,7 @@ const ContactSection = () => {
                 </FadeRise>
 
                 <FadeRise trigger="child" as="div">
-                  <p className="inline-flex items-center gap-3 font-sans text-off-white/50 text-sm">
+                  <p className="inline-flex items-center gap-3 t-body-sm text-off-white/50">
                     <MapPin className="h-4 w-4 shrink-0 text-gold/70" strokeWidth={1.5} />
                     <span>Southern California &nbsp;|&nbsp; Available Globally</span>
                   </p>
