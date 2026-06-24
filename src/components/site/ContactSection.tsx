@@ -66,6 +66,7 @@ const ContactSection = () => {
       subject,
     )}&body=${encodeURIComponent(body)}`;
 
+    console.log("[mailto]", mailto);
     window.location.href = mailto;
 
     setStatus("opened");
