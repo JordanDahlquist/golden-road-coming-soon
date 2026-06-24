@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { SITE_EASE } from "@/lib/motion";
 import { FadeRise, MaskedLines, SectionEnter } from "./motion";
 
@@ -47,53 +47,38 @@ const TAG_X_PCT = [12.5, 37.5, 62.5, 87.5];
 const ProcessSection = () => {
   const reduce = useReducedMotion() ?? false;
   const rowRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(rowRef, { once: true, amount: "some" as any });
+  const [inView, setInView] = useState(false);
   const drawn = reduce || inView;
 
-  // Measure row width so the connector geometry uses real pixels and
-  // segments terminate exactly at each node's circular edge.
-  const [rowWidth, setRowWidth] = useState(0);
   useEffect(() => {
-    if (!rowRef.current) return;
-    const ro = new ResizeObserver((entries) => {
-      setRowWidth(entries[0].contentRect.width);
-    });
-    ro.observe(rowRef.current);
-    return () => ro.disconnect();
-  }, []);
+    const el = rowRef.current;
+    if (!el) return;
+    if (reduce) {
+      setInView(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            setInView(true);
+            io.disconnect();
+            break;
+          }
+        }
+      },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.01 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [reduce]);
 
-  // Node centers (px) in connector-SVG coordinates. SVG sits above the cards
-  // (top: -TOTAL_LIFT, height: TOTAL_LIFT). Node 0 is bottom-left (SVG y =
-  // TOTAL_LIFT), node 3 is top-right (SVG y = 0). Cards translate by
-  // -index*LIFT_STEP, so the tag center sits exactly on the card top.
-  const nodes = TAG_X_PCT.map((pct, i) => ({
-    x: (pct / 100) * rowWidth,
-    y: TOTAL_LIFT - i * LIFT_STEP_DESKTOP,
-  }));
-
-  // Build three segments, each shortened by NODE_RADIUS at both ends so the
-  // line enters/exits the node circles cleanly instead of slicing through.
-  const segmentsD =
-    rowWidth > 0
-      ? nodes
-          .slice(0, -1)
-          .map((a, i) => {
-            const b = nodes[i + 1];
-            const dx = b.x - a.x;
-            const dy = b.y - a.y;
-            const len = Math.hypot(dx, dy);
-            if (len <= NODE_DIAMETER) return "";
-            const ux = dx / len;
-            const uy = dy / len;
-            const sx = a.x + ux * NODE_RADIUS;
-            const sy = a.y + uy * NODE_RADIUS;
-            const ex = b.x - ux * NODE_RADIUS;
-            const ey = b.y - uy * NODE_RADIUS;
-            return `M ${sx.toFixed(2)} ${sy.toFixed(2)} L ${ex.toFixed(2)} ${ey.toFixed(2)}`;
-          })
-          .filter(Boolean)
-          .join(" ")
-      : "";
+  // Ascending path through the four node centers, in percent-space units.
+  // The SVG uses preserveAspectRatio="none" so X stretches with row width
+  // while Y stays at TOTAL_LIFT pixels. The number-tag circles are opaque
+  // charcoal, so they visually "cap" the line where it enters/exits each
+  // node — the path reads as deliberate segments joining the four nodes.
+  const segmentsD = `M ${TAG_X_PCT[0]} ${TOTAL_LIFT} L ${TAG_X_PCT[1]} ${TOTAL_LIFT * (2 / 3)} L ${TAG_X_PCT[2]} ${TOTAL_LIFT * (1 / 3)} L ${TAG_X_PCT[3]} 0`;
 
   return (
     <section id="process" className="scroll-mt-24 md:scroll-mt-28">
@@ -173,7 +158,7 @@ const ProcessSection = () => {
             <svg
               aria-hidden="true"
               className="pointer-events-none absolute hidden lg:block left-0 right-0 z-10"
-              viewBox={`0 0 ${Math.max(rowWidth, 1)} ${TOTAL_LIFT}`}
+              viewBox={`0 0 100 ${TOTAL_LIFT}`}
               preserveAspectRatio="none"
               style={{
                 top: `-${TOTAL_LIFT}px`,
@@ -294,11 +279,6 @@ const PhaseCard = ({
 }) => {
   const liftPx = index * LIFT_STEP_DESKTOP;
   const initial = reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 };
-  const animate = reduce
-    ? { opacity: 1, y: 0 }
-    : inView
-      ? { opacity: 1, y: 0 }
-      : { opacity: 0, y: 24 };
 
   // Light up each tag as the connector "reaches" it.
   const lightDelay = reduce ? 0 : 0.2 + 1.8 * ((index + 0.45) / total);
@@ -311,7 +291,8 @@ const PhaseCard = ({
     >
       <motion.article
         initial={initial}
-        animate={animate}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
         transition={{
           duration: 0.75,
           ease: SITE_EASE,
@@ -329,7 +310,8 @@ const PhaseCard = ({
             "caps" the line; size + offset match NODE_DIAMETER constants. */}
         <motion.div
           initial={reduce ? false : { opacity: 0.45 }}
-          animate={inView ? { opacity: 1 } : undefined}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{
             duration: 0.5,
             ease: SITE_EASE,
