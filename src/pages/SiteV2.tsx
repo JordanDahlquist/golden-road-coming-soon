@@ -2,6 +2,8 @@ import NavV2 from "@/components/site-v2/NavV2";
 import HeroV2 from "@/components/site-v2/HeroV2";
 import PhilosophyV2 from "@/components/site-v2/PhilosophyV2";
 import QuoteV2 from "@/components/site-v2/QuoteV2";
+import ServicesV2 from "@/components/site-v2/ServicesV2";
+import ExpertiseV2 from "@/components/site-v2/ExpertiseV2";
 
 const ANCHOR_CLASS = "scroll-mt-24 md:scroll-mt-28";
 
@@ -14,6 +16,12 @@ const SiteV2 = () => {
       </div>
       <PhilosophyV2 />
       <QuoteV2 />
+      <div id="services" className={ANCHOR_CLASS}>
+        <ServicesV2 />
+      </div>
+      <div id="expertise" className={ANCHOR_CLASS}>
+        <ExpertiseV2 />
+      </div>
     </main>
   );
 };
