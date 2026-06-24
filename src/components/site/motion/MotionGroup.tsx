@@ -13,8 +13,8 @@ type MotionGroupProps = {
   delayChildren?: number;
   /** Trigger on mount (default) or when the group scrolls into view. */
   trigger?: "mount" | "in-view";
-  /** When trigger="in-view": fraction of element that must be visible. */
-  amount?: number;
+  /** When trigger="in-view": fraction of element that must be visible, or "some" | "all". */
+  amount?: number | "some" | "all";
 };
 
 /**
