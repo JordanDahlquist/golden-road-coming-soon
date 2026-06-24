@@ -164,10 +164,10 @@ const TestimonialCard = ({ t, index }: { t: Testimonial; index: number }) => {
           {t.initials}
         </span>
         <div className="min-w-0">
-          <p className="font-sans font-semibold text-off-white text-[0.975rem] leading-tight truncate">
+          <p className="t-body font-semibold text-off-white leading-tight truncate">
             {t.name}
           </p>
-          <p className="mt-0.5 font-sans text-off-white/55 text-[0.8125rem] leading-tight truncate">
+          <p className="mt-0.5 t-body-sm text-off-white/55 truncate">
             {t.title}
           </p>
         </div>
@@ -187,13 +187,7 @@ const TestimonialCard = ({ t, index }: { t: Testimonial; index: number }) => {
       </div>
 
       {/* Quote */}
-      <blockquote
-        className="mt-5 font-serif italic text-off-white/90"
-        style={{
-          fontSize: "clamp(1.0625rem, 1.25vw, 1.1875rem)",
-          lineHeight: 1.45,
-        }}
-      >
+      <blockquote className="mt-5 t-quote text-off-white/90">
         &ldquo;{t.quote}&rdquo;
       </blockquote>
     </motion.article>
