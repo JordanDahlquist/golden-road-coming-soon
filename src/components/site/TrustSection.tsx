@@ -1,15 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import {
-  motion,
-  useInView,
-  useMotionValue,
-  useReducedMotion,
-  useTransform,
-  animate,
-} from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Star } from "lucide-react";
 import { SITE_EASE } from "@/lib/motion";
 import { FadeRise, MaskedLines } from "./motion";
+
 
 type Testimonial = {
   name: string;
@@ -63,33 +56,7 @@ const TESTIMONIALS: Testimonial[] = [
   },
 ];
 
-type Stat = {
-  value: string;
-  label: string;
-  /** Numeric portion to count up; rest is rendered as a suffix/prefix. */
-  numeric?: { from: number; to: number; prefix?: string; suffix?: string };
-};
 
-const STATS: Stat[] = [
-  {
-    value: "25+",
-    label: "Years leading finance & operations",
-    numeric: { from: 0, to: 25, suffix: "+" },
-  },
-  {
-    value: "Multiple",
-    label: "Economic cycles navigated as a sitting CFO",
-  },
-  {
-    value: "$5–50M",
-    label: "The range where we do our best work",
-  },
-  {
-    value: "2",
-    label: "Ways to engage: retainer or strategic engagement",
-    numeric: { from: 0, to: 2 },
-  },
-];
 
 const TrustSection = () => {
   return (
