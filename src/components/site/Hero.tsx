@@ -123,10 +123,7 @@ const Hero = () => {
                 lines={HEADLINE_LINES}
                 delayChildren={HEADLINE_DELAY}
                 stagger={0.18}
-                className="font-serif text-off-white max-w-[18ch] text-[clamp(2rem,8.5vw,3rem)] md:text-[clamp(3rem,6.5vw,5.5rem)] leading-[1.1] md:leading-[1.05] tracking-tight [letter-spacing:-0.012em] md:[letter-spacing:-0.018em] [text-wrap:balance]"
-                style={{
-                  fontWeight: 300,
-                }}
+                className="t-display text-off-white max-w-[18ch]"
               />
               <span aria-hidden className="hero-sweep" />
             </motion.div>
@@ -136,11 +133,7 @@ const Hero = () => {
               <FadeRise
                 as="p"
                 trigger="child"
-                className="font-sans leading-relaxed text-off-white/65 max-w-[54ch] mt-5 md:mt-8"
-                style={{
-                  fontSize: "clamp(0.95rem, 1.25vw, 1.25rem)",
-                  fontWeight: 300,
-                }}
+                className="t-lead text-off-white/65 max-w-[54ch] mt-5 md:mt-8"
               >
                 Golden Road Strategies gives forward-thinking CEOs, founders, and
                 boards the forward-looking CFO leadership to optimize capital,
@@ -155,14 +148,14 @@ const Hero = () => {
                 <Button
                   asChild
                   size="lg"
-                  className="hero-cta luxe-cta w-full sm:w-auto bg-gold text-background font-sans uppercase tracking-[0.18em] text-xs md:text-sm px-8 py-5 rounded-[4px]"
+                  className="hero-cta luxe-cta t-label w-full sm:w-auto bg-gold text-background px-8 py-5 rounded-[4px]"
                 >
                   <a href="#contact">Start the Conversation</a>
                 </Button>
 
                 <a
                   href="#process"
-                  className="luxe-link font-sans uppercase tracking-[0.22em] text-[11px] text-off-white/55"
+                  className="luxe-link t-label text-off-white/55"
                 >
                   <span>See how it works</span>
                   <ChevronDown className="luxe-chevron ml-2 h-3.5 w-3.5" />
@@ -177,7 +170,7 @@ const Hero = () => {
               as="div"
               delay={META_DELAY}
               y={10}
-              className="font-sans uppercase text-[10px] tracking-[0.28em] text-off-white/40"
+              className="t-label text-off-white/40"
             >
               Southern California
               <span className="mx-3 text-off-white/25">/</span>
@@ -189,7 +182,7 @@ const Hero = () => {
               delay={SCROLL_CUE_DELAY}
               className="pointer-events-none flex flex-col items-center gap-2"
             >
-              <span className="font-sans text-[9px] uppercase tracking-[0.4em] text-off-white/35">
+              <span className="t-label text-off-white/35">
                 Scroll
               </span>
               <span className="hero-scroll-line block h-8 w-px bg-off-white/25" />
@@ -199,7 +192,7 @@ const Hero = () => {
               as="div"
               delay={META_DELAY}
               y={10}
-              className="hidden md:block font-sans uppercase text-[10px] tracking-[0.28em] text-off-white/40 text-right"
+              className="hidden md:block t-label text-off-white/40 text-right"
             >
               Referral-led practice
               <span className="mx-3 text-off-white/25">·</span>
