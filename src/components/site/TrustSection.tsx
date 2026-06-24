@@ -93,7 +93,7 @@ const TrustSection = () => {
         <FadeRise
           as="p"
           trigger="in-view"
-          className="font-sans uppercase tracking-[0.28em] text-[11px] md:text-xs text-gold"
+          className="t-eyebrow"
         >
           What Clients Say
         </FadeRise>
@@ -107,12 +107,7 @@ const TrustSection = () => {
             <>Trusted by the people</>,
             <>who answer to the board.</>,
           ]}
-          className="mt-6 font-serif tracking-tight text-off-white"
-          style={{
-            fontSize: "clamp(1.875rem, 4.4vw, 4rem)",
-            lineHeight: 1.08,
-            letterSpacing: "-0.01em",
-          }}
+          className="mt-6 t-h2 text-off-white"
         />
 
         {/* Hidden but accessible heading anchor */}
