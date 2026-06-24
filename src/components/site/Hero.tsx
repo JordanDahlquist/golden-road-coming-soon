@@ -3,7 +3,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FadeRise, MaskedLines, MotionGroup } from "./motion";
-import heroRoad from "@/assets/hero-road.png.asset.json";
+import goldenRoad from "@/assets/golden-road.png.asset.json";
 
 const HEADLINE_LINES = [
   "Build the financial",
@@ -45,7 +45,7 @@ const Hero = () => {
       >
         <div className="hero-pushin absolute inset-0">
           <img
-            src={heroRoad.url}
+            src={goldenRoad.url}
             alt=""
             className="absolute inset-0 h-full w-full object-cover object-[center_70%] select-none"
             draggable={false}
