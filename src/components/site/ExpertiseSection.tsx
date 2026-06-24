@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from "framer-motion";
 import {
   LineChart,
   Briefcase,
@@ -9,7 +10,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { FadeRise, MaskedLines, SectionEnter } from "./motion";
+import { FadeRise, MaskedLines, SectionEnter, SITE_EASE } from "./motion";
 
 type Tile = {
   index: string;
