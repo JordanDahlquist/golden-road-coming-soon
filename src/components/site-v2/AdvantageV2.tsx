@@ -4,7 +4,7 @@ const AdvantageV2 = () => {
   return (
     <SectionEnter
       as="section"
-      aria-labelledby="advantage-heading"
+      aria-label="The Golden Road Advantage"
       className="relative isolate overflow-hidden bg-background text-off-white px-6 md:px-12 lg:px-20 pt-20 md:pt-28 pb-24 md:pb-32"
       amount={0.2}
     >
@@ -22,7 +22,7 @@ const AdvantageV2 = () => {
           THE GOLDEN ROAD ADVANTAGE
         </FadeRise>
 
-        <FadeRise trigger="child" as="h3" id="advantage-heading" className="mt-6 t-h3 text-off-white">
+        <FadeRise trigger="child" as="h3" className="mt-6 t-h3 text-off-white">
           The Modern Approach to Financial Consulting
         </FadeRise>
 
