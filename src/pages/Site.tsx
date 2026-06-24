@@ -11,6 +11,7 @@ import ProcessSection from "@/components/site/ProcessSection";
 import StorySection from "@/components/site/StorySection";
 import ContactSection from "@/components/site/ContactSection";
 import SiteNav from "@/components/site/SiteNav";
+import SiteIntro from "@/components/site/SiteIntro";
 
 // Anchor-target wrappers. The id + scroll-margin lets the fixed nav land
 // each section below the bar without altering section internals.
@@ -51,6 +52,7 @@ const Site = () => {
   return (
     <main className="bg-background">
 
+      <SiteIntro />
       <SiteNav />
       <div id="hero" className={ANCHOR_CLASS}>
         <Hero />
