@@ -49,7 +49,7 @@ const Hero = () => {
           <img
             src={goldenRoad.url}
             alt=""
-            className="absolute inset-0 h-full w-full object-cover object-[center_70%] select-none"
+            className="absolute inset-0 h-full w-full object-cover object-[center_70%] select-none scale-x-[-1]"
             draggable={false}
           />
         </div>
