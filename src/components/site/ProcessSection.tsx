@@ -47,8 +47,31 @@ const TAG_X_PCT = [12.5, 37.5, 62.5, 87.5];
 const ProcessSection = () => {
   const reduce = useReducedMotion() ?? false;
   const rowRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(rowRef, { once: true, amount: 0.05 });
+  const [inView, setInView] = useState(false);
   const drawn = reduce || inView;
+
+  useEffect(() => {
+    const el = rowRef.current;
+    if (!el) return;
+    if (reduce) {
+      setInView(true);
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) {
+            setInView(true);
+            io.disconnect();
+            break;
+          }
+        }
+      },
+      { rootMargin: "0px 0px -10% 0px", threshold: 0.01 }
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [reduce]);
 
   // Measure row width so the connector geometry uses real pixels and
   // segments terminate exactly at each node's circular edge.
