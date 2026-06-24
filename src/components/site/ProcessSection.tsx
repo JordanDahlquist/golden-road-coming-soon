@@ -241,18 +241,11 @@ const PhaseCard = ({
         {num}
       </span>
 
-      <h3
-        className="mt-6 font-serif tracking-tight text-off-white"
-        style={{
-          fontSize: "clamp(1.375rem, 1.8vw, 1.625rem)",
-          lineHeight: 1.15,
-          letterSpacing: "-0.005em",
-        }}
-      >
+      <h3 className="mt-6 t-card-title">
         {name}
       </h3>
 
-      <p className="mt-3 font-sans text-[0.95rem] leading-relaxed text-off-white/65">
+      <p className="mt-3 t-body text-off-white/65">
         {desc}
       </p>
     </motion.article>
