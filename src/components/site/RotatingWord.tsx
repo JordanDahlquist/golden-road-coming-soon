@@ -47,9 +47,12 @@ const RotatingWord = ({
     return (
       <span className={className} style={{ color: "hsl(var(--gold))" }}>
         {words[0]}
+        {suffix}
       </span>
     );
   }
+
+  const widest = words.reduce((a, b) => (a.length >= b.length ? a : b));
 
   return (
     <span
@@ -59,11 +62,9 @@ const RotatingWord = ({
         display: "inline-grid",
         verticalAlign: "baseline",
         color: "hsl(var(--gold))",
-        // Reserve width for the widest word so the headline never reflows.
-        // Use a hidden sizer that takes the max intrinsic width.
       }}
     >
-      {/* Invisible sizer: stacks all words to claim the widest box. */}
+      {/* Invisible sizer: claims the widest word + suffix so layout never shifts. */}
       <span
         aria-hidden
         style={{
@@ -73,7 +74,8 @@ const RotatingWord = ({
           pointerEvents: "none",
         }}
       >
-        {words.reduce((a, b) => (a.length >= b.length ? a : b))}
+        {widest}
+        {suffix}
       </span>
 
       {/* Animated mask */}
@@ -84,7 +86,6 @@ const RotatingWord = ({
           display: "inline-block",
           overflow: "hidden",
           whiteSpace: "nowrap",
-          // a touch of vertical padding so descenders aren't clipped
           paddingBottom: "0.12em",
           marginBottom: "-0.12em",
           lineHeight: "inherit",
@@ -104,6 +105,7 @@ const RotatingWord = ({
             }}
           >
             {words[index]}
+            {suffix}
           </motion.span>
         </AnimatePresence>
       </span>
