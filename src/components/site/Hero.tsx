@@ -12,7 +12,7 @@ const HEADLINE_LINES = [
   "Build the financial",
   "infrastructure your",
   <>
-    next stage <RotatingWord words={ROTATING_WORDS} />.
+    next stage <RotatingWord words={ROTATING_WORDS} suffix="." />
   </>,
 ];
 
