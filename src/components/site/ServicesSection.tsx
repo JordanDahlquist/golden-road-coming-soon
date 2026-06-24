@@ -202,7 +202,8 @@ const ServicesSection = () => {
                 </div>
               </div>
             </motion.article>
-          ))}
+            );
+          })}
         </div>
       </div>
 
