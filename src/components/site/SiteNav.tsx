@@ -106,10 +106,11 @@ const SiteNav = () => {
             className="inline-flex items-center rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
             <img
+              id="nav-logo"
               src={logo}
               alt="Golden Road Strategies"
               className={[
-                "w-auto select-none transition-[height] duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
+                "nav-logo w-auto select-none transition-[height] duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
                 scrolled ? "h-6 md:h-7" : "h-7 md:h-8",
               ].join(" ")}
               draggable={false}
