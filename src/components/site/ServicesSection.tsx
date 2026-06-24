@@ -80,6 +80,7 @@ const ServicesSection = () => {
         </FadeRise>
 
         <MaskedLines
+          id="services-heading"
           as="h2"
           trigger="in-view"
           lines={[
@@ -228,3 +229,4 @@ const ServicesSection = () => {
 };
 
 export default ServicesSection;
+
