@@ -158,7 +158,7 @@ const ProcessSection = () => {
             <svg
               aria-hidden="true"
               className="pointer-events-none absolute hidden lg:block left-0 right-0 z-10"
-              viewBox={`0 0 ${Math.max(rowWidth, 1)} ${TOTAL_LIFT}`}
+              viewBox={`0 0 100 ${TOTAL_LIFT}`}
               preserveAspectRatio="none"
               style={{
                 top: `-${TOTAL_LIFT}px`,
