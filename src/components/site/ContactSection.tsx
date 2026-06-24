@@ -231,7 +231,7 @@ const ContactSection = () => {
                         rows={5}
                         value={form.message}
                         onChange={handleChange}
-                        className="luxe-input flex min-h-[130px] w-full rounded-[6px] border border-off-white/10 bg-[#1a1817] px-4 py-3 text-sm text-off-white placeholder:text-off-white/30 resize-y"
+                        className="luxe-input flex min-h-[130px] w-full rounded-[6px] border border-off-white/10 bg-[#1a1817] px-4 py-3 t-body-sm text-off-white placeholder:text-off-white/30 resize-y"
                         placeholder="Where are you stuck?"
                       />
                     </FadeRise>
@@ -239,11 +239,11 @@ const ContactSection = () => {
                     <FadeRise trigger="child" as="div" className="mt-2">
                       <button
                         type="submit"
-                        className="luxe-cta inline-flex items-center justify-center w-full bg-gold text-background font-sans uppercase tracking-[0.16em] text-xs md:text-sm px-8 py-4 rounded-[6px]"
+                        className="luxe-cta inline-flex items-center justify-center w-full bg-gold text-background t-label px-8 py-4 rounded-[6px]"
                       >
                         Start the Conversation
                       </button>
-                      <p className="mt-4 text-center font-sans text-off-white/40 text-[11px] tracking-wide">
+                      <p className="mt-4 text-center t-label text-off-white/40">
                         Replies typically within one business day.
                       </p>
                     </FadeRise>
