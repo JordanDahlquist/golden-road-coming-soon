@@ -354,23 +354,10 @@ const PainCardItem = ({
           />
         </span>
         <div className="min-w-0 pt-1">
-          <h3
-            className={`font-serif tracking-tight text-off-white ${
-              emphasis
-                ? "text-[1.5rem] md:text-[1.875rem]"
-                : "text-[1.25rem] md:text-[1.4rem]"
-            }`}
-            style={{ letterSpacing: "-0.005em", lineHeight: 1.15 }}
-          >
+          <h3 className="t-card-title">
             {card.title}
           </h3>
-          <p
-            className={`mt-3 font-sans text-off-white/65 leading-relaxed ${
-              emphasis
-                ? "text-[1rem] md:text-[1.05rem]"
-                : "text-[0.9375rem] md:text-[0.975rem]"
-            }`}
-          >
+          <p className="mt-3 t-body text-off-white/65">
             {card.body}
           </p>
         </div>
