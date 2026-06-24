@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { SITE_EASE } from "@/lib/motion";
 import { FadeRise, MaskedLines, SectionEnter } from "./motion";
 
