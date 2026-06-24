@@ -159,17 +159,11 @@ const TrustSection = () => {
             <TestimonialCard key={t.name} t={t} index={i} />
           ))}
         </div>
-
-        {/* Stat strip */}
-        <div className="mt-24 md:mt-32 grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12 md:gap-x-10">
-          {STATS.map((s, i) => (
-            <StatBlock key={s.label} stat={s} index={i} />
-          ))}
-        </div>
       </div>
     </section>
   );
 };
+
 
 const TestimonialCard = ({ t, index }: { t: Testimonial; index: number }) => {
   const reduce = useReducedMotion() ?? false;

@@ -1,4 +1,6 @@
 import Hero from "@/components/site/Hero";
+import KpiBand from "@/components/site/KpiBand";
+
 
 import PainSection from "@/components/site/PainSection";
 import ServicesSection from "@/components/site/ServicesSection";
@@ -20,9 +22,11 @@ const Site = () => {
       <div id="hero" className={ANCHOR_CLASS}>
         <Hero />
       </div>
+      <KpiBand />
       <div id="pain" className={ANCHOR_CLASS}>
         <PainSection />
       </div>
+
       <div id="services" className={ANCHOR_CLASS}>
         <ServicesSection />
       </div>
