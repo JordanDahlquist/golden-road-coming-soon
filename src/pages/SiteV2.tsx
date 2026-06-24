@@ -16,8 +16,12 @@ const SiteV2 = () => {
       </div>
       <PhilosophyV2 />
       <QuoteV2 />
-      <ServicesV2 />
-      <ExpertiseV2 />
+      <div id="services" className={ANCHOR_CLASS}>
+        <ServicesV2 />
+      </div>
+      <div id="expertise" className={ANCHOR_CLASS}>
+        <ExpertiseV2 />
+      </div>
     </main>
   );
 };

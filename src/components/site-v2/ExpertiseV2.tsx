@@ -101,7 +101,6 @@ const ExpertiseV2 = () => {
   return (
     <SectionEnter
       as="section"
-      id="expertise"
       aria-labelledby="expertise-heading"
       className="relative isolate overflow-hidden bg-background text-off-white px-6 md:px-12 lg:px-20 pt-20 md:pt-28 pb-24 md:pb-32"
       amount={0.2}
