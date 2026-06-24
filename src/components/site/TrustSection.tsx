@@ -1,15 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import {
-  motion,
-  useInView,
-  useMotionValue,
-  useReducedMotion,
-  useTransform,
-  animate,
-} from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Star } from "lucide-react";
 import { SITE_EASE } from "@/lib/motion";
 import { FadeRise, MaskedLines } from "./motion";
+
 
 type Testimonial = {
   name: string;
@@ -63,33 +56,7 @@ const TESTIMONIALS: Testimonial[] = [
   },
 ];
 
-type Stat = {
-  value: string;
-  label: string;
-  /** Numeric portion to count up; rest is rendered as a suffix/prefix. */
-  numeric?: { from: number; to: number; prefix?: string; suffix?: string };
-};
 
-const STATS: Stat[] = [
-  {
-    value: "25+",
-    label: "Years leading finance & operations",
-    numeric: { from: 0, to: 25, suffix: "+" },
-  },
-  {
-    value: "Multiple",
-    label: "Economic cycles navigated as a sitting CFO",
-  },
-  {
-    value: "$5–50M",
-    label: "The range where we do our best work",
-  },
-  {
-    value: "2",
-    label: "Ways to engage: retainer or strategic engagement",
-    numeric: { from: 0, to: 2 },
-  },
-];
 
 const TrustSection = () => {
   return (
@@ -159,17 +126,11 @@ const TrustSection = () => {
             <TestimonialCard key={t.name} t={t} index={i} />
           ))}
         </div>
-
-        {/* Stat strip */}
-        <div className="mt-24 md:mt-32 grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12 md:gap-x-10">
-          {STATS.map((s, i) => (
-            <StatBlock key={s.label} stat={s} index={i} />
-          ))}
-        </div>
       </div>
     </section>
   );
 };
+
 
 const TestimonialCard = ({ t, index }: { t: Testimonial; index: number }) => {
   const reduce = useReducedMotion() ?? false;
@@ -251,81 +212,6 @@ const TestimonialCard = ({ t, index }: { t: Testimonial; index: number }) => {
   );
 };
 
-const StatBlock = ({ stat, index }: { stat: Stat; index: number }) => {
-  const reduce = useReducedMotion() ?? false;
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.5 });
 
-  return (
-    <motion.div
-      ref={ref}
-      initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
-      animate={inView ? { opacity: 1, y: 0 } : undefined}
-      transition={{
-        duration: 0.7,
-        ease: SITE_EASE,
-        delay: reduce ? 0 : 0.05 + index * 0.08,
-      }}
-      className="flex flex-col"
-    >
-      <span
-        className="font-serif text-gold leading-none"
-        style={{
-          fontSize: "clamp(2.5rem, 5vw, 4.25rem)",
-          letterSpacing: "-0.01em",
-        }}
-      >
-        {stat.numeric && !reduce ? (
-          <CountUp
-            from={stat.numeric.from}
-            to={stat.numeric.to}
-            prefix={stat.numeric.prefix}
-            suffix={stat.numeric.suffix}
-            play={inView}
-          />
-        ) : (
-          stat.value
-        )}
-      </span>
-      <span className="mt-4 font-sans text-off-white/55 text-[0.8125rem] md:text-sm leading-snug max-w-[22ch]">
-        {stat.label}
-      </span>
-    </motion.div>
-  );
-};
-
-const CountUp = ({
-  from,
-  to,
-  prefix = "",
-  suffix = "",
-  play,
-}: {
-  from: number;
-  to: number;
-  prefix?: string;
-  suffix?: string;
-  play: boolean;
-}) => {
-  const mv = useMotionValue(from);
-  const rounded = useTransform(mv, (v) => `${prefix}${Math.round(v)}${suffix}`);
-  const [text, setText] = useState(`${prefix}${from}${suffix}`);
-
-  useEffect(() => {
-    const unsub = rounded.on("change", (v) => setText(v));
-    return () => unsub();
-  }, [rounded]);
-
-  useEffect(() => {
-    if (!play) return;
-    const controls = animate(mv, to, {
-      duration: 1.6,
-      ease: SITE_EASE,
-    });
-    return () => controls.stop();
-  }, [play, mv, to]);
-
-  return <span>{text}</span>;
-};
 
 export default TrustSection;
