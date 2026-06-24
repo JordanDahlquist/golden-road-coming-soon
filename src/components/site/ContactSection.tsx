@@ -3,10 +3,7 @@ import { Linkedin, Mail, MapPin } from "lucide-react";
 import { FadeRise, MaskedLines, SectionEnter } from "./motion";
 import goldenRoad from "@/assets/golden-road.png.asset.json";
 
-/* ── Email delivery hookup point ──────────────────────────────────────
-   TODO: Wire form submission to email delivery (e.g. Supabase Edge
-   Function, Resend, or similar). For now this is front-end only.
-   ------------------------------------------------------------------ */
+const RECIPIENT = "tgolden@goldenroadstrategies.com";
 
 const SOCIAL_LINKS = [
   { label: "LinkedIn, Tracy Golden", href: "#" },
@@ -14,21 +11,66 @@ const SOCIAL_LINKS = [
 ] as const;
 
 const ContactSection = () => {
-  const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [status, setStatus] = useState<"idle" | "sending" | "opened">("idle");
+
+  const isValidEmail = (value: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
+    setTouched((prev) => ({ ...prev, [name]: true }));
+  };
+
+  const handleBlur = (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setTouched((prev) => ({ ...prev, [e.target.name]: true }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("[ContactForm] payload:", form);
-    setSubmitted(true);
+    setTouched({ name: true, email: true, message: true });
+
+    const errors = {
+      name: !form.name.trim(),
+      email: !form.email.trim() || !isValidEmail(form.email),
+      message: !form.message.trim(),
+    };
+
+    if (errors.name || errors.email || errors.message) {
+      setStatus("idle");
+      return;
+    }
+
+    setStatus("sending");
+
+    const subject = form.name.trim()
+      ? `New inquiry from ${form.name.trim()} — Golden Road Strategies`
+      : "New inquiry — Golden Road Strategies";
+
+    const body = [
+      `Name: ${form.name.trim()}`,
+      `Email: ${form.email.trim()}`,
+      `Company: ${form.company.trim() || "—"}`,
+      "",
+      "Message:",
+      form.message.trim(),
+    ].join("\n");
+
+    const mailto = `mailto:${RECIPIENT}?subject=${encodeURIComponent(
+      subject,
+    )}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailto;
+
+    setStatus("opened");
   };
+
 
   const fieldLabel = "luxe-label t-label text-gold/80";
   const fieldInput =
