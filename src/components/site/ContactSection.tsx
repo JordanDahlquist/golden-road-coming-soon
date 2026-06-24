@@ -125,10 +125,10 @@ const ContactSection = () => {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 font-sans text-off-white/70 hover:text-gold transition-colors"
+                    className="luxe-link font-sans text-off-white/70"
                     style={{ fontSize: "clamp(0.875rem, 1vw, 1rem)" }}
                   >
-                    <Linkedin className="h-4 w-4 shrink-0" />
+                    <Linkedin className="mr-2 h-4 w-4 shrink-0" />
                     <span>{link.label}</span>
                   </a>
                 ))}
