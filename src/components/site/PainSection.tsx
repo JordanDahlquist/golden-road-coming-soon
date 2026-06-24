@@ -118,7 +118,7 @@ const PainSection = () => {
           <FadeRise
             as="p"
             trigger="in-view"
-            className="font-sans uppercase tracking-[0.28em] text-[11px] md:text-xs text-gold"
+            className="t-eyebrow"
           >
             The Ceiling
           </FadeRise>
@@ -131,20 +131,14 @@ const PainSection = () => {
               <>You did everything right.</>,
               <>The growth still stalled.</>,
             ]}
-            className="mt-6 font-serif tracking-tight text-off-white"
-            style={{
-              fontSize: "clamp(1.875rem, 4.4vw, 4rem)",
-              lineHeight: 1.08,
-              letterSpacing: "-0.01em",
-            }}
+            className="mt-6 t-h2 text-off-white"
           />
 
           <FadeRise
             as="p"
             trigger="in-view"
             delay={0.15}
-            className="mt-8 md:mt-10 font-sans leading-relaxed text-off-white/70 max-w-[58ch]"
-            style={{ fontSize: "clamp(1rem, 1.2vw, 1.2rem)" }}
+            className="mt-8 md:mt-10 t-lead text-off-white/70 max-w-[58ch]"
           >
             You hit a number. Maybe five million, maybe forty. Revenue climbs,
             but the company stops feeling like it&rsquo;s scaling. Hiring gets
@@ -227,20 +221,14 @@ const PainSection = () => {
               <>Growth isn&rsquo;t your problem.</>,
               <>Your infrastructure is.</>,
             ]}
-            className="font-serif tracking-tight text-off-white"
-            style={{
-              fontSize: "clamp(2.25rem, 6vw, 5.5rem)",
-              lineHeight: 1.05,
-              letterSpacing: "-0.01em",
-            }}
+            className="t-display text-off-white"
           />
 
           <FadeRise
             as="p"
             trigger="in-view"
             delay={0.4}
-            className="mt-8 md:mt-10 font-sans leading-relaxed text-off-white/70 max-w-[56ch]"
-            style={{ fontSize: "clamp(1rem, 1.2vw, 1.2rem)" }}
+            className="mt-8 md:mt-10 t-lead text-off-white/70 max-w-[56ch]"
           >
             You&rsquo;re scaling past what your financial systems were built
             to carry. The ceiling isn&rsquo;t the market. It&rsquo;s the
@@ -366,23 +354,10 @@ const PainCardItem = ({
           />
         </span>
         <div className="min-w-0 pt-1">
-          <h3
-            className={`font-serif tracking-tight text-off-white ${
-              emphasis
-                ? "text-[1.5rem] md:text-[1.875rem]"
-                : "text-[1.25rem] md:text-[1.4rem]"
-            }`}
-            style={{ letterSpacing: "-0.005em", lineHeight: 1.15 }}
-          >
+          <h3 className="t-card-title">
             {card.title}
           </h3>
-          <p
-            className={`mt-3 font-sans text-off-white/65 leading-relaxed ${
-              emphasis
-                ? "text-[1rem] md:text-[1.05rem]"
-                : "text-[0.9375rem] md:text-[0.975rem]"
-            }`}
-          >
+          <p className="mt-3 t-body text-off-white/65">
             {card.body}
           </p>
         </div>

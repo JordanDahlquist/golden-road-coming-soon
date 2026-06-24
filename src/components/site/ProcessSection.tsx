@@ -58,7 +58,7 @@ const ProcessSection = () => {
           <FadeRise
             as="p"
             trigger="in-view"
-            className="font-sans uppercase tracking-[0.28em] text-[11px] md:text-xs text-gold"
+            className="t-eyebrow"
           >
             The Engagement
           </FadeRise>
@@ -72,20 +72,14 @@ const ProcessSection = () => {
               <>A clear path from where you are</>,
               <>to where you&rsquo;re going.</>,
             ]}
-            className="mt-6 font-serif tracking-tight text-off-white"
-            style={{
-              fontSize: "clamp(1.875rem, 4.4vw, 4rem)",
-              lineHeight: 1.08,
-              letterSpacing: "-0.01em",
-            }}
+            className="mt-6 t-h2 text-off-white"
           />
 
           <FadeRise
             as="p"
             trigger="in-view"
             delay={0.15}
-            className="mt-8 md:mt-10 font-sans leading-relaxed text-off-white/70 max-w-[58ch]"
-            style={{ fontSize: "clamp(1rem, 1.2vw, 1.2rem)" }}
+            className="mt-8 md:mt-10 t-lead text-off-white/70 max-w-[58ch]"
           >
             Every engagement follows the same disciplined arc: understand the
             terrain, design the route, build the infrastructure, refine as you
@@ -247,18 +241,11 @@ const PhaseCard = ({
         {num}
       </span>
 
-      <h3
-        className="mt-6 font-serif tracking-tight text-off-white"
-        style={{
-          fontSize: "clamp(1.375rem, 1.8vw, 1.625rem)",
-          lineHeight: 1.15,
-          letterSpacing: "-0.005em",
-        }}
-      >
+      <h3 className="mt-6 t-card-title">
         {name}
       </h3>
 
-      <p className="mt-3 font-sans text-[0.95rem] leading-relaxed text-off-white/65">
+      <p className="mt-3 t-body text-off-white/65">
         {desc}
       </p>
     </motion.article>

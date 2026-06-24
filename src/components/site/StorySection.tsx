@@ -35,7 +35,7 @@ const StorySection = () => {
         <FadeRise
           trigger="child"
           as="p"
-          className="font-sans uppercase tracking-[0.22em] text-xs text-gold/80"
+          className="t-eyebrow"
         >
           MY STORY
         </FadeRise>
@@ -44,12 +44,7 @@ const StorySection = () => {
           as="h2"
           trigger="in-view"
           lines={[<span key="1">The strategy behind the ledger.</span>]}
-          className="mt-5 font-serif tracking-tight text-off-white"
-          style={{
-            fontSize: "clamp(1.875rem, 4vw, 3.75rem)",
-            lineHeight: 1.05,
-            letterSpacing: "-0.01em",
-          }}
+          className="mt-5 t-h2 text-off-white"
         />
 
         {/* ── Two-column split ─────────────────────────────────────── */}
@@ -154,14 +149,7 @@ const StorySection = () => {
           <div className="md:col-span-7 flex flex-col gap-9 md:gap-11">
             {/* Lead line */}
             <FadeRise trigger="child" as="div">
-              <p
-                className="font-serif text-off-white"
-                style={{
-                  fontSize: "clamp(1.375rem, 2.1vw, 1.875rem)",
-                  lineHeight: 1.25,
-                  letterSpacing: "-0.005em",
-                }}
-              >
+              <p className="t-h3 text-off-white">
                 I didn't learn corporate strategy from a textbook. I built it at
                 the executive table.
               </p>
@@ -169,10 +157,7 @@ const StorySection = () => {
 
             {/* Body */}
             <FadeRise trigger="child" as="div">
-              <p
-                className="font-sans text-off-white/70 leading-relaxed max-w-[56ch]"
-                style={{ fontSize: "clamp(0.9375rem, 1.05vw, 1.0625rem)" }}
-              >
+              <p className="t-body text-off-white/70 max-w-[56ch]">
                 Twenty-five years leading finance, operations, and strategy
                 inside high-stakes professional services. As a sitting CFO, I've
                 steered companies through full economic cycles and turned legacy
@@ -199,18 +184,12 @@ const StorySection = () => {
                   />
                 </div>
                 <div>
-                  <p
-                    className="font-serif italic text-off-white/95"
-                    style={{
-                      fontSize: "clamp(1.25rem, 1.85vw, 1.75rem)",
-                      lineHeight: 1.3,
-                    }}
-                  >
+                  <p className="t-card-title italic text-off-white/95">
                     Most founders are forced to choose between a backward-looking
                     accountant and a consultant who doesn't understand
                     operations. I built Golden Road to be the third option.
                   </p>
-                  <p className="mt-5 font-sans text-off-white/55 text-sm tracking-wide">
+                  <p className="mt-5 t-body-sm text-off-white/55 tracking-wide">
                     Tracy Golden, Founder &amp; Principal Advisory Partner
                   </p>
                 </div>
@@ -224,7 +203,7 @@ const StorySection = () => {
                   (chip) => (
                     <li
                       key={chip}
-                      className="font-sans text-xs tracking-[0.14em] uppercase text-off-white/80 px-3.5 py-1.5 rounded-full"
+                      className="t-label text-off-white/80 px-3.5 py-1.5 rounded-full"
                       style={{
                         border: "1px solid hsl(var(--gold) / 0.45)",
                         background: "hsl(var(--charcoal-deep) / 0.6)",

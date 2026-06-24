@@ -15,7 +15,7 @@ const LogoPlaceholder = () => (
   <div className="flex items-center justify-center w-full">
     {/* Tasteful monochrome placeholder: thin rounded rectangle with subtle "Logo" affordance */}
     <div className="w-full max-w-[140px] h-10 md:h-12 rounded-[4px] border border-off-white/20 flex items-center justify-center">
-      <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-off-white/30">
+      <span className="t-label text-off-white/30">
         Logo
       </span>
     </div>
@@ -31,7 +31,7 @@ const LogoBar = () => {
         <SectionEnter delayChildren={0} staggerChildren={0.1}>
           {/* Label */}
           <FadeRise trigger="child" y={16} duration={0.6}>
-            <p className="text-center font-sans text-[10px] md:text-[11px] uppercase tracking-[0.3em] text-off-white/50 mb-8 md:mb-10">
+            <p className="text-center t-label text-off-white/50 mb-8 md:mb-10">
               Selected experience
             </p>
           </FadeRise>

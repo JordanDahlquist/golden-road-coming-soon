@@ -30,10 +30,9 @@ const ContactSection = () => {
     setSubmitted(true);
   };
 
-  const fieldLabel =
-    "luxe-label font-sans uppercase tracking-[0.18em] text-[10px] text-gold/80";
+  const fieldLabel = "luxe-label t-label text-gold/80";
   const fieldInput =
-    "luxe-input flex h-12 w-full rounded-[6px] border border-off-white/10 bg-[#1a1817] px-4 py-2 text-sm text-off-white placeholder:text-off-white/30";
+    "luxe-input flex h-12 w-full rounded-[6px] border border-off-white/10 bg-[#1a1817] px-4 py-2 t-body-sm text-off-white placeholder:text-off-white/30";
 
   return (
     <section id="contact" className="relative isolate overflow-hidden bg-background">
@@ -72,7 +71,7 @@ const ContactSection = () => {
               <FadeRise
                 trigger="child"
                 as="p"
-                className="font-sans uppercase tracking-[0.24em] text-[11px] text-gold"
+                className="t-eyebrow"
               >
                 START THE CONVERSATION
               </FadeRise>
@@ -87,19 +86,11 @@ const ContactSection = () => {
                     <span className="italic text-gold">let's talk.</span>
                   </>,
                 ]}
-                className="-mt-4 font-serif tracking-tight text-off-white"
-                style={{
-                  fontSize: "clamp(2rem, 4.4vw, 4rem)",
-                  lineHeight: 1.06,
-                  letterSpacing: "-0.015em",
-                }}
+                className="-mt-4 t-h2 text-off-white"
               />
 
               <FadeRise trigger="child" as="div">
-                <p
-                  className="font-sans text-off-white/75 leading-relaxed max-w-[52ch]"
-                  style={{ fontSize: "clamp(1rem, 1.1vw, 1.125rem)" }}
-                >
+                <p className="t-lead text-off-white/75 max-w-[52ch]">
                   Tell me where you are and where you're trying to go. If it's
                   a fit, we'll find the path. If it's not, I'll tell you that
                   too.
@@ -117,8 +108,7 @@ const ContactSection = () => {
                   <p className={fieldLabel}>Email</p>
                   <a
                     href="mailto:info@goldenroadstrategies.com"
-                    className="luxe-link mt-2 inline-flex items-center gap-3 font-sans text-off-white"
-                    style={{ fontSize: "clamp(0.95rem, 1.05vw, 1.0625rem)" }}
+                    className="luxe-link mt-2 inline-flex items-center gap-3 t-body text-off-white"
                   >
                     <Mail className="h-4 w-4 shrink-0 text-gold" strokeWidth={1.5} />
                     <span>info@goldenroadstrategies.com</span>
@@ -134,8 +124,7 @@ const ContactSection = () => {
                         href={link.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="luxe-link inline-flex items-center gap-3 font-sans text-off-white/80"
-                        style={{ fontSize: "clamp(0.9rem, 1vw, 1rem)" }}
+                        className="luxe-link inline-flex items-center gap-3 t-body text-off-white/80"
                       >
                         <Linkedin className="h-4 w-4 shrink-0 text-gold" strokeWidth={1.5} />
                         <span>{link.label}</span>
@@ -145,7 +134,7 @@ const ContactSection = () => {
                 </FadeRise>
 
                 <FadeRise trigger="child" as="div">
-                  <p className="inline-flex items-center gap-3 font-sans text-off-white/50 text-sm">
+                  <p className="inline-flex items-center gap-3 t-body-sm text-off-white/50">
                     <MapPin className="h-4 w-4 shrink-0 text-gold/70" strokeWidth={1.5} />
                     <span>Southern California &nbsp;|&nbsp; Available Globally</span>
                   </p>
@@ -172,16 +161,10 @@ const ContactSection = () => {
 
                 {submitted ? (
                   <div className="py-6">
-                    <p
-                      className="font-serif text-off-white"
-                      style={{
-                        fontSize: "clamp(1.375rem, 2vw, 1.75rem)",
-                        lineHeight: 1.25,
-                      }}
-                    >
+                    <p className="t-card-title">
                       Thank you. <span className="text-gold italic">I'll be in touch shortly.</span>
                     </p>
-                    <p className="mt-4 font-sans text-off-white/70 text-sm leading-relaxed">
+                    <p className="mt-4 t-body-sm text-off-white/70">
                       If this is urgent, email me directly at{" "}
                       <a
                         href="mailto:info@goldenroadstrategies.com"
@@ -248,7 +231,7 @@ const ContactSection = () => {
                         rows={5}
                         value={form.message}
                         onChange={handleChange}
-                        className="luxe-input flex min-h-[130px] w-full rounded-[6px] border border-off-white/10 bg-[#1a1817] px-4 py-3 text-sm text-off-white placeholder:text-off-white/30 resize-y"
+                        className="luxe-input flex min-h-[130px] w-full rounded-[6px] border border-off-white/10 bg-[#1a1817] px-4 py-3 t-body-sm text-off-white placeholder:text-off-white/30 resize-y"
                         placeholder="Where are you stuck?"
                       />
                     </FadeRise>
@@ -256,11 +239,11 @@ const ContactSection = () => {
                     <FadeRise trigger="child" as="div" className="mt-2">
                       <button
                         type="submit"
-                        className="luxe-cta inline-flex items-center justify-center w-full bg-gold text-background font-sans uppercase tracking-[0.16em] text-xs md:text-sm px-8 py-4 rounded-[6px]"
+                        className="luxe-cta inline-flex items-center justify-center w-full bg-gold text-background t-label px-8 py-4 rounded-[6px]"
                       >
                         Start the Conversation
                       </button>
-                      <p className="mt-4 text-center font-sans text-off-white/40 text-[11px] tracking-wide">
+                      <p className="mt-4 text-center t-label text-off-white/40">
                         Replies typically within one business day.
                       </p>
                     </FadeRise>

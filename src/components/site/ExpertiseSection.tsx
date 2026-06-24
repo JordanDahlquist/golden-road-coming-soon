@@ -105,7 +105,7 @@ const ExpertiseSection = () => {
         <FadeRise
           trigger="child"
           as="p"
-          className="font-sans uppercase tracking-[0.24em] text-[11px] md:text-xs text-gold"
+          className="t-eyebrow"
         >
           EXPERTISE
         </FadeRise>
@@ -114,19 +114,13 @@ const ExpertiseSection = () => {
           as="h2"
           trigger="in-view"
           lines={[<>The full range of</>, <>a modern CFO office.</>]}
-          className="mt-5 font-serif tracking-tight text-off-white"
-          style={{
-            fontSize: "clamp(1.875rem, 4vw, 3.75rem)",
-            lineHeight: 1.05,
-            letterSpacing: "-0.015em",
-          }}
+          className="mt-5 t-h2 text-off-white"
         />
 
         <FadeRise
           trigger="child"
           as="p"
-          className="mt-5 max-w-xl font-sans text-off-white/55 leading-relaxed"
-          style={{ fontSize: "clamp(0.95rem, 1.1vw, 1.0625rem)" }}
+          className="mt-5 max-w-xl t-lead text-off-white/55"
         >
           Where founders get stuck, these are the levers we pull.
         </FadeRise>
@@ -146,7 +140,7 @@ const ExpertiseSection = () => {
             >
               {/* Corner index */}
               <span
-                className="absolute top-5 right-5 font-sans text-[11px] tracking-[0.18em] text-gold/80"
+                className="absolute top-5 right-5 t-label text-gold/80"
                 aria-hidden
               >
                 {tile.index}
@@ -161,31 +155,19 @@ const ExpertiseSection = () => {
               </div>
 
               {/* Title */}
-              <h3
-                className="mt-6 font-sans font-semibold text-off-white"
-                style={{
-                  fontSize: tile.feature
-                    ? "clamp(1.25rem, 1.6vw, 1.5rem)"
-                    : "clamp(1.0625rem, 1.25vw, 1.1875rem)",
-                  lineHeight: 1.25,
-                  letterSpacing: "-0.005em",
-                }}
-              >
+              <h3 className={tile.feature ? "mt-6 t-card-title" : "mt-6 t-tile-title text-off-white"}>
                 {tile.title}
               </h3>
 
               {/* Benefit line */}
-              <p
-                className="mt-3 font-sans text-off-white/60 leading-relaxed"
-                style={{ fontSize: "clamp(0.875rem, 0.95vw, 0.9375rem)" }}
-              >
+              <p className="mt-3 t-body-sm text-off-white/60">
                 {tile.line}
               </p>
 
               {tile.feature && (
                 <span
                   aria-hidden
-                  className="mt-auto pt-8 font-sans text-[11px] uppercase tracking-[0.22em] text-off-white/35"
+                  className="mt-auto pt-8 t-label text-off-white/35"
                 >
                   Featured capability
                 </span>
@@ -208,18 +190,11 @@ const ExpertiseSection = () => {
                 "linear-gradient(135deg, hsl(40 74% 62% / 0.08) 0%, hsl(30 4% 18% / 0.6) 60%)",
             }}
           >
-            <span className="font-sans text-[11px] uppercase tracking-[0.24em] text-gold">
+            <span className="t-eyebrow">
               Not sure which you need?
             </span>
             <div className="mt-6 flex items-end justify-between gap-6">
-              <h3
-                className="font-serif text-off-white"
-                style={{
-                  fontSize: "clamp(1.375rem, 1.8vw, 1.75rem)",
-                  lineHeight: 1.15,
-                  letterSpacing: "-0.01em",
-                }}
-              >
+              <h3 className="t-card-title">
                 Start the conversation.
               </h3>
               <span
