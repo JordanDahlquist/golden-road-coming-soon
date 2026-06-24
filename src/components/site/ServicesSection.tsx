@@ -206,23 +206,6 @@ const ServicesSection = () => {
         </div>
       </div>
 
-      <style>{`
-        .services-card:hover {
-          box-shadow:
-            0 1px 0 0 hsl(40 74% 62% / 0.18) inset,
-            0 28px 70px -32px hsl(40 74% 62% / 0.40);
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .services-card,
-          .services-card * {
-            transition: none !important;
-          }
-          .services-card:hover {
-            transform: none !important;
-            box-shadow: none !important;
-          }
-        }
-      `}</style>
     </SectionEnter>
   );
 };
