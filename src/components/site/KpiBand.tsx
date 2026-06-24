@@ -105,6 +105,16 @@ const StatBlock = ({ stat, index }: { stat: Stat; index: number }) => {
             suffix={stat.numeric.suffix}
             play={inView}
           />
+        ) : stat.range && !reduce ? (
+          <CountUpRange
+            fromStart={stat.range.fromStart}
+            toStart={stat.range.toStart}
+            fromEnd={stat.range.fromEnd}
+            toEnd={stat.range.toEnd}
+            prefix={stat.range.prefix}
+            suffix={stat.range.suffix}
+            play={inView}
+          />
         ) : (
           stat.value
         )}
