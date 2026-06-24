@@ -13,6 +13,7 @@ type Stat = {
   value: string;
   label: string;
   numeric?: { from: number; to: number; prefix?: string; suffix?: string };
+  range?: { fromStart: number; toStart: number; fromEnd: number; toEnd: number; prefix?: string; suffix?: string };
 };
 
 const STATS: Stat[] = [
@@ -28,6 +29,7 @@ const STATS: Stat[] = [
   {
     value: "$5–50M",
     label: "The range where we do our best work",
+    range: { fromStart: 0, toStart: 5, fromEnd: 0, toEnd: 50, prefix: "$", suffix: "M" },
   },
   {
     value: "2",
