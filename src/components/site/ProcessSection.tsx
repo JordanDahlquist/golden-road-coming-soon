@@ -193,7 +193,9 @@ const ProcessSection = () => {
             {/* Mobile / sm connector — centered vertical, draws top→bottom */}
             <div
               aria-hidden="true"
-              className="lg:hidden absolute left-1/2 -translate-x-1/2 top-4 bottom-4 w-px overflow-hidden"
+              className="lg:hidden absolute left-1/2 -translate-x-1/2 w-px overflow-hidden"
+              style={{ top: "-1.6rem", bottom: 0 }}
+
             >
               <motion.div
                 initial={reduce ? { scaleY: 1 } : { scaleY: 0 }}
