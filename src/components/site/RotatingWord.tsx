@@ -23,6 +23,7 @@ const RotatingWord = ({
   hold = 2200,
   startDelay = 1800,
   className,
+  suffix = "",
 }: RotatingWordProps) => {
   const reduce = useReducedMotion() ?? false;
   const [index, setIndex] = useState(0);
