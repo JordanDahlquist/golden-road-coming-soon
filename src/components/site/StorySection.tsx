@@ -35,7 +35,7 @@ const StorySection = () => {
         <FadeRise
           trigger="child"
           as="p"
-          className="font-sans uppercase tracking-[0.22em] text-xs text-gold/80"
+          className="t-eyebrow"
         >
           MY STORY
         </FadeRise>
@@ -44,12 +44,7 @@ const StorySection = () => {
           as="h2"
           trigger="in-view"
           lines={[<span key="1">The strategy behind the ledger.</span>]}
-          className="mt-5 font-serif tracking-tight text-off-white"
-          style={{
-            fontSize: "clamp(1.875rem, 4vw, 3.75rem)",
-            lineHeight: 1.05,
-            letterSpacing: "-0.01em",
-          }}
+          className="mt-5 t-h2 text-off-white"
         />
 
         {/* ── Two-column split ─────────────────────────────────────── */}
