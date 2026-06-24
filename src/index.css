@@ -8,6 +8,9 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
 
+/* Hide nav logo while the /site intro overlay is morphing into it. */
+html.intro-active #nav-logo { opacity: 0 !important; }
+
 @layer base {
   :root {
     /* Primary Brand Colors - HSL values */
