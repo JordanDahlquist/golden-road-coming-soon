@@ -13,6 +13,7 @@ type Stat = {
   value: string;
   label: string;
   numeric?: { from: number; to: number; prefix?: string; suffix?: string };
+  range?: { fromStart: number; toStart: number; fromEnd: number; toEnd: number; prefix?: string; suffix?: string };
 };
 
 const STATS: Stat[] = [
@@ -28,6 +29,7 @@ const STATS: Stat[] = [
   {
     value: "$5–50M",
     label: "The range where we do our best work",
+    range: { fromStart: 0, toStart: 5, fromEnd: 0, toEnd: 50, prefix: "$", suffix: "M" },
   },
   {
     value: "2",
@@ -103,6 +105,16 @@ const StatBlock = ({ stat, index }: { stat: Stat; index: number }) => {
             suffix={stat.numeric.suffix}
             play={inView}
           />
+        ) : stat.range && !reduce ? (
+          <CountUpRange
+            fromStart={stat.range.fromStart}
+            toStart={stat.range.toStart}
+            fromEnd={stat.range.fromEnd}
+            toEnd={stat.range.toEnd}
+            prefix={stat.range.prefix}
+            suffix={stat.range.suffix}
+            play={inView}
+          />
         ) : (
           stat.value
         )}
@@ -143,6 +155,44 @@ const CountUp = ({
   }, [play, mv, to]);
 
   return <span>{text}</span>;
+};
+
+const CountUpRange = ({
+  fromStart,
+  toStart,
+  fromEnd,
+  toEnd,
+  prefix = "",
+  suffix = "",
+  play,
+}: {
+  fromStart: number;
+  toStart: number;
+  fromEnd: number;
+  toEnd: number;
+  prefix?: string;
+  suffix?: string;
+  play: boolean;
+}) => {
+  const start = useMotionValue(fromStart);
+  const end = useMotionValue(fromEnd);
+  const [a, setA] = useState(fromStart);
+  const [b, setB] = useState(fromEnd);
+
+  useEffect(() => {
+    const u1 = start.on("change", (v) => setA(Math.round(v)));
+    const u2 = end.on("change", (v) => setB(Math.round(v)));
+    return () => { u1(); u2(); };
+  }, [start, end]);
+
+  useEffect(() => {
+    if (!play) return;
+    const c1 = animate(start, toStart, { duration: 1.6, ease: SITE_EASE });
+    const c2 = animate(end, toEnd, { duration: 1.6, ease: SITE_EASE });
+    return () => { c1.stop(); c2.stop(); };
+  }, [play, start, end, toStart, toEnd]);
+
+  return <span>{`${prefix}${a}–${b}${suffix}`}</span>;
 };
 
 export default KpiBand;
