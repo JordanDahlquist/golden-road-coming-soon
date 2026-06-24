@@ -116,7 +116,7 @@ const Hero = () => {
               as="div"
               delay={EYEBROW_DELAY}
               y={12}
-              className="flex items-center gap-4 self-end mb-5 md:mb-6"
+              className="flex items-center gap-4 mb-5 md:mb-6"
             >
               <span
                 aria-hidden
