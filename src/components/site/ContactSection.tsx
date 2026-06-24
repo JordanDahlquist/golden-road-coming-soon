@@ -71,7 +71,7 @@ const ContactSection = () => {
               <FadeRise
                 trigger="child"
                 as="p"
-                className="font-sans uppercase tracking-[0.24em] text-[11px] text-gold"
+                className="t-eyebrow"
               >
                 START THE CONVERSATION
               </FadeRise>
@@ -86,19 +86,11 @@ const ContactSection = () => {
                     <span className="italic text-gold">let's talk.</span>
                   </>,
                 ]}
-                className="-mt-4 font-serif tracking-tight text-off-white"
-                style={{
-                  fontSize: "clamp(2rem, 4.4vw, 4rem)",
-                  lineHeight: 1.06,
-                  letterSpacing: "-0.015em",
-                }}
+                className="-mt-4 t-h2 text-off-white"
               />
 
               <FadeRise trigger="child" as="div">
-                <p
-                  className="font-sans text-off-white/75 leading-relaxed max-w-[52ch]"
-                  style={{ fontSize: "clamp(1rem, 1.1vw, 1.125rem)" }}
-                >
+                <p className="t-lead text-off-white/75 max-w-[52ch]">
                   Tell me where you are and where you're trying to go. If it's
                   a fit, we'll find the path. If it's not, I'll tell you that
                   too.
