@@ -106,7 +106,7 @@ const Hero = () => {
         className="relative z-10 h-full flex flex-col px-6 md:px-12 lg:px-20"
       >
         <div
-          className="w-full max-w-[1400px] mx-auto h-full flex flex-col"
+          className="w-full max-w-[1400px] mx-auto h-full flex flex-col justify-between"
           style={{ paddingTop: "100px", paddingBottom: "40px" }}
         >
           {/* TOP — eyebrow */}
@@ -126,10 +126,7 @@ const Hero = () => {
           </FadeRise>
 
           {/* MIDDLE — headline + sub + CTA */}
-          <div
-            className="flex-1 flex flex-col justify-center min-h-0"
-            style={{ paddingTop: "20px" }}
-          >
+          <div className="flex-1 flex flex-col justify-center min-h-0">
             <motion.div
               style={{ y: headlineY, willChange: "transform" }}
               className="hero-headline-sweep relative"
@@ -141,7 +138,7 @@ const Hero = () => {
                 stagger={0.18}
                 className="font-serif text-off-white tracking-tight max-w-[18ch]"
                 style={{
-                  fontSize: "clamp(2rem, 4.5vw, 3.75rem)",
+                  fontSize: "clamp(3rem, 6.5vw, 5.5rem)",
                   lineHeight: 1.05,
                   letterSpacing: "-0.018em",
                   fontWeight: 300,
@@ -154,11 +151,11 @@ const Hero = () => {
               <FadeRise
                 as="p"
                 trigger="child"
-                className="font-sans leading-[1.65] text-off-white/65 max-w-[54ch]"
+                className="font-sans leading-relaxed text-off-white/65 max-w-[54ch]"
                 style={{
-                  fontSize: "clamp(0.95rem, 1.05vw, 1.1rem)",
+                  fontSize: "clamp(1.05rem, 1.25vw, 1.25rem)",
                   fontWeight: 300,
-                  marginTop: "24px",
+                  marginTop: "32px",
                 }}
               >
                 Golden Road Strategies gives forward-thinking CEOs, founders, and
@@ -169,7 +166,7 @@ const Hero = () => {
               <FadeRise
                 trigger="child"
                 className="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-8"
-                style={{ marginTop: "28px" }}
+                style={{ marginTop: "36px" }}
               >
                 <Button
                   asChild
