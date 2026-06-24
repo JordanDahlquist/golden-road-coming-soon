@@ -109,6 +109,7 @@ const Hero = () => {
           className="w-full max-w-[1400px] mx-auto h-full flex flex-col justify-between"
           style={{ paddingTop: "100px", paddingBottom: "40px" }}
         >
+          <div className="flex-1 flex flex-col justify-center min-h-0">
             {/* Headline, subhead, CTA */}
             <motion.div
               style={{ y: headlineY, willChange: "transform" }}
