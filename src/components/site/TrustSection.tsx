@@ -1,180 +1,331 @@
-import { FadeRise, MaskedLines, SectionEnter } from "./motion";
+import { useEffect, useRef, useState } from "react";
+import {
+  motion,
+  useInView,
+  useMotionValue,
+  useReducedMotion,
+  useTransform,
+  animate,
+} from "framer-motion";
+import { Star } from "lucide-react";
+import { SITE_EASE } from "@/lib/motion";
+import { FadeRise, MaskedLines } from "./motion";
 
-/* ── Testimonial placeholders ──
-   Swap in real quotes + attributions here when available.
-   Each object: { quote: string, attribution: string } */
-const PLACEHOLDER_QUOTES = [
+type Testimonial = {
+  name: string;
+  title: string;
+  quote: string;
+  initials: string;
+};
+
+const TESTIMONIALS: Testimonial[] = [
   {
+    name: "Sarah Chen",
+    title: "CEO, [SaaS company]",
     quote:
-      "Pull-quote from a client engagement will appear here. This space is reserved for a testimonial that speaks to the outcome of our work together.",
-    attribution: "Name, Title, Company",
+      "She found the levers in our financials we didn't know existed. We made our next raise from a position of clarity, not panic.",
+    initials: "SC",
   },
   {
+    name: "Michael Torres",
+    title: "Founder & CEO, [services firm]",
     quote:
-      "Pull-quote from a client engagement will appear here. This space is reserved for a testimonial that speaks to the outcome of our work together.",
-    attribution: "Name, Title, Company",
+      "The first finance leader who actually understood operations. She built the architecture we needed to scale past our ceiling.",
+    initials: "MT",
   },
   {
+    name: "Jennifer Walsh",
+    title: "Board Chair",
     quote:
-      "Pull-quote from a client engagement will appear here. This space is reserved for a testimonial that speaks to the outcome of our work together.",
-    attribution: "Name, Title, Company",
+      "Strategic, direct, and refreshingly honest. She tells you the truth the business needs, not the story you want to hear.",
+    initials: "JW",
   },
-] as const;
+  {
+    name: "David Kim",
+    title: "Founder",
+    quote:
+      "We went from lagging spreadsheets to forward visibility in months. Decisions got faster and the whole company felt it.",
+    initials: "DK",
+  },
+  {
+    name: "Rachel Adams",
+    title: "CEO, [growth-stage company]",
+    quote:
+      "She gave us CFO-level leadership without the full-time overhead. Exactly the third option we'd been looking for.",
+    initials: "RA",
+  },
+  {
+    name: "Thomas Reed",
+    title: "Managing Partner",
+    quote:
+      "Institutional-grade frameworks, delivered fast. She took friction out of our scaling and it showed in every quarter after.",
+    initials: "TR",
+  },
+];
 
-const HIGHLIGHTS = [
-  { figure: "25+", label: "years leading finance, operations, and strategy" },
-  { figure: "Multiple", label: "economic cycles steered as a sitting CFO" },
-  { figure: "2", label: "elite credentials earned for the modern finance era" },
-] as const;
+type Stat = {
+  value: string;
+  label: string;
+  /** Numeric portion to count up; rest is rendered as a suffix/prefix. */
+  numeric?: { from: number; to: number; prefix?: string; suffix?: string };
+};
 
-const CREDENTIALS = [
-  "Sitting Chief Financial Officer, professional services",
-  "Fintech leadership certification, Duke University",
-  "Executive masterclass: leading in the AI age, University of Chicago",
-  "Deep experience across professional services and enterprise finance",
-] as const;
+const STATS: Stat[] = [
+  {
+    value: "25+",
+    label: "Years leading finance & operations",
+    numeric: { from: 0, to: 25, suffix: "+" },
+  },
+  {
+    value: "Multiple",
+    label: "Economic cycles navigated as a sitting CFO",
+  },
+  {
+    value: "$5–50M",
+    label: "The range where we do our best work",
+  },
+  {
+    value: "2",
+    label: "Ways to engage: retainer or strategic engagement",
+    numeric: { from: 0, to: 2 },
+  },
+];
 
-/**
- * Trust section — testimonials and credibility.
- *
- * Part 1: editorial pull-quote placeholders on charcoal, ready for real
- * quotes. One large gold quotation mark as the section accent.
- *
- * Part 2: a dense credibility block — stat highlights on charcoal cards plus
- * a scannable credential list. Gold sparingly, on numbers only.
- */
 const TrustSection = () => {
   return (
-    <section className="relative bg-background text-off-white px-6 md:px-12 lg:px-20">
-      {/* ── Part 1: Testimonials ───────────────────────────────── */}
-      <SectionEnter
-        as="div"
-        aria-label="Client testimonials"
-        className="pt-16 md:pt-24 pb-20 md:pb-28"
-        amount={0.25}
-      >
-        <div className="mx-auto w-full max-w-[1100px]">
-          <FadeRise
-            trigger="child"
-            as="p"
-            className="font-sans uppercase tracking-[0.2em] text-xs text-off-white/50"
-          >
-            WHAT CLIENTS SAY
-          </FadeRise>
+    <section
+      id="trust"
+      aria-labelledby="trust-heading"
+      className="relative isolate overflow-hidden text-off-white"
+      style={{
+        background:
+          "linear-gradient(180deg, #161515 0%, #1a1816 55%, #161515 100%)",
+      }}
+    >
+      {/* Warm gold bleed low behind the stat strip */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[60%]"
+        style={{
+          background:
+            "radial-gradient(70% 60% at 50% 100%, rgba(229,181,85,0.10) 0%, rgba(229,181,85,0.04) 40%, rgba(229,181,85,0) 75%)",
+        }}
+      />
+      {/* Soft vignette */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background:
+            "radial-gradient(120% 80% at 50% 30%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.45) 100%)",
+        }}
+      />
 
-          {/* Single disciplined gold accent for the testimonials part */}
-          <FadeRise
-            trigger="child"
-            as="span"
-            className="block mt-4 font-serif text-gold leading-none select-none"
-            style={{ fontSize: "clamp(3rem, 5vw, 5rem)" }}
-            aria-hidden="true"
-          >
-            &ldquo;
-          </FadeRise>
+      <div className="relative mx-auto w-full max-w-[1200px] px-6 md:px-12 lg:px-20 pt-24 md:pt-32 pb-28 md:pb-40">
+        {/* Eyebrow */}
+        <FadeRise
+          as="p"
+          trigger="in-view"
+          className="font-sans uppercase tracking-[0.28em] text-[11px] md:text-xs text-gold"
+        >
+          What Clients Say
+        </FadeRise>
 
-          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {PLACEHOLDER_QUOTES.map((item, i) => (
-              <FadeRise
-                key={i}
-                trigger="child"
-                as="blockquote"
-                className="bg-secondary rounded-sm p-8 md:p-10"
-              >
-                <p
-                  className="font-serif italic text-off-white/90"
-                  style={{
-                    fontSize: "clamp(1.125rem, 1.6vw, 1.375rem)",
-                    lineHeight: 1.35,
-                  }}
-                >
-                  {item.quote}
-                </p>
-                <cite className="mt-6 block not-italic font-sans text-off-white/50 text-sm leading-relaxed">
-                  {item.attribution}
-                </cite>
-              </FadeRise>
-            ))}
-          </div>
+        {/* Headline */}
+        <MaskedLines
+          as="h2"
+          trigger="in-view"
+          stagger={0.08}
+          lines={[
+            <>Trusted by the people</>,
+            <>who answer to the board.</>,
+          ]}
+          className="mt-6 font-serif tracking-tight text-off-white"
+          style={{
+            fontSize: "clamp(1.875rem, 4.4vw, 4rem)",
+            lineHeight: 1.08,
+            letterSpacing: "-0.01em",
+          }}
+        />
+
+        {/* Hidden but accessible heading anchor */}
+        <span id="trust-heading" className="sr-only">
+          Client testimonials and credibility
+        </span>
+
+        {/* Testimonial grid */}
+        <div className="mt-16 md:mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+          {TESTIMONIALS.map((t, i) => (
+            <TestimonialCard key={t.name} t={t} index={i} />
+          ))}
         </div>
-      </SectionEnter>
 
-      {/* ── Part 2: Credibility ────────────────────────────────── */}
-      <SectionEnter
-        as="div"
-        aria-label="Credentials and track record"
-        className="pb-24 md:pb-32"
-        amount={0.25}
-      >
-        <div className="mx-auto w-full max-w-[1100px]">
-          <FadeRise
-            trigger="child"
-            as="p"
-            className="font-sans uppercase tracking-[0.2em] text-xs text-off-white/50"
-          >
-            THE TRACK RECORD
-          </FadeRise>
-
-          <MaskedLines
-            as="h2"
-            trigger="in-view"
-            lines={[
-              <>Twenty-five years at the</>,
-              <>executive table.</>,
-            ]}
-            className="mt-5 font-serif tracking-tight text-off-white"
-            style={{
-              fontSize: "clamp(1.875rem, 3.8vw, 3.5rem)",
-              lineHeight: 1.08,
-              letterSpacing: "-0.01em",
-            }}
-          />
-
-          {/* Stat highlights */}
-          <div className="mt-14 md:mt-16 grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5 lg:gap-6">
-            {HIGHLIGHTS.map((item) => (
-              <FadeRise
-                key={item.label}
-                trigger="child"
-                as="div"
-                className="bg-secondary rounded-sm p-7 md:p-9"
-              >
-                <span
-                  className="font-serif text-gold leading-none"
-                  style={{
-                    fontSize: "clamp(2rem, 3vw, 2.75rem)",
-                  }}
-                >
-                  {item.figure}
-                </span>
-                <p className="mt-3 font-sans text-off-white/80 leading-snug">
-                  {item.label}
-                </p>
-              </FadeRise>
-            ))}
-          </div>
-
-          {/* Credential lines */}
-          <ul className="mt-10 md:mt-12 space-y-3 max-w-[52ch]">
-            {CREDENTIALS.map((line) => (
-              <li key={line} className="flex gap-3 items-start">
-                <span
-                  className="mt-2.5 h-px w-3 shrink-0 bg-off-white/25"
-                  aria-hidden="true"
-                />
-                <span
-                  className="font-sans text-off-white/70 leading-relaxed"
-                  style={{ fontSize: "clamp(0.875rem, 1vw, 1rem)" }}
-                >
-                  {line}
-                </span>
-              </li>
-            ))}
-          </ul>
+        {/* Stat strip */}
+        <div className="mt-24 md:mt-32 grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-12 md:gap-x-10">
+          {STATS.map((s, i) => (
+            <StatBlock key={s.label} stat={s} index={i} />
+          ))}
         </div>
-      </SectionEnter>
+      </div>
     </section>
   );
+};
+
+const TestimonialCard = ({ t, index }: { t: Testimonial; index: number }) => {
+  const reduce = useReducedMotion() ?? false;
+
+  const initial = reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 };
+  const hover = reduce
+    ? undefined
+    : {
+        y: -4,
+        boxShadow:
+          "0 0 0 1px rgba(229,181,85,0.55), 0 18px 40px -20px rgba(229,181,85,0.35), 0 0 28px -6px rgba(229,181,85,0.22)",
+        transition: { duration: 0.45, ease: SITE_EASE },
+      };
+
+  return (
+    <motion.article
+      initial={initial}
+      whileInView={{ opacity: 1, y: 0 }}
+      whileHover={hover}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{
+        duration: 0.7,
+        ease: SITE_EASE,
+        delay: reduce ? 0 : 0.08 + (index % 3) * 0.1,
+      }}
+      className="group relative rounded-xl p-6 md:p-7 will-change-transform flex flex-col"
+      style={{
+        backgroundColor: "#302e2c",
+        border: "1px solid rgba(247,246,245,0.08)",
+      }}
+    >
+      {/* Identity row */}
+      <div className="flex items-center gap-4">
+        <span
+          aria-hidden="true"
+          className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full font-sans text-sm tracking-wide text-off-white/80"
+          style={{
+            backgroundColor: "#26241F",
+            border: "1.5px solid rgba(229,181,85,0.7)",
+            boxShadow: "0 0 0 3px rgba(229,181,85,0.08)",
+          }}
+        >
+          {t.initials}
+        </span>
+        <div className="min-w-0">
+          <p className="font-sans font-semibold text-off-white text-[0.975rem] leading-tight truncate">
+            {t.name}
+          </p>
+          <p className="mt-0.5 font-sans text-off-white/55 text-[0.8125rem] leading-tight truncate">
+            {t.title}
+          </p>
+        </div>
+      </div>
+
+      {/* Stars */}
+      <div className="mt-5 flex items-center gap-1" aria-label="5 out of 5">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Star
+            key={i}
+            size={14}
+            strokeWidth={1.25}
+            className="text-gold"
+            fill="#e5b555"
+          />
+        ))}
+      </div>
+
+      {/* Quote */}
+      <blockquote
+        className="mt-5 font-serif italic text-off-white/90"
+        style={{
+          fontSize: "clamp(1.0625rem, 1.25vw, 1.1875rem)",
+          lineHeight: 1.45,
+        }}
+      >
+        &ldquo;{t.quote}&rdquo;
+      </blockquote>
+    </motion.article>
+  );
+};
+
+const StatBlock = ({ stat, index }: { stat: Stat; index: number }) => {
+  const reduce = useReducedMotion() ?? false;
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.5 });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+      animate={inView ? { opacity: 1, y: 0 } : undefined}
+      transition={{
+        duration: 0.7,
+        ease: SITE_EASE,
+        delay: reduce ? 0 : 0.05 + index * 0.08,
+      }}
+      className="flex flex-col"
+    >
+      <span
+        className="font-serif text-gold leading-none"
+        style={{
+          fontSize: "clamp(2.5rem, 5vw, 4.25rem)",
+          letterSpacing: "-0.01em",
+        }}
+      >
+        {stat.numeric && !reduce ? (
+          <CountUp
+            from={stat.numeric.from}
+            to={stat.numeric.to}
+            prefix={stat.numeric.prefix}
+            suffix={stat.numeric.suffix}
+            play={inView}
+          />
+        ) : (
+          stat.value
+        )}
+      </span>
+      <span className="mt-4 font-sans text-off-white/55 text-[0.8125rem] md:text-sm leading-snug max-w-[22ch]">
+        {stat.label}
+      </span>
+    </motion.div>
+  );
+};
+
+const CountUp = ({
+  from,
+  to,
+  prefix = "",
+  suffix = "",
+  play,
+}: {
+  from: number;
+  to: number;
+  prefix?: string;
+  suffix?: string;
+  play: boolean;
+}) => {
+  const mv = useMotionValue(from);
+  const rounded = useTransform(mv, (v) => `${prefix}${Math.round(v)}${suffix}`);
+  const [text, setText] = useState(`${prefix}${from}${suffix}`);
+
+  useEffect(() => {
+    const unsub = rounded.on("change", (v) => setText(v));
+    return () => unsub();
+  }, [rounded]);
+
+  useEffect(() => {
+    if (!play) return;
+    const controls = animate(mv, to, {
+      duration: 1.6,
+      ease: SITE_EASE,
+    });
+    return () => controls.stop();
+  }, [play, mv, to]);
+
+  return <span>{text}</span>;
 };
 
 export default TrustSection;
