@@ -7,27 +7,51 @@ import logo from "@/assets/logo.png";
  * - Transparent over hero, frosted near-black after scroll.
  * - Anchor links smooth-scroll to section ids.
  * - Mobile: slide-in full overlay menu.
- * Reduced-motion aware (no decorative transitions beyond color).
+ * - Active link tracked via IntersectionObserver (gold underline persists).
  */
 
-type NavLink = { label: string; href: string };
+type NavLink = { label: string; href: string; id: string };
 
 const LINKS: NavLink[] = [
-  { label: "The Ceiling", href: "#pain" },
-  { label: "Approach", href: "#services" },
-  { label: "Expertise", href: "#expertise" },
-  { label: "About", href: "#story" },
+  { label: "The Ceiling", href: "#pain", id: "pain" },
+  { label: "Approach", href: "#services", id: "services" },
+  { label: "Expertise", href: "#expertise", id: "expertise" },
+  { label: "About", href: "#story", id: "story" },
 ];
 
 const SiteNav = () => {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [activeId, setActiveId] = useState<string | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 70);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Track which section is in view for active nav state
+  useEffect(() => {
+    const sections = LINKS.map((l) => document.getElementById(l.id)).filter(
+      (el): el is HTMLElement => !!el,
+    );
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Pick the entry closest to the top that is intersecting
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible[0]) {
+          setActiveId(visible[0].target.id);
+        }
+      },
+      { rootMargin: "-30% 0px -60% 0px", threshold: 0 },
+    );
+    sections.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
   // Lock body scroll when mobile menu open.
@@ -99,7 +123,8 @@ const SiteNav = () => {
                 <a
                   href={link.href}
                   onClick={(e) => handleAnchor(e, link.href)}
-                  className="font-sans uppercase tracking-[0.18em] text-[11px] lg:text-xs text-off-white/80 hover:text-gold transition-colors duration-200 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  data-active={activeId === link.id ? "true" : "false"}
+                  className="luxe-link font-sans uppercase tracking-[0.18em] text-[11px] lg:text-xs text-off-white/80"
                 >
                   {link.label}
                 </a>
@@ -111,7 +136,7 @@ const SiteNav = () => {
           <a
             href="#contact"
             onClick={(e) => handleAnchor(e, "#contact")}
-            className="hidden md:inline-flex items-center justify-center bg-gold text-charcoal-deep hover:bg-gold-light font-sans uppercase tracking-[0.16em] text-[11px] lg:text-xs px-5 py-2.5 rounded-sm transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="luxe-cta hidden md:inline-flex items-center justify-center bg-gold text-charcoal-deep font-sans uppercase tracking-[0.16em] text-[11px] lg:text-xs px-5 py-2.5 rounded-sm"
           >
             Start the Conversation
           </a>
@@ -168,7 +193,8 @@ const SiteNav = () => {
                 <a
                   href={link.href}
                   onClick={(e) => handleAnchor(e, link.href)}
-                  className="block font-serif text-off-white hover:text-gold transition-colors duration-200 text-3xl leading-tight"
+                  data-active={activeId === link.id ? "true" : "false"}
+                  className="luxe-link block font-serif text-off-white text-3xl leading-tight"
                 >
                   {link.label}
                 </a>
@@ -180,7 +206,7 @@ const SiteNav = () => {
             <a
               href="#contact"
               onClick={(e) => handleAnchor(e, "#contact")}
-              className="inline-flex w-full items-center justify-center bg-gold text-charcoal-deep hover:bg-gold-light font-sans uppercase tracking-[0.18em] text-sm px-6 py-4 rounded-sm transition-colors duration-200"
+              className="luxe-cta inline-flex w-full items-center justify-center bg-gold text-charcoal-deep font-sans uppercase tracking-[0.18em] text-sm px-6 py-4 rounded-sm"
             >
               Start the Conversation
             </a>
