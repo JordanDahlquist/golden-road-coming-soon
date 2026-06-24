@@ -37,18 +37,20 @@ const Hero = () => {
       ref={sectionRef}
       className="relative min-h-screen overflow-hidden bg-background text-off-white pt-20 md:pt-24"
     >
-      {/* Cinematic full-bleed background image with parallax */}
+      {/* Cinematic full-bleed background image with parallax + slow push-in */}
       <motion.div
         style={{ scale: bgScale, y: bgY, willChange: "transform" }}
         className="absolute inset-0"
         aria-hidden
       >
-        <img
-          src={heroRoad.url}
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover object-[center_70%] select-none"
-          draggable={false}
-        />
+        <div className="hero-pushin absolute inset-0">
+          <img
+            src={heroRoad.url}
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover object-[center_70%] select-none"
+            draggable={false}
+          />
+        </div>
         {/* Top-down scrim for headline legibility in the dark upper zone */}
         <div
           className="absolute inset-0"
@@ -57,6 +59,37 @@ const Hero = () => {
               "linear-gradient(to bottom, rgba(22,21,21,0.90) 0%, rgba(22,21,21,0.60) 32%, rgba(22,21,21,0.22) 56%, rgba(22,21,21,0) 74%)",
           }}
         />
+        {/* Living horizon glow — slow breath over the warm horizon band */}
+        <div
+          className="hero-horizon-breathe absolute inset-x-0"
+          style={{
+            top: "38%",
+            height: "62%",
+            background:
+              "radial-gradient(ellipse 70% 55% at 50% 75%, hsl(var(--gold) / 0.32) 0%, hsl(var(--gold) / 0.14) 28%, hsl(var(--gold) / 0.05) 52%, transparent 75%)",
+            mixBlendMode: "screen",
+            willChange: "opacity, transform",
+            pointerEvents: "none",
+          }}
+        />
+        {/* Atmospheric drift — faint gold motes rising slowly */}
+        <div className="hero-motes absolute inset-0 overflow-hidden pointer-events-none">
+          {Array.from({ length: 14 }).map((_, i) => (
+            <span
+              key={i}
+              className="hero-mote"
+              style={{
+                left: `${(i * 53 + 7) % 100}%`,
+                bottom: `${-10 + ((i * 17) % 30)}%`,
+                animationDelay: `${(i * 1.7) % 12}s`,
+                animationDuration: `${18 + (i % 5) * 4}s`,
+                opacity: 0.18 + ((i % 3) * 0.06),
+                width: i % 4 === 0 ? "2px" : "1.5px",
+                height: i % 4 === 0 ? "2px" : "1.5px",
+              }}
+            />
+          ))}
+        </div>
         {/* Soft bottom scrim behind meta strip */}
         <div
           className="absolute inset-x-0 bottom-0 h-40"
