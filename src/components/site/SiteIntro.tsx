@@ -3,18 +3,17 @@ import { motion, useAnimation } from "framer-motion";
 import logo from "@/assets/logo.png";
 
 /**
- * Premium one-shot intro overlay for /site.
+ * Premium intro overlay for /site.
  * Visually mirrors the coming-soon page (src/pages/Index.tsx): identical
  * gradient overlay, gold accent lines, centered lettermark, and gold divider.
  * Animates them in, holds briefly, then resolves by fading the accents and
  * morphing the centered logo precisely into the nav logo position.
  *
- * - Plays once per session (sessionStorage flag).
+ * - Plays on every full page load (no sessionStorage gate).
  * - Respects prefers-reduced-motion (renders nothing).
  * - GPU-only transforms/opacity. ~2s total.
  */
 
-const FLAG = "grs_intro_played_v1";
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const SiteIntro = () => {
@@ -28,9 +27,7 @@ const SiteIntro = () => {
   useEffect(() => {
     if (typeof window === "undefined") return;
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const played = sessionStorage.getItem(FLAG);
-    if (played || reduce) {
-      sessionStorage.setItem(FLAG, "1");
+    if (reduce) {
       document.documentElement.classList.remove("intro-active");
       document.body.style.overflow = "";
       setRemoved(true);
@@ -39,7 +36,6 @@ const SiteIntro = () => {
     document.documentElement.classList.add("intro-active");
     const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
-    sessionStorage.setItem(FLAG, "1");
     setMounted(true);
     return () => {
       document.body.style.overflow = prevOverflow;
