@@ -11,7 +11,6 @@ const HEADLINE_LINES = [
   "next stage demands.",
 ];
 
-const EYEBROW_DELAY = 0.05;
 const HEADLINE_DELAY = 0.35;
 const TAIL_DELAY = 1.55;
 const META_DELAY = 1.95;
