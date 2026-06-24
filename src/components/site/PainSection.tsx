@@ -215,14 +215,7 @@ const PainCardItem = ({
 
   const initial = reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 };
   const whileInView = { opacity: 1, y: 0 };
-  const hover = reduce
-    ? undefined
-    : {
-        y: -4,
-        boxShadow:
-          "0 0 0 1px rgba(229,181,85,0.55), 0 18px 40px -20px rgba(229,181,85,0.35), 0 0 28px -6px rgba(229,181,85,0.22)",
-        transition: { duration: 0.45, ease: SITE_EASE },
-      };
+  const hover = undefined;
 
   return (
     <motion.article
@@ -235,7 +228,7 @@ const PainCardItem = ({
         ease: SITE_EASE,
         delay: reduce ? 0 : 0.1 + index * 0.1,
       }}
-      className="group relative rounded-xl p-6 md:p-7 lg:p-8 will-change-transform"
+      className="luxe-card group relative rounded-xl p-6 md:p-7 lg:p-8"
       style={{
         backgroundColor: "#302e2c",
         border: "1px solid rgba(247,246,245,0.08)",

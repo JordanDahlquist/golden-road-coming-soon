@@ -136,14 +136,7 @@ const TestimonialCard = ({ t, index }: { t: Testimonial; index: number }) => {
   const reduce = useReducedMotion() ?? false;
 
   const initial = reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 };
-  const hover = reduce
-    ? undefined
-    : {
-        y: -4,
-        boxShadow:
-          "0 0 0 1px rgba(229,181,85,0.55), 0 18px 40px -20px rgba(229,181,85,0.35), 0 0 28px -6px rgba(229,181,85,0.22)",
-        transition: { duration: 0.45, ease: SITE_EASE },
-      };
+  const hover = undefined;
 
   return (
     <motion.article
@@ -156,7 +149,7 @@ const TestimonialCard = ({ t, index }: { t: Testimonial; index: number }) => {
         ease: SITE_EASE,
         delay: reduce ? 0 : 0.08 + (index % 3) * 0.1,
       }}
-      className="group relative rounded-xl p-6 md:p-7 will-change-transform flex flex-col"
+      className="luxe-card group relative rounded-xl p-6 md:p-7 flex flex-col"
       style={{
         backgroundColor: "#302e2c",
         border: "1px solid rgba(247,246,245,0.08)",

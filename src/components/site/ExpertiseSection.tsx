@@ -139,9 +139,7 @@ const ExpertiseSection = () => {
               trigger="child"
               as="article"
               className={[
-                "expertise-tile group relative flex flex-col rounded-xl border border-off-white/[0.07] bg-secondary p-6 md:p-7",
-                "transition-[transform,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-                "hover:-translate-y-1 hover:border-gold/60",
+                "luxe-card expertise-tile group relative flex flex-col rounded-xl border border-off-white/[0.07] bg-secondary p-6 md:p-7",
                 tile.span,
                 tile.feature ? "lg:p-9" : "",
               ].join(" ")}
@@ -202,9 +200,7 @@ const ExpertiseSection = () => {
             // @ts-expect-error framer-motion forwards arbitrary props to the element
             href="#contact"
             className={[
-              "expertise-call group relative flex flex-col justify-between rounded-xl border border-gold/40 p-6 md:p-7",
-              "transition-[transform,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]",
-              "hover:-translate-y-1 hover:border-gold",
+              "luxe-card expertise-call group relative flex flex-col justify-between rounded-xl border border-gold/40 p-6 md:p-7",
               "lg:col-span-2",
             ].join(" ")}
             style={{

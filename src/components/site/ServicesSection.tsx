@@ -127,7 +127,7 @@ const ServicesSection = () => {
               whileInView={{ opacity: 1, x: 0, y: 0 }}
               viewport={{ once: true, amount: 0.25 }}
               transition={{ duration: reduce ? 0 : 0.8, ease: SITE_EASE, delay: reduce ? 0 : i * 0.08 }}
-              className="services-card group relative flex flex-col rounded-xl border border-off-white/[0.07] bg-secondary p-8 md:p-10 transition-[transform,border-color,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:border-gold/60"
+              className="luxe-card services-card group relative flex flex-col rounded-xl border border-off-white/[0.07] bg-secondary p-8 md:p-10"
             >
               {/* Icon + label */}
               <div className="flex items-center gap-3">
