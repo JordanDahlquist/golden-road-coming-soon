@@ -233,29 +233,6 @@ const ExpertiseSection = () => {
         </div>
       </div>
 
-      <style>{`
-        .expertise-tile:hover {
-          box-shadow:
-            0 1px 0 0 hsl(40 74% 62% / 0.18) inset,
-            0 24px 60px -30px hsl(40 74% 62% / 0.35);
-        }
-        .expertise-call:hover {
-          box-shadow: 0 24px 60px -28px hsl(40 74% 62% / 0.45);
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .expertise-tile,
-          .expertise-call,
-          .expertise-tile *,
-          .expertise-call * {
-            transition: none !important;
-          }
-          .expertise-tile:hover,
-          .expertise-call:hover {
-            transform: none !important;
-            box-shadow: none !important;
-          }
-        }
-      `}</style>
     </SectionEnter>
   );
 };
