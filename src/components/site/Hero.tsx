@@ -109,24 +109,8 @@ const Hero = () => {
           className="w-full max-w-[1400px] mx-auto h-full flex flex-col justify-between"
           style={{ paddingTop: "100px", paddingBottom: "40px" }}
         >
-          {/* MIDDLE — eyebrow + headline + sub + CTA */}
           <div className="flex-1 flex flex-col justify-center min-h-0">
-            {/* Eyebrow — lower right, above the headline */}
-            <FadeRise
-              as="div"
-              delay={EYEBROW_DELAY}
-              y={12}
-              className="flex items-center gap-4 mb-5 md:mb-6"
-            >
-              <span
-                aria-hidden
-                className="hero-eyebrow-rule block h-px w-10 md:w-14 bg-gold/70"
-              />
-              <span className="font-sans uppercase text-[10px] md:text-[11px] tracking-[0.32em] text-off-white/55">
-                Golden Road Strategies — Fractional CFO &amp; Strategic Finance
-              </span>
-            </FadeRise>
-
+            {/* Headline, subhead, CTA */}
             <motion.div
               style={{ y: headlineY, willChange: "transform" }}
               className="hero-headline-sweep relative"
