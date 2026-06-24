@@ -88,7 +88,13 @@ const StatBlock = ({ stat, index }: { stat: Stat; index: number }) => {
       }}
       className="flex flex-col"
     >
-      <span className="t-stat">
+      <span
+        className={`t-stat ${
+          stat.value === "$5–50M"
+            ? "whitespace-nowrap text-[clamp(2rem,3.8vw,3.25rem)]"
+            : ""
+        }`}
+      >
         {stat.numeric && !reduce ? (
           <CountUp
             from={stat.numeric.from}
