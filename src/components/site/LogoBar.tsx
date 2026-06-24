@@ -15,7 +15,7 @@ const LogoPlaceholder = () => (
   <div className="flex items-center justify-center w-full">
     {/* Tasteful monochrome placeholder: thin rounded rectangle with subtle "Logo" affordance */}
     <div className="w-full max-w-[140px] h-10 md:h-12 rounded-[4px] border border-off-white/20 flex items-center justify-center">
-      <span className="font-sans text-[10px] uppercase tracking-[0.2em] text-off-white/30">
+      <span className="t-label text-off-white/30">
         Logo
       </span>
     </div>
