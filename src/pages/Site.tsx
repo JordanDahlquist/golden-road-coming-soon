@@ -52,6 +52,7 @@ const Site = () => {
   return (
     <main className="bg-background">
 
+      <SiteIntro />
       <SiteNav />
       <div id="hero" className={ANCHOR_CLASS}>
         <Hero />
