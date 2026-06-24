@@ -43,10 +43,13 @@ const ProcessSection = () => {
   const drawn = reduce || inView;
 
   return (
-    <SectionEnter
-      as="section"
+    <section
       id="process"
-      className="relative isolate overflow-hidden text-off-white px-6 md:px-12 lg:px-20 pt-20 md:pt-28 pb-28 md:pb-36 scroll-mt-24 md:scroll-mt-28"
+      className="scroll-mt-24 md:scroll-mt-28"
+    >
+    <SectionEnter
+      as="div"
+      className="relative isolate overflow-hidden text-off-white px-6 md:px-12 lg:px-20 pt-20 md:pt-28 pb-28 md:pb-36"
       amount={0.2}
       style={{
         background:
