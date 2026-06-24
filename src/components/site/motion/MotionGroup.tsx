@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import type { CSSProperties, ElementType, ReactNode } from "react";
+import { useMemo, type CSSProperties, type ElementType, type ReactNode } from "react";
 import { groupVariants, SITE_DURATIONS } from "@/lib/motion";
 
 type MotionGroupProps = {
@@ -35,7 +35,7 @@ const MotionGroup = ({
 }: MotionGroupProps) => {
   const reduce = useReducedMotion() ?? false;
   const Tag = (as ?? "div") as ElementType;
-  const MotionTag = motion(Tag);
+  const MotionTag = useMemo(() => motion(Tag), [Tag]);
 
   const variants = groupVariants({ delayChildren, staggerChildren, reduce });
 

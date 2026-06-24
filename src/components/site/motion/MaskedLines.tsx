@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import type { CSSProperties, ElementType, ReactNode } from "react";
+import { useMemo, type CSSProperties, type ElementType, type ReactNode } from "react";
 import {
   groupVariants,
   lineRevealVariants,
@@ -45,7 +45,7 @@ const MaskedLines = ({
 }: MaskedLinesProps) => {
   const reduce = useReducedMotion() ?? false;
   const Tag = (as ?? "h2") as ElementType;
-  const MotionTag = motion(Tag);
+  const MotionTag = useMemo(() => motion(Tag), [Tag]);
 
   const parent = groupVariants({
     delayChildren,
