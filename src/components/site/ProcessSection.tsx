@@ -194,6 +194,7 @@ const ProcessSection = () => {
         </div>
       </div>
     </SectionEnter>
+    </section>
   );
 };
 
