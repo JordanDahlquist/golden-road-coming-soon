@@ -106,7 +106,7 @@ const ContactSection = () => {
               </p>
               <a
                 href="mailto:info@goldenroadstrategies.com"
-                className="mt-2 inline-block font-sans text-off-white hover:text-gold transition-colors"
+                className="luxe-link mt-2 font-sans text-off-white"
                 style={{ fontSize: "clamp(0.875rem, 1vw, 1rem)" }}
               >
                 info@goldenroadstrategies.com
