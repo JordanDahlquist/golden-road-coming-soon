@@ -9,6 +9,8 @@ type RotatingWordProps = {
   /** ms before the first swap begins */
   startDelay?: number;
   className?: string;
+  /** Optional trailing glyph (e.g. ".") that stays flush to the word as it rotates. */
+  suffix?: string;
 };
 
 /**
