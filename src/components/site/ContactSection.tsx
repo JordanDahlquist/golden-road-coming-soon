@@ -322,8 +322,13 @@ const ContactSection = () => {
                         disabled={status === "sending"}
                         className="luxe-cta inline-flex items-center justify-center w-full bg-gold text-background t-label px-8 py-4 rounded-[6px]"
                       >
-                        {status === "sending" ? "Opening your email…" : "Start the Conversation"}
+                        {status === "sending" ? "Sending…" : "Start the Conversation"}
                       </button>
+                      {errorMsg && (
+                        <p className="mt-4 text-center t-label text-gold" role="alert">
+                          {errorMsg}
+                        </p>
+                      )}
                       <p className="mt-4 text-center t-label text-off-white/40">
                         Replies typically within one business day.
                       </p>
