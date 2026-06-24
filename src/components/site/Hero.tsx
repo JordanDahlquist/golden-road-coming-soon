@@ -12,7 +12,7 @@ const HEADLINE_LINES = [
   "Build the financial",
   "infrastructure your",
   <>
-    next stage <RotatingWord words={ROTATING_WORDS} />.
+    next stage <RotatingWord words={ROTATING_WORDS} suffix="." />
   </>,
 ];
 
@@ -110,8 +110,7 @@ const Hero = () => {
         className="relative z-10 h-full flex flex-col px-6 md:px-12 lg:px-20"
       >
         <div
-          className="w-full max-w-[1400px] mx-auto h-full flex flex-col justify-between"
-          style={{ paddingTop: "100px", paddingBottom: "40px" }}
+          className="w-full max-w-[1400px] mx-auto h-full flex flex-col justify-between pt-20 md:pt-[100px] pb-8 md:pb-10"
         >
           <div className="flex-1 flex flex-col justify-center min-h-0">
             {/* Headline, subhead, CTA */}
@@ -124,26 +123,23 @@ const Hero = () => {
                 lines={HEADLINE_LINES}
                 delayChildren={HEADLINE_DELAY}
                 stagger={0.18}
-                className="font-serif text-off-white tracking-tight max-w-[18ch]"
+                className="font-serif text-off-white max-w-[18ch] text-[clamp(2rem,8.5vw,3rem)] md:text-[clamp(3rem,6.5vw,5.5rem)] leading-[1.1] md:leading-[1.05] tracking-tight [letter-spacing:-0.012em] md:[letter-spacing:-0.018em] [text-wrap:balance]"
                 style={{
-                  fontSize: "clamp(3rem, 6.5vw, 5.5rem)",
-                  lineHeight: 1.05,
-                  letterSpacing: "-0.018em",
                   fontWeight: 300,
                 }}
               />
               <span aria-hidden className="hero-sweep" />
             </motion.div>
 
+
             <MotionGroup delayChildren={TAIL_DELAY}>
               <FadeRise
                 as="p"
                 trigger="child"
-                className="font-sans leading-relaxed text-off-white/65 max-w-[54ch]"
+                className="font-sans leading-relaxed text-off-white/65 max-w-[54ch] mt-5 md:mt-8"
                 style={{
-                  fontSize: "clamp(1.05rem, 1.25vw, 1.25rem)",
+                  fontSize: "clamp(0.95rem, 1.25vw, 1.25rem)",
                   fontWeight: 300,
-                  marginTop: "32px",
                 }}
               >
                 Golden Road Strategies gives forward-thinking CEOs, founders, and
@@ -153,9 +149,9 @@ const Hero = () => {
 
               <FadeRise
                 trigger="child"
-                className="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-8"
-                style={{ marginTop: "36px" }}
+                className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-8 mt-6 md:mt-9"
               >
+
                 <Button
                   asChild
                   size="lg"
