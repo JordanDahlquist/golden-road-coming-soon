@@ -74,7 +74,7 @@ const ServicesSection = () => {
         <FadeRise
           trigger="child"
           as="p"
-          className="font-sans uppercase tracking-[0.24em] text-[11px] md:text-xs text-gold"
+          className="t-eyebrow"
         >
           THE THIRD OPTION
         </FadeRise>
@@ -86,19 +86,13 @@ const ServicesSection = () => {
             <>Forward-looking financial leadership,</>,
             <>built to your stage.</>,
           ]}
-          className="mt-5 font-serif tracking-tight text-off-white"
-          style={{
-            fontSize: "clamp(1.875rem, 4vw, 3.75rem)",
-            lineHeight: 1.05,
-            letterSpacing: "-0.015em",
-          }}
+          className="mt-5 t-h2 text-off-white"
         />
 
         <FadeRise
           trigger="child"
           as="p"
-          className="mt-5 max-w-xl font-sans text-off-white/55 leading-relaxed"
-          style={{ fontSize: "clamp(0.95rem, 1.1vw, 1.0625rem)" }}
+          className="mt-5 max-w-xl t-lead text-off-white/55"
         >
           Two ways to engage, each designed around where your company is now
           and where it needs to be in a year.
