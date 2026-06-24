@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Hero from "@/components/site/Hero";
 import KpiBand from "@/components/site/KpiBand";
 
