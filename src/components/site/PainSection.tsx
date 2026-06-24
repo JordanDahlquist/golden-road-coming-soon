@@ -81,7 +81,6 @@ const PainSection = () => {
 
           <MaskedLines
             as="h2"
-            id="pain-lead-heading"
             trigger="in-view"
             stagger={0.08}
             lines={[
@@ -121,7 +120,6 @@ const PainSection = () => {
 
           <MaskedLines
             as="h2"
-            id="pain-heading"
             trigger="in-view"
             stagger={0.08}
             delayChildren={0.15}
