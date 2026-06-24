@@ -157,4 +157,42 @@ const CountUp = ({
   return <span>{text}</span>;
 };
 
+const CountUpRange = ({
+  fromStart,
+  toStart,
+  fromEnd,
+  toEnd,
+  prefix = "",
+  suffix = "",
+  play,
+}: {
+  fromStart: number;
+  toStart: number;
+  fromEnd: number;
+  toEnd: number;
+  prefix?: string;
+  suffix?: string;
+  play: boolean;
+}) => {
+  const start = useMotionValue(fromStart);
+  const end = useMotionValue(fromEnd);
+  const [a, setA] = useState(fromStart);
+  const [b, setB] = useState(fromEnd);
+
+  useEffect(() => {
+    const u1 = start.on("change", (v) => setA(Math.round(v)));
+    const u2 = end.on("change", (v) => setB(Math.round(v)));
+    return () => { u1(); u2(); };
+  }, [start, end]);
+
+  useEffect(() => {
+    if (!play) return;
+    const c1 = animate(start, toStart, { duration: 1.6, ease: SITE_EASE });
+    const c2 = animate(end, toEnd, { duration: 1.6, ease: SITE_EASE });
+    return () => { c1.stop(); c2.stop(); };
+  }, [play, start, end, toStart, toEnd]);
+
+  return <span>{`${prefix}${a}–${b}${suffix}`}</span>;
+};
+
 export default KpiBand;
