@@ -250,7 +250,9 @@ const PhaseCard = ({
   reduce: boolean;
 }) => {
   // Ascending lift, applied only at lg (CSS variable + lg utility).
-  const liftPx = (total - 1 - index) * LIFT_STEP_DESKTOP;
+  // index 0 (card 01) lowest → lift 0; index 3 (card 04) highest.
+  const liftPx = index * LIFT_STEP_DESKTOP;
+  void total;
 
   const initial = reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 };
   const animate = reduce
