@@ -3,7 +3,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FadeRise, MaskedLines, MotionGroup } from "./motion";
-import heroRoad from "@/assets/hero-road.png.asset.json";
+import goldenRoad from "@/assets/golden-road.png.asset.json";
 
 const HEADLINE_LINES = [
   "Build the financial",
