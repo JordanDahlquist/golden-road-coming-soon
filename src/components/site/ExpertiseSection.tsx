@@ -84,6 +84,29 @@ const TILES: Tile[] = [
  * Reuses the site motion primitives and respects reduced motion via CSS.
  */
 const ExpertiseSection = () => {
+  const reduce = useReducedMotion() ?? false;
+
+  const flipInitial = reduce
+    ? { opacity: 1, rotateY: 0 }
+    : { opacity: 0, rotateY: -80 };
+  const flipAnimate = { opacity: 1, rotateY: 0 };
+  const flipTransition = (i: number) => ({
+    duration: reduce ? 0 : 0.72,
+    ease: SITE_EASE,
+    delay: reduce ? 0 : i * 0.13,
+    opacity: {
+      duration: reduce ? 0 : 0.45,
+      ease: SITE_EASE,
+      delay: reduce ? 0 : i * 0.13,
+    },
+  });
+  const flipStyle = {
+    transformStyle: "preserve-3d" as const,
+    transformOrigin: "left center",
+    willChange: "transform, opacity",
+  };
+  const viewport = { once: true, amount: 0.15 };
+
   return (
     <SectionEnter
       as="section"
