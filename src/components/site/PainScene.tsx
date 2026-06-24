@@ -20,7 +20,7 @@ import { MaskedLines } from "./motion";
 const PainScene = () => {
   const reduce = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.4 });
+  const inView = useInView(ref, { once: true, amount: 0.2 });
   const play = inView;
 
   if (reduce) {

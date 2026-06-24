@@ -74,7 +74,7 @@ const KpiBand = () => {
 const StatBlock = ({ stat, index }: { stat: Stat; index: number }) => {
   const reduce = useReducedMotion() ?? false;
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.5 });
+  const inView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
     <motion.div

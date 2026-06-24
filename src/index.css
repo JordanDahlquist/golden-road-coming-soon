@@ -437,6 +437,26 @@
   .luxe-card:focus-within::before,
   .luxe-card:hover::after,
   .luxe-card:focus-within::after { opacity: 1; }
+  /* Tap press on touch */
+  .luxe-card:active { transform: translateY(-2px) scale(0.995); transition-duration: 160ms; }
+
+  /* Touch devices: there is no hover, so the gold border + glow + lift
+     moment is delivered as a scroll-into-view reveal that then settles. */
+  @media (hover: none) {
+    .luxe-card[data-reveal="active"] { transform: translateY(-4px); }
+    .luxe-card[data-reveal="active"]::before,
+    .luxe-card[data-reveal="active"]::after { opacity: 1; }
+    .luxe-card[data-reveal="settled"]::before { opacity: 0.55; } /* keep a hairline gold edge */
+    .luxe-card[data-reveal="settled"]::after { opacity: 0; }
+    .luxe-card[data-reveal="settled"] { transform: translateY(0); }
+
+    /* Links: keep a subtle persistent gold underline cue on touch,
+       full underline still draws for active section. */
+    .luxe-link::after { transform: scaleX(0.18); opacity: 0.55; }
+    .luxe-link[data-active="true"]::after { transform: scaleX(1); opacity: 1; }
+    .luxe-link:active { color: #e5b555; }
+    .luxe-link:active::after { transform: scaleX(1); opacity: 1; }
+  }
 
   /* 4. INPUTS */
   .luxe-input {

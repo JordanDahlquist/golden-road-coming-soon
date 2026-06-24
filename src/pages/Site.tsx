@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Hero from "@/components/site/Hero";
 import KpiBand from "@/components/site/KpiBand";
 
@@ -16,8 +17,40 @@ import SiteNav from "@/components/site/SiteNav";
 const ANCHOR_CLASS = "scroll-mt-24 md:scroll-mt-28";
 
 const Site = () => {
+  // Touch devices have no hover, so deliver the gold edge + glow + lift as
+  // a scroll-into-view "active" moment per .luxe-card, then settle back to
+  // a quiet persistent hairline. Desktop hover behavior is untouched.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const isTouch = window.matchMedia("(hover: none)").matches;
+    if (!isTouch) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const cards = Array.from(document.querySelectorAll<HTMLElement>(".luxe-card"));
+    if (!cards.length) return;
+    if (reduce) {
+      cards.forEach((c) => c.setAttribute("data-reveal", "settled"));
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          const el = e.target as HTMLElement;
+          if (el.dataset.reveal) return;
+          el.setAttribute("data-reveal", "active");
+          window.setTimeout(() => el.setAttribute("data-reveal", "settled"), 900);
+          io.unobserve(el);
+        });
+      },
+      { threshold: 0.25, rootMargin: "0px 0px -10% 0px" },
+    );
+    cards.forEach((c) => io.observe(c));
+    return () => io.disconnect();
+  }, []);
+
   return (
     <main className="bg-background">
+
       <SiteNav />
       <div id="hero" className={ANCHOR_CLASS}>
         <Hero />

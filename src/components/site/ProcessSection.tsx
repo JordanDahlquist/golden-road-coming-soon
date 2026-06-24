@@ -42,7 +42,7 @@ const TOTAL_LIFT = LIFT_STEP_DESKTOP * (PHASES.length - 1); // 66px between card
 const ProcessSection = () => {
   const reduce = useReducedMotion() ?? false;
   const rowRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(rowRef, { once: true, amount: 0.25 });
+  const inView = useInView(rowRef, { once: true, amount: "some" as any });
   const drawn = reduce || inView;
 
   // Tag centers along the 4-col grid (column centers, in % of row width).
