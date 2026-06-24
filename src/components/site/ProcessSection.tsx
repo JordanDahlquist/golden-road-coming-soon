@@ -119,20 +119,19 @@ const ProcessSection = () => {
             ref={rowRef}
             className="relative mt-20 md:mt-28 lg:mt-32"
           >
-            {/* ─ Desktop connector: continuous ascending gold hairline ─
-                Positioned so y=TOTAL_LIFT aligns with tag1 center (lowest)
-                and y=0 aligns with tag4 center (highest). Tags sit at
-                top-1.5rem inside card, and tag radius is 1.6rem, so the
-                tag center sits at card_top + 3.1rem. With card1 lifted
-                up by TOTAL_LIFT, the svg top sits at
-                calc(3.1rem - TOTAL_LIFT) relative to row top. */}
+            {/* ─ Desktop connector: continuous ascending gold hairline.
+                Tags absolute-positioned to straddle the top edge of each
+                card, so their centers sit exactly on each card's top.
+                SVG spans from row_top - TOTAL_LIFT (tag4) to row_top
+                (tag1), entirely ABOVE the card bodies so the line never
+                gets clipped. */}
             <svg
               aria-hidden="true"
-              className="pointer-events-none absolute hidden lg:block left-0 right-0"
+              className="pointer-events-none absolute hidden lg:block left-0 right-0 z-10"
               viewBox={`0 0 100 ${TOTAL_LIFT}`}
               preserveAspectRatio="none"
               style={{
-                top: `calc(3.1rem - ${TOTAL_LIFT}px)`,
+                top: `-${TOTAL_LIFT}px`,
                 width: "100%",
                 height: `${TOTAL_LIFT}px`,
                 overflow: "visible",
@@ -140,15 +139,10 @@ const ProcessSection = () => {
             >
               <defs>
                 <linearGradient id="process-line-h" x1="0" x2="1" y1="0" y2="0">
-                  <stop offset="0%" stopColor="#e5b555" stopOpacity="0.2" />
-                  <stop offset="55%" stopColor="#e5b555" stopOpacity="0.85" />
+                  <stop offset="0%" stopColor="#e5b555" stopOpacity="0.25" />
+                  <stop offset="55%" stopColor="#e5b555" stopOpacity="0.9" />
                   <stop offset="100%" stopColor="#e5b555" stopOpacity="1" />
                 </linearGradient>
-                <radialGradient id="process-end-glow" cx="0.5" cy="0.5" r="0.5">
-                  <stop offset="0%" stopColor="#e5b555" stopOpacity="0.55" />
-                  <stop offset="60%" stopColor="#e5b555" stopOpacity="0.12" />
-                  <stop offset="100%" stopColor="#e5b555" stopOpacity="0" />
-                </radialGradient>
               </defs>
 
               {/* Ascending path through all four tag centers */}
@@ -168,12 +162,12 @@ const ProcessSection = () => {
                   delay: reduce ? 0 : 0.2,
                 }}
                 style={{
-                  filter: "drop-shadow(0 0 5px rgba(229,181,85,0.4))",
+                  filter: "drop-shadow(0 0 5px rgba(229,181,85,0.45))",
                 }}
               />
             </svg>
 
-            {/* Destination glow (desktop): subtle horizon at top-right above card 04 */}
+            {/* Destination glow (desktop): warm horizon arrival above tag 04 */}
             <motion.div
               aria-hidden="true"
               className="pointer-events-none absolute hidden lg:block"
@@ -185,15 +179,16 @@ const ProcessSection = () => {
                 delay: reduce ? 0 : 1.6,
               }}
               style={{
-                top: `calc(3.1rem - ${TOTAL_LIFT}px - 90px)`,
-                left: `calc(${TAG_X[3]}% - 110px)`,
-                width: "220px",
-                height: "220px",
+                top: `calc(-${TOTAL_LIFT}px - 120px)`,
+                left: `calc(${TAG_X[3]}% - 130px)`,
+                width: "260px",
+                height: "260px",
                 background:
-                  "radial-gradient(closest-side, rgba(229,181,85,0.45) 0%, rgba(229,181,85,0.14) 45%, rgba(229,181,85,0) 75%)",
+                  "radial-gradient(closest-side, rgba(229,181,85,0.5) 0%, rgba(229,181,85,0.15) 45%, rgba(229,181,85,0) 75%)",
                 filter: "blur(2px)",
               }}
             />
+
 
             {/* Mobile / sm connector — centered vertical, draws top→bottom */}
             <div
