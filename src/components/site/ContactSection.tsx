@@ -66,7 +66,13 @@ const ContactSection = () => {
       subject,
     )}&body=${encodeURIComponent(body)}`;
 
-    window.location.href = mailto;
+    const a = document.createElement("a");
+    a.href = mailto;
+    a.rel = "noopener";
+    a.target = "_blank";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
 
     setStatus("opened");
   };
