@@ -106,7 +106,7 @@ const ServicesSection = () => {
             className="pointer-events-none absolute inset-y-8 left-1/2 hidden md:flex -translate-x-1/2 flex-col items-center"
           >
             <span className="flex-1 w-px bg-gradient-to-b from-transparent via-gold/30 to-transparent" />
-            <span className="my-3 font-sans text-[10px] uppercase tracking-[0.3em] text-gold/70">
+            <span className="my-3 t-label text-gold/70">
               or
             </span>
             <span className="flex-1 w-px bg-gradient-to-b from-transparent via-gold/30 to-transparent" />
@@ -131,33 +131,23 @@ const ServicesSection = () => {
                 >
                   <offer.icon size={18} strokeWidth={1.5} />
                 </span>
-                <p className="font-sans uppercase tracking-[0.22em] text-[11px] font-medium text-gold">
+                <p className="t-eyebrow">
                   {offer.label}
                 </p>
               </div>
 
-              <h3
-                className="mt-6 font-serif text-off-white"
-                style={{
-                  fontSize: "clamp(1.5rem, 2.4vw, 2.25rem)",
-                  lineHeight: 1.12,
-                  letterSpacing: "-0.01em",
-                }}
-              >
+              <h3 className="mt-6 t-h3 text-off-white">
                 {offer.title}
               </h3>
 
-              <p
-                className="mt-5 font-sans leading-relaxed text-off-white/65"
-                style={{ fontSize: "clamp(0.9375rem, 1.05vw, 1.0625rem)" }}
-              >
+              <p className="mt-5 t-body text-off-white/65">
                 {offer.description}
               </p>
 
               {/* Divider */}
               <div className="my-7 h-px w-full bg-off-white/[0.08]" />
 
-              <p className="font-sans uppercase tracking-[0.2em] text-[10px] text-off-white/45">
+              <p className="t-label text-off-white/45">
                 What you get
               </p>
 
@@ -170,10 +160,7 @@ const ServicesSection = () => {
                     >
                       <Check size={11} strokeWidth={2.25} />
                     </span>
-                    <span
-                      className="font-sans text-off-white/80 leading-relaxed"
-                      style={{ fontSize: "clamp(0.9rem, 1vw, 1rem)" }}
-                    >
+                    <span className="t-body text-off-white/80">
                       {bullet}
                     </span>
                   </li>
@@ -187,10 +174,7 @@ const ServicesSection = () => {
                     aria-hidden
                     className="mt-2 h-px w-6 shrink-0 bg-gold/70"
                   />
-                  <p
-                    className="font-sans italic text-gold/90 leading-snug"
-                    style={{ fontSize: "clamp(0.85rem, 0.95vw, 0.95rem)" }}
-                  >
+                  <p className="t-body-sm italic text-gold/90">
                     {offer.outcome}
                   </p>
                 </div>
