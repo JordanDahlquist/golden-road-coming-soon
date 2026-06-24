@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from "framer-motion";
 import {
   LineChart,
   Briefcase,
@@ -9,7 +10,7 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { FadeRise, MaskedLines, SectionEnter } from "./motion";
+import { FadeRise, MaskedLines, SectionEnter, SITE_EASE } from "./motion";
 
 type Tile = {
   index: string;
@@ -83,6 +84,29 @@ const TILES: Tile[] = [
  * Reuses the site motion primitives and respects reduced motion via CSS.
  */
 const ExpertiseSection = () => {
+  const reduce = useReducedMotion() ?? false;
+
+  const flipInitial = reduce
+    ? { opacity: 1, rotateY: 0 }
+    : { opacity: 0, rotateY: -80 };
+  const flipAnimate = { opacity: 1, rotateY: 0 };
+  const flipTransition = (i: number) => ({
+    duration: reduce ? 0 : 0.72,
+    ease: SITE_EASE,
+    delay: reduce ? 0 : i * 0.13,
+    opacity: {
+      duration: reduce ? 0 : 0.45,
+      ease: SITE_EASE,
+      delay: reduce ? 0 : i * 0.13,
+    },
+  });
+  const flipStyle = {
+    transformStyle: "preserve-3d" as const,
+    transformOrigin: "left center",
+    willChange: "transform, opacity",
+  };
+  const viewport = { once: true, amount: 0.15 };
+
   return (
     <SectionEnter
       as="section"
@@ -126,12 +150,18 @@ const ExpertiseSection = () => {
         </FadeRise>
 
         {/* ── Bento grid ──────────────────────────────────────────── */}
-        <div className="mt-14 md:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:auto-rows-[minmax(200px,auto)] gap-5 md:gap-6">
-          {TILES.map((tile) => (
-            <FadeRise
+        <div
+          className="mt-14 md:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:auto-rows-[minmax(200px,auto)] gap-5 md:gap-6"
+          style={{ perspective: "1200px", perspectiveOrigin: "50% 40%" }}
+        >
+          {TILES.map((tile, i) => (
+            <motion.article
               key={tile.index}
-              trigger="child"
-              as="article"
+              initial={flipInitial}
+              whileInView={flipAnimate}
+              viewport={viewport}
+              transition={flipTransition(i)}
+              style={flipStyle}
               className={[
                 "luxe-card expertise-tile group relative flex flex-col rounded-xl border border-off-white/[0.07] bg-secondary p-6 md:p-7",
                 tile.span,
@@ -172,23 +202,25 @@ const ExpertiseSection = () => {
                   Featured capability
                 </span>
               )}
-            </FadeRise>
+            </motion.article>
           ))}
 
           {/* Gold-accented call tile balances the 7-tile bento into 8 cells */}
-          <FadeRise
-            trigger="child"
-            as="a"
-            // @ts-expect-error framer-motion forwards arbitrary props to the element
+          <motion.a
             href="#contact"
+            initial={flipInitial}
+            whileInView={flipAnimate}
+            viewport={viewport}
+            transition={flipTransition(TILES.length)}
+            style={{
+              ...flipStyle,
+              background:
+                "linear-gradient(135deg, hsl(40 74% 62% / 0.08) 0%, hsl(30 4% 18% / 0.6) 60%)",
+            }}
             className={[
               "luxe-card expertise-call group relative flex flex-col justify-between rounded-xl border border-gold/40 p-6 md:p-7",
               "lg:col-span-2",
             ].join(" ")}
-            style={{
-              background:
-                "linear-gradient(135deg, hsl(40 74% 62% / 0.08) 0%, hsl(30 4% 18% / 0.6) 60%)",
-            }}
           >
             <span className="t-eyebrow">
               Not sure which you need?
@@ -204,8 +236,9 @@ const ExpertiseSection = () => {
                 <ArrowUpRight size={18} strokeWidth={1.5} />
               </span>
             </div>
-          </FadeRise>
+          </motion.a>
         </div>
+
       </div>
 
     </SectionEnter>
