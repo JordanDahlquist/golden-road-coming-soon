@@ -285,12 +285,16 @@
     .hero-horizon,
     .hero-shaft,
     .hero-horizon-line,
-    .hero-scroll-line {
-      animation: none;
-    }
+    .hero-scroll-line,
+    .hero-pushin,
+    .hero-horizon-breathe,
+    .hero-mote,
+    .hero-sweep,
     .hero-cta {
-      transition: none;
+      animation: none !important;
     }
+    .hero-sweep { display: none; }
+    .hero-cta { transition: none; }
     .hero-cta:hover {
       transform: none;
       box-shadow: none;
