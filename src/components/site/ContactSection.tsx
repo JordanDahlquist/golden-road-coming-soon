@@ -32,9 +32,12 @@ const ContactSection = () => {
     setTouched((prev) => ({ ...prev, [e.target.name]: true }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setTouched({ name: true, email: true, message: true });
+    setErrorMsg(null);
 
     const errors = {
       name: !form.name.trim(),
@@ -49,32 +52,33 @@ const ContactSection = () => {
 
     setStatus("sending");
 
-    const subject = form.name.trim()
-      ? `New inquiry from ${form.name.trim()} — Golden Road Strategies`
-      : "New inquiry — Golden Road Strategies";
+    try {
+      const payload = new FormData();
+      payload.append("name", form.name.trim());
+      payload.append("email", form.email.trim());
+      payload.append("company", form.company.trim() || "—");
+      payload.append("message", form.message.trim());
+      payload.append("_subject", `New inquiry from ${form.name.trim()} — Golden Road Strategies`);
+      payload.append("_template", "table");
+      payload.append("_captcha", "false");
 
-    const body = [
-      `Name: ${form.name.trim()}`,
-      `Email: ${form.email.trim()}`,
-      `Company: ${form.company.trim() || "—"}`,
-      "",
-      "Message:",
-      form.message.trim(),
-    ].join("\n");
+      const res = await fetch(`https://formsubmit.co/ajax/${RECIPIENT}`, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: payload,
+      });
 
-    const mailto = `mailto:${RECIPIENT}?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`;
+      if (!res.ok) throw new Error(`Request failed (${res.status})`);
 
-    const a = document.createElement("a");
-    a.href = mailto;
-    a.rel = "noopener";
-    a.target = "_blank";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-
-    setStatus("opened");
+      setStatus("opened");
+    } catch (err) {
+      console.error("Contact form submission failed", err);
+      setErrorMsg(
+        "Something went wrong sending your message. Please email me directly at " +
+          RECIPIENT + ".",
+      );
+      setStatus("idle");
+    }
   };
 
 
