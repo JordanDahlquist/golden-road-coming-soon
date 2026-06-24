@@ -65,8 +65,8 @@ const ProcessSection = () => {
 
           <MaskedLines
             as="h2"
-            id="process-heading"
             trigger="in-view"
+
             stagger={0.08}
             lines={[
               <>A clear path from where you are</>,
