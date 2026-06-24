@@ -11,19 +11,16 @@ import { SITE_EASE } from "@/lib/motion";
 import { FadeRise, MaskedLines } from "./motion";
 
 /**
- * Pain section — dense, designed, card-driven "ceiling" moment.
+ * Pain section — "The Ceiling".
  *
- * Layout:
- *   1. Eyebrow "THE CEILING"
- *   2. Masked headline reveal
- *   3. Intro paragraph
- *   4. 2x2 grid of pain-point cards (charcoal surface, gold line icons,
- *      hover lift + gold edge glow)
- *   5. Closing statement with gold "ceiling" hairline pressing down
+ * Concept: weight pressing down from above. A heavy dark gradient bleeds
+ * from the top edge, a thin gold ceiling hairline glows across the section,
+ * and the four pain cards sit beneath it — staggered, not uniform — with
+ * the fourth card ("The Growth Ceiling") as the thematic punch.
  *
- * Depth: charcoal-to-black gradient + vignette + cold tonal wash.
- * Motion: site-canonical easing, transform/opacity only.
- * Reduced motion: static, fully readable, hairline drawn statically.
+ * Motion: cards rise into place with a heavy, settling feel; each card gets
+ * a gold edge-glow moment on scroll-in (works on mobile, no hover required).
+ * Reduced motion: static, ceiling atmosphere and gold line still present.
  */
 
 type PainCard = {
@@ -71,33 +68,47 @@ const PainSection = () => {
   const yLead = useTransform(scrollYProgress, [0, 1], ["0%", "-4%"]);
   const yStatement = useTransform(scrollYProgress, [0, 1], ["0%", "-3%"]);
 
+  // Ceiling weight: heavier as section enters view.
+  const ceilingOpacity = useTransform(scrollYProgress, [0, 0.25, 1], [0.6, 1, 1]);
+  const ceilingScaleX = useTransform(scrollYProgress, [0, 0.35], [0.2, 1]);
+
   return (
     <section
       ref={sectionRef}
+      id="pain"
       aria-labelledby="pain-heading"
       className="relative isolate overflow-hidden text-off-white"
       style={{
         // Charcoal → near-black with a faint cold tonal cast (the tense "before").
         background:
-          "linear-gradient(180deg, #1b1c1e 0%, #161616 38%, #0f0f10 100%)",
+          "linear-gradient(180deg, #1b1c1e 0%, #161616 38%, #0e0e0f 100%)",
       }}
     >
+      {/* ── Ceiling weight pressing down from the top ─────────── */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[55%]"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.55) 28%, rgba(0,0,0,0.18) 65%, rgba(0,0,0,0) 100%)",
+        }}
+      />
+      {/* Cold tonal wash at the very top */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-[35%]"
+        style={{
+          background:
+            "radial-gradient(75% 100% at 50% 0%, rgba(130,150,175,0.07) 0%, rgba(130,150,175,0) 70%)",
+        }}
+      />
       {/* Vignette */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(120% 80% at 50% 40%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.55) 100%)",
-        }}
-      />
-      {/* Faint cold wash across the top */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 h-[40%]"
-        style={{
-          background:
-            "radial-gradient(80% 100% at 50% 0%, rgba(140,160,180,0.045) 0%, rgba(140,160,180,0) 70%)",
+            "radial-gradient(120% 80% at 50% 45%, rgba(0,0,0,0) 55%, rgba(0,0,0,0.6) 100%)",
         }}
       />
 
@@ -142,24 +153,67 @@ const PainSection = () => {
           </FadeRise>
         </motion.div>
 
-        {/* ── Pain cards (2x2) ──────────────────────────────────── */}
-        <div
-          id="pain-heading"
-          className="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-6"
-        >
-          {PAIN_CARDS.map((card, i) => (
-            <PainCardItem
-              key={card.title}
-              card={card}
-              index={i}
-              reduce={reduce}
+        {/* ── Cards block with gold "ceiling" line pressing down ── */}
+        <div id="pain-heading" className="relative mt-20 md:mt-28">
+          {/* Gold ceiling hairline + soft glow halo above the cards */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-x-0 -top-10 md:-top-14 h-10"
+            style={{ transformOrigin: "center" }}
+          >
+            {/* soft halo bleeding down */}
+            <div
+              className="absolute inset-x-0 top-0 h-10"
+              style={{
+                background:
+                  "linear-gradient(180deg, rgba(229,181,85,0.18) 0%, rgba(229,181,85,0.05) 45%, rgba(229,181,85,0) 100%)",
+              }}
             />
-          ))}
+            {/* the line itself */}
+            <motion.div
+              className="absolute inset-x-0 top-0"
+              style={{
+                height: "1px",
+                backgroundColor: "#e5b555",
+                boxShadow:
+                  "0 0 10px rgba(229,181,85,0.7), 0 0 28px rgba(229,181,85,0.25)",
+                transformOrigin: "center",
+                scaleX: reduce ? 1 : ceilingScaleX,
+                opacity: reduce ? 0.9 : ceilingOpacity,
+                willChange: "transform, opacity",
+              }}
+            />
+          </div>
+
+          {/* 2x2 grid with staggered vertical offsets — right column sits lower */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7">
+            {PAIN_CARDS.map((card, i) => {
+              // Right column (odd index) is offset down on desktop.
+              const offsetClass =
+                i === 1
+                  ? "md:translate-y-8"
+                  : i === 2
+                  ? "md:-translate-y-2"
+                  : i === 3
+                  ? "md:translate-y-10"
+                  : "";
+              return (
+                <PainCardItem
+                  key={card.title}
+                  card={card}
+                  index={i}
+                  reduce={reduce}
+                  emphasis={i === 3}
+                  className={offsetClass}
+                />
+              );
+            })}
+          </div>
         </div>
 
         {/* ── Closing statement ─────────────────────────────────── */}
         <motion.div
-          className="relative mt-28 md:mt-40 max-w-[920px]"
+          className="relative mt-36 md:mt-52 max-w-[920px]"
           style={reduce ? undefined : { y: yStatement }}
         >
           <CeilingLine reduce={reduce} />
@@ -199,61 +253,136 @@ const PainSection = () => {
 };
 
 /**
- * Individual pain card. Charcoal surface, subtle border that warms to
- * gold on hover, soft gold edge glow + lift on hover.
+ * Individual pain card. Charcoal surface with subtle inner gradient,
+ * larger gold icon, and a one-shot gold edge-glow on scroll-in.
+ * The emphasis variant carries a stronger gold border, a richer inner
+ * radial glow, and a larger title — the thematic punch of the section.
  */
 const PainCardItem = ({
   card,
   index,
   reduce,
+  emphasis = false,
+  className = "",
 }: {
   card: PainCard;
   index: number;
   reduce: boolean;
+  emphasis?: boolean;
+  className?: string;
 }) => {
   const Icon = card.icon;
 
-  const initial = reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 };
-  const whileInView = { opacity: 1, y: 0 };
-  const hover = undefined;
+  // Settling, weighted entrance — heavier than the rest of the site.
+  const initial = reduce
+    ? { opacity: 1, y: 0, boxShadow: "0 0 0 rgba(229,181,85,0)" }
+    : { opacity: 0, y: 36, boxShadow: "0 0 0 rgba(229,181,85,0)" };
+
+  const animateInView = reduce
+    ? { opacity: 1, y: 0 }
+    : {
+        opacity: 1,
+        y: 0,
+        // Edge-glow flash that settles into a soft resting glow.
+        boxShadow: emphasis
+          ? [
+              "0 0 0 rgba(229,181,85,0)",
+              "0 0 0 1px rgba(229,181,85,0.55), 0 18px 50px -10px rgba(229,181,85,0.35)",
+              "0 0 0 1px rgba(229,181,85,0.30), 0 14px 36px -16px rgba(229,181,85,0.22)",
+            ]
+          : [
+              "0 0 0 rgba(229,181,85,0)",
+              "0 0 0 1px rgba(229,181,85,0.35), 0 14px 40px -14px rgba(229,181,85,0.22)",
+              "0 0 0 1px rgba(229,181,85,0.10), 0 10px 28px -18px rgba(229,181,85,0.10)",
+            ],
+      };
+
+  const surface = emphasis
+    ? // Richer charcoal with a warm inner gold radial wash
+      "radial-gradient(120% 90% at 80% 0%, rgba(229,181,85,0.10) 0%, rgba(229,181,85,0) 55%), linear-gradient(160deg, #36332f 0%, #2a2826 60%, #232120 100%)"
+    : "linear-gradient(160deg, #34322f 0%, #2c2a28 55%, #252321 100%)";
+
+  const border = emphasis
+    ? "1px solid rgba(229,181,85,0.30)"
+    : "1px solid rgba(247,246,245,0.07)";
 
   return (
     <motion.article
       initial={initial}
-      whileInView={whileInView}
-      whileHover={hover}
-      viewport={{ once: true, amount: 0.3 }}
+      whileInView={animateInView}
+      viewport={{ once: true, amount: 0.25 }}
       transition={{
-        duration: 0.7,
+        duration: reduce ? 0 : 1.05,
         ease: SITE_EASE,
-        delay: reduce ? 0 : 0.1 + index * 0.1,
+        delay: reduce ? 0 : 0.08 + index * 0.12,
+        boxShadow: {
+          duration: reduce ? 0 : 1.6,
+          ease: SITE_EASE,
+          delay: reduce ? 0 : 0.35 + index * 0.12,
+          times: [0, 0.45, 1],
+        },
       }}
-      className="luxe-card group relative rounded-xl p-6 md:p-7 lg:p-8"
+      className={`group relative overflow-hidden rounded-xl ${
+        emphasis ? "p-7 md:p-9 lg:p-10" : "p-6 md:p-7 lg:p-8"
+      } ${className}`}
       style={{
-        backgroundColor: "#302e2c",
-        border: "1px solid rgba(247,246,245,0.08)",
+        background: surface,
+        border,
+        willChange: "transform, opacity, box-shadow",
       }}
     >
-      <div className="flex items-start gap-4">
+      {/* Inner top sheen — gives depth, especially on the emphasis card */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 top-0 h-px"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(247,246,245,0) 0%, rgba(247,246,245,0.10) 50%, rgba(247,246,245,0) 100%)",
+        }}
+      />
+
+      <div className="flex items-start gap-5 md:gap-6">
         <span
           aria-hidden="true"
-          className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-md"
+          className={`inline-flex shrink-0 items-center justify-center rounded-lg ${
+            emphasis ? "h-14 w-14 md:h-16 md:w-16" : "h-12 w-12 md:h-14 md:w-14"
+          }`}
           style={{
-            border: "1px solid rgba(229,181,85,0.35)",
-            backgroundColor: "rgba(229,181,85,0.06)",
+            border: emphasis
+              ? "1px solid rgba(229,181,85,0.55)"
+              : "1px solid rgba(229,181,85,0.35)",
+            background: emphasis
+              ? "linear-gradient(160deg, rgba(229,181,85,0.18) 0%, rgba(229,181,85,0.04) 100%)"
+              : "linear-gradient(160deg, rgba(229,181,85,0.10) 0%, rgba(229,181,85,0.02) 100%)",
+            boxShadow: emphasis
+              ? "inset 0 0 12px rgba(229,181,85,0.12)"
+              : undefined,
           }}
         >
           <Icon
-            size={18}
-            strokeWidth={1.5}
+            size={emphasis ? 28 : 24}
+            strokeWidth={1.4}
             className="text-gold"
           />
         </span>
         <div className="min-w-0 pt-1">
-          <h3 className="font-sans font-semibold text-off-white text-[1.0625rem] md:text-[1.125rem] tracking-tight">
+          <h3
+            className={`font-serif tracking-tight text-off-white ${
+              emphasis
+                ? "text-[1.5rem] md:text-[1.875rem]"
+                : "text-[1.25rem] md:text-[1.4rem]"
+            }`}
+            style={{ letterSpacing: "-0.005em", lineHeight: 1.15 }}
+          >
             {card.title}
           </h3>
-          <p className="mt-2 font-sans text-off-white/60 leading-relaxed text-[0.9375rem] md:text-[0.975rem]">
+          <p
+            className={`mt-3 font-sans text-off-white/65 leading-relaxed ${
+              emphasis
+                ? "text-[1rem] md:text-[1.05rem]"
+                : "text-[0.9375rem] md:text-[0.975rem]"
+            }`}
+          >
             {card.body}
           </p>
         </div>
