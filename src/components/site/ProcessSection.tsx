@@ -273,13 +273,15 @@ const PhaseCard = ({
           ease: SITE_EASE,
           delay: reduce ? 0 : 0.15 + index * 0.12,
         }}
-        className="luxe-card relative h-full rounded-xl p-6 md:p-7 flex flex-col items-center text-center"
+        className="luxe-card relative h-full rounded-xl px-6 md:px-7 pt-12 pb-7 flex flex-col items-center text-center"
         style={{
           backgroundColor: "#302e2c",
           border: "1px solid rgba(247,246,245,0.08)",
         }}
       >
-        {/* Number tag — centered at top of card, lights gold as path reaches it */}
+        {/* Number tag — straddles the top edge of the card so its center
+            sits exactly on the connector line. Lights gold as the path
+            reaches it; the final tag also picks up a destination ring. */}
         <motion.div
           initial={reduce ? false : { opacity: 0.45 }}
           animate={inView ? { opacity: 1 } : undefined}
@@ -288,17 +290,18 @@ const PhaseCard = ({
             ease: SITE_EASE,
             delay: lightDelay,
           }}
-          className="relative inline-flex items-center justify-center rounded-full font-serif text-gold leading-none"
+          className="absolute left-1/2 -translate-x-1/2 inline-flex items-center justify-center rounded-full font-serif text-gold leading-none z-20"
           style={{
+            top: "-1.6rem",
             width: "3.2rem",
             height: "3.2rem",
-            border: "1px solid rgba(229,181,85,0.6)",
+            border: "1px solid rgba(229,181,85,0.65)",
             backgroundColor: "#161515",
             fontSize: "1.55rem",
             boxShadow: inView
               ? isLast
-                ? "0 0 28px -2px rgba(229,181,85,0.65), 0 0 0 4px rgba(229,181,85,0.08)"
-                : "0 0 18px -4px rgba(229,181,85,0.5)"
+                ? "0 0 28px -2px rgba(229,181,85,0.7), 0 0 0 4px rgba(229,181,85,0.1)"
+                : "0 0 18px -4px rgba(229,181,85,0.55)"
               : "none",
           }}
         >
@@ -306,7 +309,7 @@ const PhaseCard = ({
         </motion.div>
 
         <h3
-          className="mt-6 font-sans font-semibold text-off-white"
+          className="font-sans font-semibold text-off-white"
           style={{
             fontSize: "clamp(1.0625rem, 1.3vw, 1.1875rem)",
             letterSpacing: "-0.005em",
@@ -314,6 +317,7 @@ const PhaseCard = ({
         >
           {phase.name}
         </h3>
+
 
         <p
           className="mt-3 font-sans leading-relaxed text-off-white/60 max-w-[28ch]"
