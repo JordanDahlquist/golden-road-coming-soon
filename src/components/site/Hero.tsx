@@ -45,7 +45,7 @@ const Hero = () => {
       >
         <div className="hero-pushin absolute inset-0">
           <img
-            src={heroRoad.url}
+            src={goldenRoad.url}
             alt=""
             className="absolute inset-0 h-full w-full object-cover object-[center_70%] select-none"
             draggable={false}
