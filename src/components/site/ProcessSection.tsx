@@ -294,11 +294,6 @@ const PhaseCard = ({
 }) => {
   const liftPx = index * LIFT_STEP_DESKTOP;
   const initial = reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 };
-  const animate = reduce
-    ? { opacity: 1, y: 0 }
-    : inView
-      ? { opacity: 1, y: 0 }
-      : { opacity: 0, y: 24 };
 
   // Light up each tag as the connector "reaches" it.
   const lightDelay = reduce ? 0 : 0.2 + 1.8 * ((index + 0.45) / total);
@@ -311,7 +306,8 @@ const PhaseCard = ({
     >
       <motion.article
         initial={initial}
-        animate={animate}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.1 }}
         transition={{
           duration: 0.75,
           ease: SITE_EASE,
@@ -329,7 +325,8 @@ const PhaseCard = ({
             "caps" the line; size + offset match NODE_DIAMETER constants. */}
         <motion.div
           initial={reduce ? false : { opacity: 0.45 }}
-          animate={inView ? { opacity: 1 } : undefined}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
           transition={{
             duration: 0.5,
             ease: SITE_EASE,
