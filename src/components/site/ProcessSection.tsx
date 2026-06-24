@@ -47,7 +47,7 @@ const TAG_X_PCT = [12.5, 37.5, 62.5, 87.5];
 const ProcessSection = () => {
   const reduce = useReducedMotion() ?? false;
   const rowRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(rowRef, { once: true, amount: "some" as any });
+  const inView = useInView(rowRef, { once: true, amount: 0.05 });
   const drawn = reduce || inView;
 
   // Measure row width so the connector geometry uses real pixels and
