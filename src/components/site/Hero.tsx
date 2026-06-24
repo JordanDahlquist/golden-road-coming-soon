@@ -130,8 +130,8 @@ const Hero = () => {
             </span>
           </FadeRise>
 
-          {/* Headline with subtle parallax */}
-          <motion.div style={{ y: headlineY, willChange: "transform" }}>
+          {/* Headline with subtle parallax + one-time light sweep */}
+          <motion.div style={{ y: headlineY, willChange: "transform" }} className="hero-headline-sweep relative">
             <MaskedLines
               as="h1"
               lines={HEADLINE_LINES}
@@ -145,6 +145,7 @@ const Hero = () => {
                 fontWeight: 300,
               }}
             />
+            <span aria-hidden className="hero-sweep" />
           </motion.div>
 
           <MotionGroup delayChildren={TAIL_DELAY}>
