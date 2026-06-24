@@ -3,10 +3,7 @@ import { Linkedin, Mail, MapPin } from "lucide-react";
 import { FadeRise, MaskedLines, SectionEnter } from "./motion";
 import goldenRoad from "@/assets/golden-road.png.asset.json";
 
-/* ── Email delivery hookup point ──────────────────────────────────────
-   TODO: Wire form submission to email delivery (e.g. Supabase Edge
-   Function, Resend, or similar). For now this is front-end only.
-   ------------------------------------------------------------------ */
+const RECIPIENT = "tgolden@goldenroadstrategies.com";
 
 const SOCIAL_LINKS = [
   { label: "LinkedIn, Tracy Golden", href: "#" },
@@ -14,21 +11,66 @@ const SOCIAL_LINKS = [
 ] as const;
 
 const ContactSection = () => {
-  const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [status, setStatus] = useState<"idle" | "sending" | "opened">("idle");
+
+  const isValidEmail = (value: string) =>
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
+    setTouched((prev) => ({ ...prev, [name]: true }));
+  };
+
+  const handleBlur = (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setTouched((prev) => ({ ...prev, [e.target.name]: true }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("[ContactForm] payload:", form);
-    setSubmitted(true);
+    setTouched({ name: true, email: true, message: true });
+
+    const errors = {
+      name: !form.name.trim(),
+      email: !form.email.trim() || !isValidEmail(form.email),
+      message: !form.message.trim(),
+    };
+
+    if (errors.name || errors.email || errors.message) {
+      setStatus("idle");
+      return;
+    }
+
+    setStatus("sending");
+
+    const subject = form.name.trim()
+      ? `New inquiry from ${form.name.trim()} — Golden Road Strategies`
+      : "New inquiry — Golden Road Strategies";
+
+    const body = [
+      `Name: ${form.name.trim()}`,
+      `Email: ${form.email.trim()}`,
+      `Company: ${form.company.trim() || "—"}`,
+      "",
+      "Message:",
+      form.message.trim(),
+    ].join("\n");
+
+    const mailto = `mailto:${RECIPIENT}?subject=${encodeURIComponent(
+      subject,
+    )}&body=${encodeURIComponent(body)}`;
+
+    window.location.href = mailto;
+
+    setStatus("opened");
   };
+
 
   const fieldLabel = "luxe-label t-label text-gold/80";
   const fieldInput =
@@ -159,18 +201,19 @@ const ContactSection = () => {
                 {/* Inner top hairline accent */}
                 <div className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
 
-                {submitted ? (
-                  <div className="py-6">
+                {status === "opened" ? (
+                  <div className="py-6" role="status" aria-live="polite">
                     <p className="t-card-title">
-                      Thank you. <span className="text-gold italic">I'll be in touch shortly.</span>
+                      Opening your email…{" "}
+                      <span className="text-gold italic">I look forward to reading your note.</span>
                     </p>
                     <p className="mt-4 t-body-sm text-off-white/70">
-                      If this is urgent, email me directly at{" "}
+                      If your email client didn't open, you can reach me directly at{" "}
                       <a
-                        href="mailto:info@goldenroadstrategies.com"
+                        href={`mailto:${RECIPIENT}`}
                         className="luxe-link text-off-white"
                       >
-                        info@goldenroadstrategies.com
+                        {RECIPIENT}
                       </a>
                       .
                     </p>
@@ -180,6 +223,7 @@ const ContactSection = () => {
                     onSubmit={handleSubmit}
                     className="flex flex-col gap-5"
                     aria-label="Contact form"
+                    noValidate
                   >
                     <FadeRise trigger="child" as="div" className="luxe-field flex flex-col gap-2">
                       <label htmlFor="contact-name" className={fieldLabel}>Name</label>
@@ -190,9 +234,16 @@ const ContactSection = () => {
                         required
                         value={form.name}
                         onChange={handleChange}
-                        className={fieldInput}
+                        onBlur={handleBlur}
+                        className={`${fieldInput} ${touched.name && !form.name.trim() ? "border-gold/60" : ""}`}
                         placeholder="Your name"
+                        aria-describedby={touched.name && !form.name.trim() ? "contact-name-error" : undefined}
                       />
+                      {touched.name && !form.name.trim() && (
+                        <p id="contact-name-error" className="t-label text-gold">
+                          Please enter your name.
+                        </p>
+                      )}
                     </FadeRise>
 
                     <FadeRise trigger="child" as="div" className="luxe-field flex flex-col gap-2">
@@ -204,9 +255,21 @@ const ContactSection = () => {
                         required
                         value={form.email}
                         onChange={handleChange}
-                        className={fieldInput}
+                        onBlur={handleBlur}
+                        className={`${fieldInput} ${touched.email && (!form.email.trim() || !isValidEmail(form.email)) ? "border-gold/60" : ""}`}
                         placeholder="you@company.com"
+                        aria-describedby={touched.email && (!form.email.trim() || !isValidEmail(form.email)) ? "contact-email-error" : undefined}
                       />
+                      {touched.email && !form.email.trim() && (
+                        <p id="contact-email-error" className="t-label text-gold">
+                          Please enter your email address.
+                        </p>
+                      )}
+                      {touched.email && form.email.trim() && !isValidEmail(form.email) && (
+                        <p id="contact-email-error" className="t-label text-gold">
+                          Please enter a valid email address.
+                        </p>
+                      )}
                     </FadeRise>
 
                     <FadeRise trigger="child" as="div" className="luxe-field flex flex-col gap-2">
@@ -231,17 +294,25 @@ const ContactSection = () => {
                         rows={5}
                         value={form.message}
                         onChange={handleChange}
-                        className="luxe-input flex min-h-[130px] w-full rounded-[6px] border border-off-white/10 bg-[#1a1817] px-4 py-3 t-body-sm text-off-white placeholder:text-off-white/30 resize-y"
+                        onBlur={handleBlur}
+                        className={`luxe-input flex min-h-[130px] w-full rounded-[6px] border px-4 py-3 t-body-sm text-off-white placeholder:text-off-white/30 resize-y ${touched.message && !form.message.trim() ? "border-gold/60" : "border-off-white/10"} bg-[#1a1817]`}
                         placeholder="Where are you stuck?"
+                        aria-describedby={touched.message && !form.message.trim() ? "contact-message-error" : undefined}
                       />
+                      {touched.message && !form.message.trim() && (
+                        <p id="contact-message-error" className="t-label text-gold">
+                          Please enter a message.
+                        </p>
+                      )}
                     </FadeRise>
 
                     <FadeRise trigger="child" as="div" className="mt-2">
                       <button
                         type="submit"
+                        disabled={status === "sending"}
                         className="luxe-cta inline-flex items-center justify-center w-full bg-gold text-background t-label px-8 py-4 rounded-[6px]"
                       >
-                        Start the Conversation
+                        {status === "sending" ? "Opening your email…" : "Start the Conversation"}
                       </button>
                       <p className="mt-4 text-center t-label text-off-white/40">
                         Replies typically within one business day.
