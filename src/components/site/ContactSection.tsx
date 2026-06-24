@@ -161,16 +161,10 @@ const ContactSection = () => {
 
                 {submitted ? (
                   <div className="py-6">
-                    <p
-                      className="font-serif text-off-white"
-                      style={{
-                        fontSize: "clamp(1.375rem, 2vw, 1.75rem)",
-                        lineHeight: 1.25,
-                      }}
-                    >
+                    <p className="t-card-title">
                       Thank you. <span className="text-gold italic">I'll be in touch shortly.</span>
                     </p>
-                    <p className="mt-4 font-sans text-off-white/70 text-sm leading-relaxed">
+                    <p className="mt-4 t-body-sm text-off-white/70">
                       If this is urgent, email me directly at{" "}
                       <a
                         href="mailto:info@goldenroadstrategies.com"
