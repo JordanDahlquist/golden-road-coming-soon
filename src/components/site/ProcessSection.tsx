@@ -73,50 +73,12 @@ const ProcessSection = () => {
     return () => io.disconnect();
   }, [reduce]);
 
-  // Measure row width so the connector geometry uses real pixels and
-  // segments terminate exactly at each node's circular edge.
-  const [rowWidth, setRowWidth] = useState(0);
-  useEffect(() => {
-    if (!rowRef.current) return;
-    const ro = new ResizeObserver((entries) => {
-      setRowWidth(entries[0].contentRect.width);
-    });
-    ro.observe(rowRef.current);
-    return () => ro.disconnect();
-  }, []);
-
-  // Node centers (px) in connector-SVG coordinates. SVG sits above the cards
-  // (top: -TOTAL_LIFT, height: TOTAL_LIFT). Node 0 is bottom-left (SVG y =
-  // TOTAL_LIFT), node 3 is top-right (SVG y = 0). Cards translate by
-  // -index*LIFT_STEP, so the tag center sits exactly on the card top.
-  const nodes = TAG_X_PCT.map((pct, i) => ({
-    x: (pct / 100) * rowWidth,
-    y: TOTAL_LIFT - i * LIFT_STEP_DESKTOP,
-  }));
-
-  // Build three segments, each shortened by NODE_RADIUS at both ends so the
-  // line enters/exits the node circles cleanly instead of slicing through.
-  const segmentsD =
-    rowWidth > 0
-      ? nodes
-          .slice(0, -1)
-          .map((a, i) => {
-            const b = nodes[i + 1];
-            const dx = b.x - a.x;
-            const dy = b.y - a.y;
-            const len = Math.hypot(dx, dy);
-            if (len <= NODE_DIAMETER) return "";
-            const ux = dx / len;
-            const uy = dy / len;
-            const sx = a.x + ux * NODE_RADIUS;
-            const sy = a.y + uy * NODE_RADIUS;
-            const ex = b.x - ux * NODE_RADIUS;
-            const ey = b.y - uy * NODE_RADIUS;
-            return `M ${sx.toFixed(2)} ${sy.toFixed(2)} L ${ex.toFixed(2)} ${ey.toFixed(2)}`;
-          })
-          .filter(Boolean)
-          .join(" ")
-      : "";
+  // Ascending path through the four node centers, in percent-space units.
+  // The SVG uses preserveAspectRatio="none" so X stretches with row width
+  // while Y stays at TOTAL_LIFT pixels. The number-tag circles are opaque
+  // charcoal, so they visually "cap" the line where it enters/exits each
+  // node — the path reads as deliberate segments joining the four nodes.
+  const segmentsD = `M ${TAG_X_PCT[0]} ${TOTAL_LIFT} L ${TAG_X_PCT[1]} ${TOTAL_LIFT * (2 / 3)} L ${TAG_X_PCT[2]} ${TOTAL_LIFT * (1 / 3)} L ${TAG_X_PCT[3]} 0`;
 
   return (
     <section id="process" className="scroll-mt-24 md:scroll-mt-28">
