@@ -35,7 +35,7 @@ const MotionGroup = ({
 }: MotionGroupProps) => {
   const reduce = useReducedMotion() ?? false;
   const Tag = (as ?? "div") as ElementType;
-  const MotionTag = motion(Tag);
+  const MotionTag = useMemo(() => motion(Tag), [Tag]);
 
   const variants = groupVariants({ delayChildren, staggerChildren, reduce });
 

@@ -45,7 +45,7 @@ const MaskedLines = ({
 }: MaskedLinesProps) => {
   const reduce = useReducedMotion() ?? false;
   const Tag = (as ?? "h2") as ElementType;
-  const MotionTag = motion(Tag);
+  const MotionTag = useMemo(() => motion(Tag), [Tag]);
 
   const parent = groupVariants({
     delayChildren,
