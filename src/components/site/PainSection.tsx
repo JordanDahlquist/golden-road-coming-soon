@@ -221,20 +221,14 @@ const PainSection = () => {
               <>Growth isn&rsquo;t your problem.</>,
               <>Your infrastructure is.</>,
             ]}
-            className="font-serif tracking-tight text-off-white"
-            style={{
-              fontSize: "clamp(2.25rem, 6vw, 5.5rem)",
-              lineHeight: 1.05,
-              letterSpacing: "-0.01em",
-            }}
+            className="t-display text-off-white"
           />
 
           <FadeRise
             as="p"
             trigger="in-view"
             delay={0.4}
-            className="mt-8 md:mt-10 font-sans leading-relaxed text-off-white/70 max-w-[56ch]"
-            style={{ fontSize: "clamp(1rem, 1.2vw, 1.2rem)" }}
+            className="mt-8 md:mt-10 t-lead text-off-white/70 max-w-[56ch]"
           >
             You&rsquo;re scaling past what your financial systems were built
             to carry. The ceiling isn&rsquo;t the market. It&rsquo;s the
