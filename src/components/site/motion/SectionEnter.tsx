@@ -9,16 +9,15 @@ type SectionEnterProps = {
   style?: CSSProperties;
   staggerChildren?: number;
   delayChildren?: number;
-  /** Fraction of the section that must be visible before children animate. */
-  amount?: number;
+  /**
+   * Visibility trigger. Defaults to "some" — any pixel of the section in view
+   * fires the children. A fractional amount can be wider than the viewport on
+   * mobile (tall sections), which would silently disable scroll-triggered
+   * motion. "some" guarantees mobile parity with desktop.
+   */
+  amount?: number | "some" | "all";
 };
 
-/**
- * Standard section-enter pattern. Wrap a section's content; child
- * primitives (e.g. `<FadeRise trigger="child" />`) will stagger in when
- * the section scrolls into view. Use this for any future section so the
- * site shares one consistent on-scroll arrival rhythm.
- */
 const SectionEnter = ({
   children,
   as = "div",
@@ -26,7 +25,7 @@ const SectionEnter = ({
   style,
   staggerChildren = SITE_DURATIONS.stagger,
   delayChildren = 0,
-  amount = 0.3,
+  amount = "some",
 }: SectionEnterProps) => (
   <MotionGroup
     as={as}
