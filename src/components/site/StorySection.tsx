@@ -1,7 +1,7 @@
 import { motion, useReducedMotion } from "framer-motion";
 import tracyPortrait from "@/assets/tracy-portrait.webp.asset.json";
 import { FadeRise, MaskedLines, SectionEnter } from "./motion";
-import { EASE_OUT_EXPO } from "@/lib/motion";
+import { SITE_EASE } from "@/lib/motion";
 
 /**
  * Story section — founder bio.
@@ -140,7 +140,7 @@ const StorySection = () => {
                       viewport={{ once: true, amount: 0.5 }}
                       transition={{
                         duration: 1.6,
-                        ease: EASE_OUT_EXPO,
+                        ease: SITE_EASE,
                         delay: 0.25,
                       }}
                     />
@@ -193,7 +193,7 @@ const StorySection = () => {
                     viewport={{ once: true, amount: 0.6 }}
                     transition={{
                       duration: reduceMotion ? 0 : 0.9,
-                      ease: EASE_OUT_EXPO,
+                      ease: SITE_EASE,
                       delay: 0.15,
                     }}
                   />
