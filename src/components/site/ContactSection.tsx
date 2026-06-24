@@ -214,11 +214,11 @@ const ContactSection = () => {
                 {status === "opened" ? (
                   <div className="py-6" role="status" aria-live="polite">
                     <p className="t-card-title">
-                      Opening your email…{" "}
+                      Message sent.{" "}
                       <span className="text-gold italic">I look forward to reading your note.</span>
                     </p>
                     <p className="mt-4 t-body-sm text-off-white/70">
-                      If your email client didn't open, you can reach me directly at{" "}
+                      I'll be in touch within one business day. You can also reach me directly at{" "}
                       <a
                         href={`mailto:${RECIPIENT}`}
                         className="luxe-link text-off-white"
