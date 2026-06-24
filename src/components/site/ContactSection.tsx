@@ -1,40 +1,21 @@
 import { useState } from "react";
-import { Linkedin } from "lucide-react";
+import { Linkedin, Mail, MapPin } from "lucide-react";
 import { FadeRise, MaskedLines, SectionEnter } from "./motion";
+import goldenRoad from "@/assets/golden-road.png.asset.json";
 
 /* ── Email delivery hookup point ──────────────────────────────────────
    TODO: Wire form submission to email delivery (e.g. Supabase Edge
-   Function, Resend, or similar). For now this is front-end only:
-   it console.logs the payload and shows a thank-you state.
+   Function, Resend, or similar). For now this is front-end only.
    ------------------------------------------------------------------ */
 
 const SOCIAL_LINKS = [
-  {
-    label: "LinkedIn, Tracy Golden",
-    href: "#", // PLACEHOLDER: confirm URL before going live
-  },
-  {
-    label: "LinkedIn, Golden Road Strategies",
-    href: "#", // PLACEHOLDER: confirm URL before going live
-  },
+  { label: "LinkedIn, Tracy Golden", href: "#" },
+  { label: "LinkedIn, Golden Road Strategies", href: "#" },
 ] as const;
 
-/**
- * Contact section — the close.
- *
- * A single, direct call to action. Editorial two-column on desktop
- * (content left, form right), stacked on mobile. Charcoal form
- * surfaces, gold focus ring, gold submit button matching the hero CTA.
- * Front-end only; email delivery marked for future wiring.
- */
 const ContactSection = () => {
   const [submitted, setSubmitted] = useState(false);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    company: "",
-    message: "",
-  });
+  const [form, setForm] = useState({ name: "", email: "", company: "", message: "" });
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -45,226 +26,251 @@ const ContactSection = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: wire email delivery here (Supabase Edge Function, Resend, etc.)
     console.log("[ContactForm] payload:", form);
     setSubmitted(true);
   };
 
-  return (
-    <section id="contact">
-      <SectionEnter
-        as="div"
-        className="relative bg-background text-off-white px-6 md:px-12 lg:px-20 pt-16 md:pt-24 pb-24 md:pb-32"
-        amount={0.25}
-      >
-      <div className="mx-auto w-full max-w-[1100px]">
-        {/* ── Section intro ────────────────────────────────────────── */}
-        <FadeRise
-          trigger="child"
-          as="p"
-          className="font-sans uppercase tracking-[0.2em] text-xs text-off-white/50"
-        >
-          START THE CONVERSATION
-        </FadeRise>
+  const fieldLabel =
+    "luxe-label font-sans uppercase tracking-[0.18em] text-[10px] text-gold/80";
+  const fieldInput =
+    "luxe-input flex h-12 w-full rounded-[6px] border border-off-white/10 bg-[#1a1817] px-4 py-2 text-sm text-off-white placeholder:text-off-white/30";
 
-        <MaskedLines
-          as="h2"
-          trigger="in-view"
-          lines={[
-            <>If your company has outgrown</>,
-            <>its current finance function,</>,
-            <>let's talk.</>,
-          ]}
-          className="mt-5 font-serif tracking-tight text-off-white"
+  return (
+    <section id="contact" className="relative isolate overflow-hidden bg-background">
+      {/* ── Road background: full-bleed, darker than hero ─────────── */}
+      <div className="absolute inset-0 -z-10" aria-hidden="true">
+        <img
+          src={goldenRoad.url}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover scale-x-[-1] opacity-[0.55]"
+          loading="lazy"
+        />
+        {/* Dark scrim for legibility */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_85%,rgba(229,181,85,0.18),transparent_55%)]" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background/95" />
+        {/* Low warm horizon glow echoing the hero */}
+        <div className="absolute inset-x-0 bottom-0 h-[55%] bg-[radial-gradient(ellipse_60%_70%_at_50%_100%,rgba(229,181,85,0.22),transparent_70%)]" />
+        {/* Subtle film grain */}
+        <div
+          className="absolute inset-0 opacity-[0.06] mix-blend-overlay"
           style={{
-            fontSize: "clamp(1.875rem, 3.8vw, 3.5rem)",
-            lineHeight: 1.08,
-            letterSpacing: "-0.01em",
+            backgroundImage:
+              "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.55'/></svg>\")",
           }}
         />
+      </div>
 
-        {/* ── Two-column: content + form ─────────────────────────── */}
-        <div className="mt-12 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 lg:gap-20 items-start">
-          {/* Left column — copy + contact details */}
-          <div className="flex flex-col gap-8 md:gap-10">
-            <FadeRise trigger="child" as="div">
-              <p
-                className="font-sans text-off-white/70 leading-relaxed max-w-[48ch]"
+      <SectionEnter
+        as="div"
+        className="relative px-6 md:px-12 lg:px-20 pt-24 md:pt-32 pb-28 md:pb-40 text-off-white"
+        amount={0.2}
+      >
+        <div className="mx-auto w-full max-w-[1180px]">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-14 md:gap-20 items-start">
+            {/* ── LEFT: invitation ───────────────────────────────── */}
+            <div className="flex flex-col gap-10">
+              <FadeRise
+                trigger="child"
+                as="p"
+                className="font-sans uppercase tracking-[0.24em] text-[11px] text-gold"
+              >
+                START THE CONVERSATION
+              </FadeRise>
+
+              <MaskedLines
+                as="h2"
+                trigger="in-view"
+                lines={[
+                  <>If your company has outgrown</>,
+                  <>its current finance function,</>,
+                  <>
+                    <span className="italic text-gold">let's talk.</span>
+                  </>,
+                ]}
+                className="-mt-4 font-serif tracking-tight text-off-white"
                 style={{
-                  fontSize: "clamp(0.875rem, 1vw, 1rem)",
+                  fontSize: "clamp(2rem, 4.4vw, 4rem)",
+                  lineHeight: 1.06,
+                  letterSpacing: "-0.015em",
                 }}
-              >
-                Tell me where you are and where you're trying to go. If it's a
-                fit, we'll find the path. If it's not, I'll tell you that too.
-              </p>
-            </FadeRise>
+              />
 
-            {/* Email */}
-            <FadeRise trigger="child" as="div">
-              <p className="font-sans uppercase tracking-[0.2em] text-xs text-off-white/50">
-                Email
-              </p>
-              <a
-                href="mailto:info@goldenroadstrategies.com"
-                className="luxe-link mt-2 font-sans text-off-white"
-                style={{ fontSize: "clamp(0.875rem, 1vw, 1rem)" }}
-              >
-                info@goldenroadstrategies.com
-              </a>
-            </FadeRise>
-
-            {/* Social links */}
-            <FadeRise trigger="child" as="div">
-              <p className="font-sans uppercase tracking-[0.2em] text-xs text-off-white/50">
-                Connect
-              </p>
-              <div className="mt-3 flex flex-col gap-2">
-                {SOCIAL_LINKS.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="luxe-link font-sans text-off-white/70"
-                    style={{ fontSize: "clamp(0.875rem, 1vw, 1rem)" }}
-                  >
-                    <Linkedin className="mr-2 h-4 w-4 shrink-0" />
-                    <span>{link.label}</span>
-                  </a>
-                ))}
-              </div>
-            </FadeRise>
-
-            {/* Locations line */}
-            <FadeRise trigger="child" as="div" className="mt-2">
-              <p className="font-sans text-off-white/40 text-sm">
-                Southern California | Available Globally
-              </p>
-            </FadeRise>
-          </div>
-
-          {/* Right column — form */}
-          <FadeRise trigger="child" as="div">
-            {submitted ? (
-              <div className="bg-secondary rounded-sm p-8 md:p-10">
+              <FadeRise trigger="child" as="div">
                 <p
-                  className="font-serif text-off-white"
-                  style={{
-                    fontSize: "clamp(1.25rem, 1.8vw, 1.625rem)",
-                    lineHeight: 1.3,
-                  }}
+                  className="font-sans text-off-white/75 leading-relaxed max-w-[52ch]"
+                  style={{ fontSize: "clamp(1rem, 1.1vw, 1.125rem)" }}
                 >
-                  Thank you. I'll be in touch shortly.
+                  Tell me where you are and where you're trying to go. If it's
+                  a fit, we'll find the path. If it's not, I'll tell you that
+                  too.
                 </p>
-                <p className="mt-4 font-sans text-off-white/70 text-sm leading-relaxed">
-                  If this is urgent, email me directly at{" "}
+              </FadeRise>
+
+              {/* Thin gold divider */}
+              <FadeRise trigger="child" as="div">
+                <div className="h-px w-16 bg-gold/60" />
+              </FadeRise>
+
+              {/* Contact details */}
+              <div className="flex flex-col gap-6">
+                <FadeRise trigger="child" as="div">
+                  <p className={fieldLabel}>Email</p>
                   <a
                     href="mailto:info@goldenroadstrategies.com"
-                    className="luxe-link text-off-white"
+                    className="luxe-link mt-2 inline-flex items-center gap-3 font-sans text-off-white"
+                    style={{ fontSize: "clamp(0.95rem, 1.05vw, 1.0625rem)" }}
                   >
-                    info@goldenroadstrategies.com
+                    <Mail className="h-4 w-4 shrink-0 text-gold" strokeWidth={1.5} />
+                    <span>info@goldenroadstrategies.com</span>
                   </a>
-                  .
-                </p>
+                </FadeRise>
+
+                <FadeRise trigger="child" as="div">
+                  <p className={fieldLabel}>Connect</p>
+                  <div className="mt-2 flex flex-col gap-2.5">
+                    {SOCIAL_LINKS.map((link) => (
+                      <a
+                        key={link.label}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="luxe-link inline-flex items-center gap-3 font-sans text-off-white/80"
+                        style={{ fontSize: "clamp(0.9rem, 1vw, 1rem)" }}
+                      >
+                        <Linkedin className="h-4 w-4 shrink-0 text-gold" strokeWidth={1.5} />
+                        <span>{link.label}</span>
+                      </a>
+                    ))}
+                  </div>
+                </FadeRise>
+
+                <FadeRise trigger="child" as="div">
+                  <p className="inline-flex items-center gap-3 font-sans text-off-white/50 text-sm">
+                    <MapPin className="h-4 w-4 shrink-0 text-gold/70" strokeWidth={1.5} />
+                    <span>Southern California &nbsp;|&nbsp; Available Globally</span>
+                  </p>
+                </FadeRise>
               </div>
-            ) : (
-              <form
-                onSubmit={handleSubmit}
-                className="flex flex-col gap-5"
-                aria-label="Contact form"
+            </div>
+
+            {/* ── RIGHT: floating form card ─────────────────────── */}
+            <FadeRise trigger="child" as="div" className="relative">
+              {/* Warm glow behind the card */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute -inset-6 -z-10 rounded-[20px] bg-[radial-gradient(ellipse_at_50%_50%,rgba(229,181,85,0.18),transparent_70%)] blur-2xl"
+              />
+              <div
+                className="relative rounded-[12px] border border-gold/20 bg-charcoal/95 p-7 md:p-10 backdrop-blur-sm"
+                style={{
+                  boxShadow:
+                    "0 30px 80px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(229,181,85,0.06), inset 0 1px 0 rgba(247,246,245,0.04)",
+                }}
               >
-                {/* Name */}
-                <div className="luxe-field flex flex-col gap-2">
-                  <label
-                    htmlFor="contact-name"
-                    className="luxe-label font-sans uppercase tracking-[0.15em] text-[10px] text-off-white/50"
-                  >
-                    Name
-                  </label>
-                  <input
-                    id="contact-name"
-                    name="name"
-                    type="text"
-                    required
-                    value={form.name}
-                    onChange={handleChange}
-                    className="luxe-input flex h-11 w-full rounded-sm border border-off-white/15 bg-secondary px-4 py-2 text-sm text-off-white placeholder:text-off-white/30"
-                    placeholder="Your name"
-                  />
-                </div>
+                {/* Inner top hairline accent */}
+                <div className="absolute inset-x-10 top-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
 
-                {/* Email */}
-                <div className="luxe-field flex flex-col gap-2">
-                  <label
-                    htmlFor="contact-email"
-                    className="luxe-label font-sans uppercase tracking-[0.15em] text-[10px] text-off-white/50"
+                {submitted ? (
+                  <div className="py-6">
+                    <p
+                      className="font-serif text-off-white"
+                      style={{
+                        fontSize: "clamp(1.375rem, 2vw, 1.75rem)",
+                        lineHeight: 1.25,
+                      }}
+                    >
+                      Thank you. <span className="text-gold italic">I'll be in touch shortly.</span>
+                    </p>
+                    <p className="mt-4 font-sans text-off-white/70 text-sm leading-relaxed">
+                      If this is urgent, email me directly at{" "}
+                      <a
+                        href="mailto:info@goldenroadstrategies.com"
+                        className="luxe-link text-off-white"
+                      >
+                        info@goldenroadstrategies.com
+                      </a>
+                      .
+                    </p>
+                  </div>
+                ) : (
+                  <form
+                    onSubmit={handleSubmit}
+                    className="flex flex-col gap-5"
+                    aria-label="Contact form"
                   >
-                    Email
-                  </label>
-                  <input
-                    id="contact-email"
-                    name="email"
-                    type="email"
-                    required
-                    value={form.email}
-                    onChange={handleChange}
-                    className="luxe-input flex h-11 w-full rounded-sm border border-off-white/15 bg-secondary px-4 py-2 text-sm text-off-white placeholder:text-off-white/30"
-                    placeholder="you@company.com"
-                  />
-                </div>
+                    <FadeRise trigger="child" as="div" className="luxe-field flex flex-col gap-2">
+                      <label htmlFor="contact-name" className={fieldLabel}>Name</label>
+                      <input
+                        id="contact-name"
+                        name="name"
+                        type="text"
+                        required
+                        value={form.name}
+                        onChange={handleChange}
+                        className={fieldInput}
+                        placeholder="Your name"
+                      />
+                    </FadeRise>
 
-                {/* Company */}
-                <div className="luxe-field flex flex-col gap-2">
-                  <label
-                    htmlFor="contact-company"
-                    className="luxe-label font-sans uppercase tracking-[0.15em] text-[10px] text-off-white/50"
-                  >
-                    Company
-                  </label>
-                  <input
-                    id="contact-company"
-                    name="company"
-                    type="text"
-                    value={form.company}
-                    onChange={handleChange}
-                    className="luxe-input flex h-11 w-full rounded-sm border border-off-white/15 bg-secondary px-4 py-2 text-sm text-off-white placeholder:text-off-white/30"
-                    placeholder="Company name"
-                  />
-                </div>
+                    <FadeRise trigger="child" as="div" className="luxe-field flex flex-col gap-2">
+                      <label htmlFor="contact-email" className={fieldLabel}>Email</label>
+                      <input
+                        id="contact-email"
+                        name="email"
+                        type="email"
+                        required
+                        value={form.email}
+                        onChange={handleChange}
+                        className={fieldInput}
+                        placeholder="you@company.com"
+                      />
+                    </FadeRise>
 
-                {/* Message */}
-                <div className="luxe-field flex flex-col gap-2">
-                  <label
-                    htmlFor="contact-message"
-                    className="luxe-label font-sans uppercase tracking-[0.15em] text-[10px] text-off-white/50"
-                  >
-                    Message
-                  </label>
-                  <textarea
-                    id="contact-message"
-                    name="message"
-                    required
-                    rows={5}
-                    value={form.message}
-                    onChange={handleChange}
-                    className="luxe-input flex min-h-[120px] w-full rounded-sm border border-off-white/15 bg-secondary px-4 py-3 text-sm text-off-white placeholder:text-off-white/30 resize-y"
-                    placeholder="Where are you stuck?"
-                  />
-                </div>
+                    <FadeRise trigger="child" as="div" className="luxe-field flex flex-col gap-2">
+                      <label htmlFor="contact-company" className={fieldLabel}>Company</label>
+                      <input
+                        id="contact-company"
+                        name="company"
+                        type="text"
+                        value={form.company}
+                        onChange={handleChange}
+                        className={fieldInput}
+                        placeholder="Company name"
+                      />
+                    </FadeRise>
 
-                {/* Submit */}
-                <button
-                  type="submit"
-                  className="luxe-cta mt-2 inline-flex items-center justify-center w-full sm:w-auto bg-gold text-background font-sans uppercase tracking-[0.14em] text-xs md:text-sm px-8 py-4 rounded-[5px]"
-                >
-                  Start the Conversation
-                </button>
-              </form>
-            )}
-          </FadeRise>
+                    <FadeRise trigger="child" as="div" className="luxe-field flex flex-col gap-2">
+                      <label htmlFor="contact-message" className={fieldLabel}>Message</label>
+                      <textarea
+                        id="contact-message"
+                        name="message"
+                        required
+                        rows={5}
+                        value={form.message}
+                        onChange={handleChange}
+                        className="luxe-input flex min-h-[130px] w-full rounded-[6px] border border-off-white/10 bg-[#1a1817] px-4 py-3 text-sm text-off-white placeholder:text-off-white/30 resize-y"
+                        placeholder="Where are you stuck?"
+                      />
+                    </FadeRise>
+
+                    <FadeRise trigger="child" as="div" className="mt-2">
+                      <button
+                        type="submit"
+                        className="luxe-cta inline-flex items-center justify-center w-full bg-gold text-background font-sans uppercase tracking-[0.16em] text-xs md:text-sm px-8 py-4 rounded-[6px]"
+                      >
+                        Start the Conversation
+                      </button>
+                      <p className="mt-4 text-center font-sans text-off-white/40 text-[11px] tracking-wide">
+                        Replies typically within one business day.
+                      </p>
+                    </FadeRise>
+                  </form>
+                )}
+              </div>
+            </FadeRise>
+          </div>
         </div>
-      </div>
-    </SectionEnter>
+      </SectionEnter>
     </section>
   );
 };
