@@ -3,12 +3,17 @@ import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion
 import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FadeRise, MaskedLines, MotionGroup } from "./motion";
+import RotatingWord from "./RotatingWord";
 import goldenRoad from "@/assets/golden-road.png.asset.json";
+
+const ROTATING_WORDS = ["demands", "requires", "deserves", "runs on"];
 
 const HEADLINE_LINES = [
   "Build the financial",
   "infrastructure your",
-  "next stage demands.",
+  <>
+    next stage <RotatingWord words={ROTATING_WORDS} />.
+  </>,
 ];
 
 const HEADLINE_DELAY = 0.35;
