@@ -194,14 +194,7 @@ const ExpertiseSection = () => {
               Not sure which you need?
             </span>
             <div className="mt-6 flex items-end justify-between gap-6">
-              <h3
-                className="font-serif text-off-white"
-                style={{
-                  fontSize: "clamp(1.375rem, 1.8vw, 1.75rem)",
-                  lineHeight: 1.15,
-                  letterSpacing: "-0.01em",
-                }}
-              >
+              <h3 className="t-card-title">
                 Start the conversation.
               </h3>
               <span
