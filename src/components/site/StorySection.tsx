@@ -48,7 +48,7 @@ const StorySection = () => {
               <img
                 src={tracyPortrait.url}
                 alt="Portrait of Tracy Golden"
-                className="absolute inset-0 w-full h-full object-cover grayscale sepia-[.15] brightness-[.85]"
+                className="absolute inset-0 w-full h-full object-cover sepia-[.15] brightness-[.85]"
                 loading="lazy"
               />
             </div>
