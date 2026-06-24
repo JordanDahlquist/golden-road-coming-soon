@@ -1,4 +1,3 @@
-import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { SITE_EASE } from "@/lib/motion";
 import { FadeRise, MaskedLines, SectionEnter } from "./motion";
@@ -26,333 +25,243 @@ const PHASES = [
   },
 ] as const;
 
-/** Vertical lift (px) per card so the row visually climbs left-to-right. */
-const LIFT_STEP_DESKTOP = 20;
-const TOTAL_LIFT = LIFT_STEP_DESKTOP * (PHASES.length - 1); // 60px between card1 and card4
-/** Number-tag circle diameter (px). Must match the rendered tag size. */
-const NODE_DIAMETER = 52; // 3.25rem
-const NODE_RADIUS = NODE_DIAMETER / 2;
-/** Horizontal centers of the 4-col grid columns, in percent. */
-const TAG_X_PCT = [12.5, 37.5, 62.5, 87.5];
-
 /**
  * Process section — "THE ENGAGEMENT".
  *
- * Four equal-height phase cards step up left→right on desktop, joined by a
- * precise gold path whose segments terminate cleanly at each numbered node's
- * edge (entering and exiting circles, never slicing through them). Mobile
- * collapses to a single column with a centered vertical connector that runs
- * between the node edges.
+ * Clean and simple: four equal cards in an even row (4 cols desktop,
+ * 2x2 tablet, 1 col mobile). A straight gold hairline runs across behind
+ * the number circles connecting them at the same height. No diagonals,
+ * no offsets, no staggering of card positions.
  */
 const ProcessSection = () => {
   const reduce = useReducedMotion() ?? false;
-  const rowRef = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  const drawn = reduce || inView;
-
-  useEffect(() => {
-    const el = rowRef.current;
-    if (!el) return;
-    if (reduce) {
-      setInView(true);
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) {
-          if (e.isIntersecting) {
-            setInView(true);
-            io.disconnect();
-            break;
-          }
-        }
-      },
-      { rootMargin: "0px 0px -10% 0px", threshold: 0.01 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, [reduce]);
-
-  // Ascending path through the four node centers, in percent-space units.
-  // The SVG uses preserveAspectRatio="none" so X stretches with row width
-  // while Y stays at TOTAL_LIFT pixels. The number-tag circles are opaque
-  // charcoal, so they visually "cap" the line where it enters/exits each
-  // node — the path reads as deliberate segments joining the four nodes.
-  const segmentsD = `M ${TAG_X_PCT[0]} ${TOTAL_LIFT} L ${TAG_X_PCT[1]} ${TOTAL_LIFT * (2 / 3)} L ${TAG_X_PCT[2]} ${TOTAL_LIFT * (1 / 3)} L ${TAG_X_PCT[3]} 0`;
 
   return (
-    <section id="process" className="scroll-mt-24 md:scroll-mt-28">
-      <SectionEnter
-        as="div"
-        className="relative isolate overflow-hidden text-off-white px-6 md:px-12 lg:px-20 pt-20 md:pt-28 pb-24 md:pb-32"
-        amount={0.2}
+    <section
+      id="process"
+      aria-labelledby="process-heading"
+      className="relative isolate overflow-hidden bg-background text-off-white"
+    >
+      {/* Soft gold horizon glow at the bottom */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-[40%]"
         style={{
           background:
-            "linear-gradient(180deg, #161515 0%, #1a1816 60%, #161515 100%)",
+            "radial-gradient(70% 100% at 50% 100%, rgba(229,181,85,0.07) 0%, rgba(229,181,85,0) 70%)",
         }}
-      >
-        {/* Warm gold bleed low — the hopeful climb */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-[55%]"
-          style={{
-            background:
-              "radial-gradient(60% 55% at 65% 100%, rgba(229,181,85,0.10) 0%, rgba(229,181,85,0.035) 45%, rgba(229,181,85,0) 78%)",
-          }}
-        />
-        {/* Soft vignette */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(120% 80% at 50% 25%, rgba(0,0,0,0) 60%, rgba(0,0,0,0.4) 100%)",
-          }}
-        />
+      />
 
-        <div className="relative mx-auto w-full max-w-[1200px]">
-          {/* Eyebrow */}
+      <div className="relative mx-auto w-full max-w-[1200px] px-6 md:px-12 lg:px-20 py-28 md:py-40">
+        {/* Header */}
+        <SectionEnter>
           <FadeRise
-            trigger="in-view"
             as="p"
+            trigger="in-view"
             className="font-sans uppercase tracking-[0.28em] text-[11px] md:text-xs text-gold"
           >
-            THE ENGAGEMENT
+            The Engagement
           </FadeRise>
 
-          {/* Headline */}
           <MaskedLines
             as="h2"
             trigger="in-view"
+
+            stagger={0.08}
             lines={[
               <>A clear path from where you are</>,
-              <>to where you're going.</>,
+              <>to where you&rsquo;re going.</>,
             ]}
-            className="mt-5 font-serif tracking-tight text-off-white"
+            className="mt-6 font-serif tracking-tight text-off-white"
             style={{
-              fontSize: "clamp(1.875rem, 4.2vw, 3.75rem)",
+              fontSize: "clamp(1.875rem, 4.4vw, 4rem)",
               lineHeight: 1.08,
               letterSpacing: "-0.01em",
             }}
           />
 
-          {/* Intro line */}
           <FadeRise
-            trigger="in-view"
             as="p"
-            className="mt-6 font-sans text-off-white/55 max-w-xl"
-            style={{ fontSize: "clamp(0.9375rem, 1.05vw, 1.0625rem)" }}
+            trigger="in-view"
+            delay={0.15}
+            className="mt-8 md:mt-10 font-sans leading-relaxed text-off-white/70 max-w-[58ch]"
+            style={{ fontSize: "clamp(1rem, 1.2vw, 1.2rem)" }}
           >
-            Four phases, one direction. Here is how the work actually unfolds.
+            Every engagement follows the same disciplined arc: understand the
+            terrain, design the route, build the infrastructure, refine as you
+            scale.
           </FadeRise>
+        </SectionEnter>
 
-          {/* ── Phase row ─────────────────────────────────────────── */}
+        {/* ── Cards row with straight connector ──────────────── */}
+        <div className="relative mt-20 md:mt-28">
+          {/* Desktop horizontal connector — sits behind the number circles */}
           <div
-            ref={rowRef}
-            className="relative mt-20 md:mt-28 lg:mt-32"
+            aria-hidden="true"
+            className="pointer-events-none absolute hidden lg:block"
+            style={{
+              left: "calc(12.5% )",
+              right: "calc(12.5% )",
+              // Number circle (h-12 = 48px) center aligned with top padding of card (p-8 = 32px)
+              top: "calc(2rem + 1.5rem)",
+              height: "1px",
+            }}
           >
-            {/* ─ Desktop connector: three segments, each terminating at the
-                edge of its adjacent node so the path "enters" and "exits"
-                each numbered circle cleanly. Lives entirely above the card
-                bodies (top: -TOTAL_LIFT, height: TOTAL_LIFT). */}
-            <svg
-              aria-hidden="true"
-              className="pointer-events-none absolute hidden lg:block left-0 right-0 z-10"
-              viewBox={`0 0 100 ${TOTAL_LIFT}`}
-              preserveAspectRatio="none"
-              style={{
-                top: `-${TOTAL_LIFT}px`,
-                width: "100%",
-                height: `${TOTAL_LIFT}px`,
-                overflow: "visible",
-              }}
-            >
-              <defs>
-                <linearGradient id="process-line-h" x1="0" x2="1" y1="0" y2="0">
-                  <stop offset="0%" stopColor="#e5b555" stopOpacity="0.3" />
-                  <stop offset="55%" stopColor="#e5b555" stopOpacity="0.95" />
-                  <stop offset="100%" stopColor="#e5b555" stopOpacity="1" />
-                </linearGradient>
-              </defs>
-
-              {segmentsD && (
-                <motion.path
-                  d={segmentsD}
-                  fill="none"
-                  stroke="url(#process-line-h)"
-                  strokeWidth="1.25"
-                  strokeLinecap="round"
-                  vectorEffect="non-scaling-stroke"
-                  initial={reduce ? { pathLength: 1 } : { pathLength: 0 }}
-                  animate={drawn ? { pathLength: 1 } : { pathLength: 0 }}
-                  transition={{
-                    duration: reduce ? 0 : 1.8,
-                    ease: SITE_EASE,
-                    delay: reduce ? 0 : 0.2,
-                  }}
-                  style={{
-                    filter: "drop-shadow(0 0 5px rgba(229,181,85,0.45))",
-                  }}
-                />
-              )}
-            </svg>
-
-            {/* Destination glow (desktop): warm horizon above tag 04 */}
             <motion.div
-              aria-hidden="true"
-              className="pointer-events-none absolute hidden lg:block"
-              initial={reduce ? { opacity: 1 } : { opacity: 0 }}
-              animate={drawn ? { opacity: 0.7 } : { opacity: 0 }}
-              transition={{
-                duration: reduce ? 0 : 1.2,
-                ease: SITE_EASE,
-                delay: reduce ? 0 : 1.6,
-              }}
+              className="absolute inset-0 origin-left"
               style={{
-                top: `calc(-${TOTAL_LIFT}px - 110px)`,
-                left: `calc(${TAG_X_PCT[3]}% - 120px)`,
-                width: "240px",
-                height: "240px",
-                background:
-                  "radial-gradient(closest-side, rgba(229,181,85,0.42) 0%, rgba(229,181,85,0.12) 45%, rgba(229,181,85,0) 75%)",
-                filter: "blur(2px)",
+                backgroundColor: "#e5b555",
+                boxShadow:
+                  "0 0 6px rgba(229,181,85,0.55), 0 0 18px rgba(229,181,85,0.18)",
+                willChange: "transform",
               }}
+              initial={reduce ? { scaleX: 1 } : { scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: reduce ? 0 : 1.4, ease: SITE_EASE, delay: 0.2 }}
             />
+          </div>
 
-            {/* Mobile / sm connector — centered vertical hairline that draws
-                top→bottom through the centered node circles. The tag bodies
-                themselves are opaque (charcoal fill with gold border) so they
-                visually "cap" the line at their edges. */}
-            <div
-              aria-hidden="true"
-              className="lg:hidden absolute left-1/2 -translate-x-1/2 w-px overflow-hidden"
-              style={{ top: `${NODE_RADIUS}px`, bottom: `${NODE_RADIUS}px` }}
-            >
-              <motion.div
-                initial={reduce ? { scaleY: 1 } : { scaleY: 0 }}
-                animate={drawn ? { scaleY: 1 } : { scaleY: 0 }}
-                transition={{
-                  duration: reduce ? 0 : 1.6,
-                  ease: SITE_EASE,
-                  delay: reduce ? 0 : 0.2,
-                }}
-                className="origin-top w-full h-full"
-                style={{
-                  background:
-                    "linear-gradient(180deg, rgba(229,181,85,0.3) 0%, rgba(229,181,85,0.95) 100%)",
-                  boxShadow: "0 0 6px rgba(229,181,85,0.4)",
-                }}
+          {/* Mobile/tablet single-column vertical connector */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute lg:hidden md:hidden block"
+            style={{
+              // Card p-7 (28px) + half of number circle (24px) = 52px from card top.
+              // Sits behind the column of number circles on mobile stacked layout.
+              left: "calc(1.75rem + 1.5rem)",
+              top: "1rem",
+              bottom: "1rem",
+              width: "1px",
+            }}
+          >
+            <motion.div
+              className="absolute inset-0 origin-top"
+              style={{
+                backgroundColor: "#e5b555",
+                boxShadow:
+                  "0 0 6px rgba(229,181,85,0.45), 0 0 16px rgba(229,181,85,0.15)",
+                opacity: 0.85,
+                willChange: "transform",
+              }}
+              initial={reduce ? { scaleY: 1 } : { scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: reduce ? 0 : 1.6, ease: SITE_EASE, delay: 0.2 }}
+            />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6 lg:gap-7 items-stretch">
+            {PHASES.map((phase, i) => (
+              <PhaseCard
+                key={phase.num}
+                num={phase.num}
+                name={phase.name}
+                desc={phase.desc}
+                index={i}
+                reduce={reduce}
               />
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-7 lg:gap-6 items-stretch">
-              {PHASES.map((phase, i) => (
-                <PhaseCard
-                  key={phase.num}
-                  phase={phase}
-                  index={i}
-                  total={PHASES.length}
-                  inView={inView}
-                  reduce={reduce}
-                />
-              ))}
-            </div>
+            ))}
           </div>
         </div>
-      </SectionEnter>
+      </div>
     </section>
   );
 };
 
 const PhaseCard = ({
-  phase,
+  num,
+  name,
+  desc,
   index,
-  total,
-  inView,
   reduce,
 }: {
-  phase: (typeof PHASES)[number];
+  num: string;
+  name: string;
+  desc: string;
   index: number;
-  total: number;
-  inView: boolean;
   reduce: boolean;
 }) => {
-  const liftPx = index * LIFT_STEP_DESKTOP;
-  const initial = reduce ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 };
+  const initial = reduce
+    ? { opacity: 1, y: 0, boxShadow: "0 0 0 rgba(229,181,85,0)" }
+    : { opacity: 0, y: 28, boxShadow: "0 0 0 rgba(229,181,85,0)" };
 
-  // Light up each tag as the connector "reaches" it.
-  const lightDelay = reduce ? 0 : 0.2 + 1.8 * ((index + 0.45) / total);
-  const isLast = index === total - 1;
+  const animateInView = reduce
+    ? { opacity: 1, y: 0 }
+    : {
+        opacity: 1,
+        y: 0,
+        boxShadow: [
+          "0 0 0 rgba(229,181,85,0)",
+          "0 0 0 1px rgba(229,181,85,0.40), 0 14px 36px -14px rgba(229,181,85,0.25)",
+          "0 0 0 1px rgba(229,181,85,0.10), 0 10px 28px -18px rgba(229,181,85,0.10)",
+        ],
+      };
 
   return (
-    <div
-      className="relative h-full lg:[transform:translateY(calc(var(--lift)*-1))]"
-      style={{ ["--lift" as string]: `${liftPx}px` }}
-    >
-      <motion.article
-        initial={initial}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.1 }}
-        transition={{
-          duration: 0.75,
+    <motion.article
+      initial={initial}
+      whileInView={animateInView}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{
+        duration: reduce ? 0 : 0.9,
+        ease: SITE_EASE,
+        delay: reduce ? 0 : 0.1 + index * 0.12,
+        boxShadow: {
+          duration: reduce ? 0 : 1.5,
           ease: SITE_EASE,
-          delay: reduce ? 0 : 0.15 + index * 0.12,
-        }}
-        className="luxe-card relative h-full rounded-xl px-6 md:px-7 pt-9 pb-7 flex flex-col items-center text-center"
+          delay: reduce ? 0 : 0.35 + index * 0.12,
+          times: [0, 0.45, 1],
+        },
+      }}
+      whileHover={
+        reduce
+          ? undefined
+          : {
+              y: -4,
+              boxShadow:
+                "0 0 0 1px rgba(229,181,85,0.30), 0 18px 40px -16px rgba(229,181,85,0.25)",
+              transition: { duration: 0.35, ease: SITE_EASE },
+            }
+      }
+      className="luxe-card group relative flex h-full flex-col rounded-xl p-7 lg:p-8"
+      style={{
+        backgroundColor: "#302e2c",
+        border: "1px solid rgba(247,246,245,0.07)",
+        willChange: "transform, opacity, box-shadow",
+      }}
+    >
+      {/* Number circle — sits on the connector line */}
+      <span
+        aria-hidden="true"
+        className="relative z-10 inline-flex h-12 w-12 items-center justify-center rounded-full font-serif text-[1.05rem]"
         style={{
           backgroundColor: "#302e2c",
-          border: "1px solid rgba(247,246,245,0.08)",
-          minHeight: "260px",
+          color: "#e5b555",
+          border: "1px solid rgba(229,181,85,0.55)",
+          boxShadow:
+            "0 0 0 4px #302e2c, 0 0 14px rgba(229,181,85,0.25)",
+          letterSpacing: "0.02em",
         }}
       >
-        {/* Number tag — straddles the top edge of the card so its center
-            sits exactly on the connector line. The opaque charcoal fill
-            "caps" the line; size + offset match NODE_DIAMETER constants. */}
-        <motion.div
-          initial={reduce ? false : { opacity: 0.45 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.1 }}
-          transition={{
-            duration: 0.5,
-            ease: SITE_EASE,
-            delay: lightDelay,
-          }}
-          className="absolute left-1/2 -translate-x-1/2 inline-flex items-center justify-center rounded-full font-serif text-gold leading-none z-20"
-          style={{
-            top: `-${NODE_RADIUS}px`,
-            width: `${NODE_DIAMETER}px`,
-            height: `${NODE_DIAMETER}px`,
-            border: "1px solid rgba(229,181,85,0.65)",
-            backgroundColor: "#161515",
-            fontSize: "1.5rem",
-            boxShadow: inView
-              ? isLast
-                ? "0 0 28px -2px rgba(229,181,85,0.7), 0 0 0 4px rgba(229,181,85,0.1)"
-                : "0 0 18px -4px rgba(229,181,85,0.55)"
-              : "none",
-          }}
-        >
-          {phase.num}
-        </motion.div>
+        {num}
+      </span>
 
-        <h3
-          className="font-sans font-semibold text-off-white"
-          style={{
-            fontSize: "clamp(1.0625rem, 1.3vw, 1.1875rem)",
-            letterSpacing: "-0.005em",
-          }}
-        >
-          {phase.name}
-        </h3>
+      <h3
+        className="mt-6 font-serif tracking-tight text-off-white"
+        style={{
+          fontSize: "clamp(1.375rem, 1.8vw, 1.625rem)",
+          lineHeight: 1.15,
+          letterSpacing: "-0.005em",
+        }}
+      >
+        {name}
+      </h3>
 
-        <p
-          className="mt-2.5 font-sans leading-relaxed text-off-white/60 max-w-[28ch]"
-          style={{ fontSize: "clamp(0.875rem, 1vw, 0.9375rem)" }}
-        >
-          {phase.desc}
-        </p>
-      </motion.article>
-    </div>
+      <p className="mt-3 font-sans text-[0.95rem] leading-relaxed text-off-white/65">
+        {desc}
+      </p>
+    </motion.article>
   );
 };
 
