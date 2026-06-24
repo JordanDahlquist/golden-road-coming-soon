@@ -41,7 +41,7 @@ const FadeRise = ({
 }: FadeRiseProps) => {
   const reduce = useReducedMotion() ?? false;
   const Tag = (as ?? "div") as ElementType;
-  const MotionTag = motion(Tag);
+  const MotionTag = useMemo(() => motion(Tag), [Tag]);
 
   const variants = fadeRiseVariants({ duration, y, reduce });
   // Inject per-instance delay into the show transition if provided.
