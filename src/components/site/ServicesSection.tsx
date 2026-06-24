@@ -123,10 +123,10 @@ const ServicesSection = () => {
               initial={
                 reduce
                   ? { opacity: 1, rotateY: 0 }
-                  : { opacity: 0, rotateY: isLeft ? -90 : 90 }
+                  : { opacity: 0, rotateY: isLeft ? -88 : 88 }
               }
               whileInView={{ opacity: 1, rotateY: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
+              viewport={{ once: true, amount: 0.15 }}
               transition={{
                 duration: reduce ? 0 : 0.78,
                 ease: SITE_EASE,
@@ -141,7 +141,6 @@ const ServicesSection = () => {
                 transformStyle: "preserve-3d",
                 transformOrigin: isLeft ? "left center" : "right center",
                 willChange: "transform, opacity",
-                backfaceVisibility: "hidden",
               }}
               className="luxe-card services-card group relative flex flex-col rounded-xl border border-off-white/[0.07] bg-secondary p-8 md:p-10"
             >
