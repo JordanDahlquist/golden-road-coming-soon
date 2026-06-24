@@ -88,13 +88,7 @@ const StatBlock = ({ stat, index }: { stat: Stat; index: number }) => {
       }}
       className="flex flex-col"
     >
-      <span
-        className="font-serif text-gold leading-none"
-        style={{
-          fontSize: "clamp(2.25rem, 4.6vw, 3.75rem)",
-          letterSpacing: "-0.01em",
-        }}
-      >
+      <span className="t-stat">
         {stat.numeric && !reduce ? (
           <CountUp
             from={stat.numeric.from}
@@ -107,7 +101,7 @@ const StatBlock = ({ stat, index }: { stat: Stat; index: number }) => {
           stat.value
         )}
       </span>
-      <span className="mt-3 md:mt-4 font-sans uppercase tracking-[0.14em] text-off-white/60 text-[0.7rem] md:text-[0.75rem] leading-snug max-w-[24ch]">
+      <span className="mt-3 md:mt-4 t-label text-off-white/60 max-w-[24ch]">
         {stat.label}
       </span>
     </motion.div>
