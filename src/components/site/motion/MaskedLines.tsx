@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import type { CSSProperties, ElementType, ReactNode } from "react";
+import { useMemo, type CSSProperties, type ElementType, type ReactNode } from "react";
 import {
   groupVariants,
   lineRevealVariants,
