@@ -136,11 +136,10 @@ const Hero = () => {
               <FadeRise
                 as="p"
                 trigger="child"
-                className="font-sans leading-relaxed text-off-white/65 max-w-[54ch]"
+                className="font-sans leading-relaxed text-off-white/65 max-w-[54ch] mt-5 md:mt-8"
                 style={{
-                  fontSize: "clamp(1.05rem, 1.25vw, 1.25rem)",
+                  fontSize: "clamp(0.95rem, 1.25vw, 1.25rem)",
                   fontWeight: 300,
-                  marginTop: "32px",
                 }}
               >
                 Golden Road Strategies gives forward-thinking CEOs, founders, and
@@ -150,9 +149,9 @@ const Hero = () => {
 
               <FadeRise
                 trigger="child"
-                className="flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-8"
-                style={{ marginTop: "36px" }}
+                className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-8 mt-6 md:mt-9"
               >
+
                 <Button
                   asChild
                   size="lg"
