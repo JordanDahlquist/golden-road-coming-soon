@@ -159,17 +159,17 @@ const Hero = () => {
                 <Button
                   asChild
                   size="lg"
-                  className="hero-cta w-full sm:w-auto bg-gold text-background hover:bg-gold/90 font-sans uppercase tracking-[0.18em] text-xs md:text-sm px-8 py-5 rounded-[4px]"
+                  className="hero-cta luxe-cta w-full sm:w-auto bg-gold text-background font-sans uppercase tracking-[0.18em] text-xs md:text-sm px-8 py-5 rounded-[4px]"
                 >
                   <a href="#contact">Start the Conversation</a>
                 </Button>
 
                 <a
                   href="#process"
-                  className="group inline-flex items-center gap-2 font-sans uppercase tracking-[0.22em] text-[11px] text-off-white/55 hover:text-off-white transition-colors"
+                  className="luxe-link font-sans uppercase tracking-[0.22em] text-[11px] text-off-white/55"
                 >
                   <span>See how it works</span>
-                  <ChevronDown className="h-3.5 w-3.5 transition-transform group-hover:translate-y-0.5" />
+                  <ChevronDown className="luxe-chevron ml-2 h-3.5 w-3.5" />
                 </a>
               </FadeRise>
             </MotionGroup>

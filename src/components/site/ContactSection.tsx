@@ -106,7 +106,7 @@ const ContactSection = () => {
               </p>
               <a
                 href="mailto:info@goldenroadstrategies.com"
-                className="mt-2 inline-block font-sans text-off-white hover:text-gold transition-colors"
+                className="luxe-link mt-2 font-sans text-off-white"
                 style={{ fontSize: "clamp(0.875rem, 1vw, 1rem)" }}
               >
                 info@goldenroadstrategies.com
@@ -125,10 +125,10 @@ const ContactSection = () => {
                     href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 font-sans text-off-white/70 hover:text-gold transition-colors"
+                    className="luxe-link font-sans text-off-white/70"
                     style={{ fontSize: "clamp(0.875rem, 1vw, 1rem)" }}
                   >
-                    <Linkedin className="h-4 w-4 shrink-0" />
+                    <Linkedin className="mr-2 h-4 w-4 shrink-0" />
                     <span>{link.label}</span>
                   </a>
                 ))}
@@ -160,7 +160,7 @@ const ContactSection = () => {
                   If this is urgent, email me directly at{" "}
                   <a
                     href="mailto:info@goldenroadstrategies.com"
-                    className="text-off-white hover:text-gold transition-colors underline underline-offset-4"
+                    className="luxe-link text-off-white"
                   >
                     info@goldenroadstrategies.com
                   </a>
@@ -174,10 +174,10 @@ const ContactSection = () => {
                 aria-label="Contact form"
               >
                 {/* Name */}
-                <div className="flex flex-col gap-2">
+                <div className="luxe-field flex flex-col gap-2">
                   <label
                     htmlFor="contact-name"
-                    className="font-sans uppercase tracking-[0.15em] text-[10px] text-off-white/50"
+                    className="luxe-label font-sans uppercase tracking-[0.15em] text-[10px] text-off-white/50"
                   >
                     Name
                   </label>
@@ -188,16 +188,16 @@ const ContactSection = () => {
                     required
                     value={form.name}
                     onChange={handleChange}
-                    className="flex h-11 w-full rounded-sm border border-off-white/15 bg-secondary px-4 py-2 text-sm text-off-white placeholder:text-off-white/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold focus-visible:ring-offset-0 focus-visible:border-gold/50 transition-colors"
+                    className="luxe-input flex h-11 w-full rounded-sm border border-off-white/15 bg-secondary px-4 py-2 text-sm text-off-white placeholder:text-off-white/30"
                     placeholder="Your name"
                   />
                 </div>
 
                 {/* Email */}
-                <div className="flex flex-col gap-2">
+                <div className="luxe-field flex flex-col gap-2">
                   <label
                     htmlFor="contact-email"
-                    className="font-sans uppercase tracking-[0.15em] text-[10px] text-off-white/50"
+                    className="luxe-label font-sans uppercase tracking-[0.15em] text-[10px] text-off-white/50"
                   >
                     Email
                   </label>
@@ -208,16 +208,16 @@ const ContactSection = () => {
                     required
                     value={form.email}
                     onChange={handleChange}
-                    className="flex h-11 w-full rounded-sm border border-off-white/15 bg-secondary px-4 py-2 text-sm text-off-white placeholder:text-off-white/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold focus-visible:ring-offset-0 focus-visible:border-gold/50 transition-colors"
+                    className="luxe-input flex h-11 w-full rounded-sm border border-off-white/15 bg-secondary px-4 py-2 text-sm text-off-white placeholder:text-off-white/30"
                     placeholder="you@company.com"
                   />
                 </div>
 
                 {/* Company */}
-                <div className="flex flex-col gap-2">
+                <div className="luxe-field flex flex-col gap-2">
                   <label
                     htmlFor="contact-company"
-                    className="font-sans uppercase tracking-[0.15em] text-[10px] text-off-white/50"
+                    className="luxe-label font-sans uppercase tracking-[0.15em] text-[10px] text-off-white/50"
                   >
                     Company
                   </label>
@@ -227,16 +227,16 @@ const ContactSection = () => {
                     type="text"
                     value={form.company}
                     onChange={handleChange}
-                    className="flex h-11 w-full rounded-sm border border-off-white/15 bg-secondary px-4 py-2 text-sm text-off-white placeholder:text-off-white/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold focus-visible:ring-offset-0 focus-visible:border-gold/50 transition-colors"
+                    className="luxe-input flex h-11 w-full rounded-sm border border-off-white/15 bg-secondary px-4 py-2 text-sm text-off-white placeholder:text-off-white/30"
                     placeholder="Company name"
                   />
                 </div>
 
                 {/* Message */}
-                <div className="flex flex-col gap-2">
+                <div className="luxe-field flex flex-col gap-2">
                   <label
                     htmlFor="contact-message"
-                    className="font-sans uppercase tracking-[0.15em] text-[10px] text-off-white/50"
+                    className="luxe-label font-sans uppercase tracking-[0.15em] text-[10px] text-off-white/50"
                   >
                     Message
                   </label>
@@ -247,7 +247,7 @@ const ContactSection = () => {
                     rows={5}
                     value={form.message}
                     onChange={handleChange}
-                    className="flex min-h-[120px] w-full rounded-sm border border-off-white/15 bg-secondary px-4 py-3 text-sm text-off-white placeholder:text-off-white/30 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gold focus-visible:ring-offset-0 focus-visible:border-gold/50 transition-colors resize-y"
+                    className="luxe-input flex min-h-[120px] w-full rounded-sm border border-off-white/15 bg-secondary px-4 py-3 text-sm text-off-white placeholder:text-off-white/30 resize-y"
                     placeholder="Where are you stuck?"
                   />
                 </div>
@@ -255,7 +255,7 @@ const ContactSection = () => {
                 {/* Submit */}
                 <button
                   type="submit"
-                  className="hero-cta mt-2 inline-flex items-center justify-center w-full sm:w-auto bg-gold text-background hover:bg-gold/90 font-sans uppercase tracking-[0.14em] text-xs md:text-sm px-8 py-4 rounded-[5px]"
+                  className="luxe-cta mt-2 inline-flex items-center justify-center w-full sm:w-auto bg-gold text-background font-sans uppercase tracking-[0.14em] text-xs md:text-sm px-8 py-4 rounded-[5px]"
                 >
                   Start the Conversation
                 </button>

@@ -247,7 +247,7 @@ const PhaseCard = ({
           ease: SITE_EASE,
           delay: reduce ? 0 : 0.15 + index * 0.12,
         }}
-        className="relative h-full rounded-xl p-6 md:p-7 will-change-transform flex flex-col"
+        className="luxe-card relative h-full rounded-xl p-6 md:p-7 flex flex-col"
         style={{
           backgroundColor: "#302e2c",
           border: "1px solid rgba(247,246,245,0.08)",
