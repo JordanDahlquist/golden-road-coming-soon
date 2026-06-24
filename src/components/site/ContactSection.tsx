@@ -32,9 +32,12 @@ const ContactSection = () => {
     setTouched((prev) => ({ ...prev, [e.target.name]: true }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setTouched({ name: true, email: true, message: true });
+    setErrorMsg(null);
 
     const errors = {
       name: !form.name.trim(),
@@ -49,32 +52,33 @@ const ContactSection = () => {
 
     setStatus("sending");
 
-    const subject = form.name.trim()
-      ? `New inquiry from ${form.name.trim()} — Golden Road Strategies`
-      : "New inquiry — Golden Road Strategies";
+    try {
+      const payload = new FormData();
+      payload.append("name", form.name.trim());
+      payload.append("email", form.email.trim());
+      payload.append("company", form.company.trim() || "—");
+      payload.append("message", form.message.trim());
+      payload.append("_subject", `New inquiry from ${form.name.trim()} — Golden Road Strategies`);
+      payload.append("_template", "table");
+      payload.append("_captcha", "false");
 
-    const body = [
-      `Name: ${form.name.trim()}`,
-      `Email: ${form.email.trim()}`,
-      `Company: ${form.company.trim() || "—"}`,
-      "",
-      "Message:",
-      form.message.trim(),
-    ].join("\n");
+      const res = await fetch(`https://formsubmit.co/ajax/${RECIPIENT}`, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: payload,
+      });
 
-    const mailto = `mailto:${RECIPIENT}?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(body)}`;
+      if (!res.ok) throw new Error(`Request failed (${res.status})`);
 
-    const a = document.createElement("a");
-    a.href = mailto;
-    a.rel = "noopener";
-    a.target = "_blank";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-
-    setStatus("opened");
+      setStatus("opened");
+    } catch (err) {
+      console.error("Contact form submission failed", err);
+      setErrorMsg(
+        "Something went wrong sending your message. Please email me directly at " +
+          RECIPIENT + ".",
+      );
+      setStatus("idle");
+    }
   };
 
 
@@ -210,11 +214,11 @@ const ContactSection = () => {
                 {status === "opened" ? (
                   <div className="py-6" role="status" aria-live="polite">
                     <p className="t-card-title">
-                      Opening your email…{" "}
+                      Message sent.{" "}
                       <span className="text-gold italic">I look forward to reading your note.</span>
                     </p>
                     <p className="mt-4 t-body-sm text-off-white/70">
-                      If your email client didn't open, you can reach me directly at{" "}
+                      I'll be in touch within one business day. You can also reach me directly at{" "}
                       <a
                         href={`mailto:${RECIPIENT}`}
                         className="luxe-link text-off-white"
@@ -318,8 +322,13 @@ const ContactSection = () => {
                         disabled={status === "sending"}
                         className="luxe-cta inline-flex items-center justify-center w-full bg-gold text-background t-label px-8 py-4 rounded-[6px]"
                       >
-                        {status === "sending" ? "Opening your email…" : "Start the Conversation"}
+                        {status === "sending" ? "Sending…" : "Start the Conversation"}
                       </button>
+                      {errorMsg && (
+                        <p className="mt-4 text-center t-label text-gold" role="alert">
+                          {errorMsg}
+                        </p>
+                      )}
                       <p className="mt-4 text-center t-label text-off-white/40">
                         Replies typically within one business day.
                       </p>
