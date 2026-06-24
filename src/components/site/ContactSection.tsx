@@ -30,10 +30,9 @@ const ContactSection = () => {
     setSubmitted(true);
   };
 
-  const fieldLabel =
-    "luxe-label font-sans uppercase tracking-[0.18em] text-[10px] text-gold/80";
+  const fieldLabel = "luxe-label t-label text-gold/80";
   const fieldInput =
-    "luxe-input flex h-12 w-full rounded-[6px] border border-off-white/10 bg-[#1a1817] px-4 py-2 text-sm text-off-white placeholder:text-off-white/30";
+    "luxe-input flex h-12 w-full rounded-[6px] border border-off-white/10 bg-[#1a1817] px-4 py-2 t-body-sm text-off-white placeholder:text-off-white/30";
 
   return (
     <section id="contact" className="relative isolate overflow-hidden bg-background">
