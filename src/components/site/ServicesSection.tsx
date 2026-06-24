@@ -99,7 +99,10 @@ const ServicesSection = () => {
         </FadeRise>
 
         {/* ── Two offers with center "or" connector ─────────────── */}
-        <div className="relative mt-14 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-12">
+        <div
+          className="relative mt-14 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-12"
+          style={{ perspective: "1200px", perspectiveOrigin: "50% 40%" }}
+        >
           {/* Center connector — desktop only */}
           <div
             aria-hidden
@@ -112,15 +115,34 @@ const ServicesSection = () => {
             <span className="flex-1 w-px bg-gradient-to-b from-transparent via-gold/30 to-transparent" />
           </div>
 
-          {OFFERS.map((offer, i) => (
+          {OFFERS.map((offer, i) => {
+            const isLeft = i === 0;
+            return (
             <motion.article
               key={offer.label}
               initial={
-                reduce ? { opacity: 1, x: 0, y: 0 } : { opacity: 0, x: i === 0 ? -24 : 24, y: 12 }
+                reduce
+                  ? { opacity: 1, rotateY: 0 }
+                  : { opacity: 0, rotateY: isLeft ? -90 : 90 }
               }
-              whileInView={{ opacity: 1, x: 0, y: 0 }}
+              whileInView={{ opacity: 1, rotateY: 0 }}
               viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: reduce ? 0 : 0.8, ease: SITE_EASE, delay: reduce ? 0 : i * 0.08 }}
+              transition={{
+                duration: reduce ? 0 : 0.78,
+                ease: SITE_EASE,
+                delay: reduce ? 0 : isLeft ? 0 : 0.3,
+                opacity: {
+                  duration: reduce ? 0 : 0.45,
+                  ease: SITE_EASE,
+                  delay: reduce ? 0 : isLeft ? 0 : 0.3,
+                },
+              }}
+              style={{
+                transformStyle: "preserve-3d",
+                transformOrigin: isLeft ? "left center" : "right center",
+                willChange: "transform, opacity",
+                backfaceVisibility: "hidden",
+              }}
               className="luxe-card services-card group relative flex flex-col rounded-xl border border-off-white/[0.07] bg-secondary p-8 md:p-10"
             >
               {/* Icon + label */}
