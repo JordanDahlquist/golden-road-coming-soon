@@ -140,7 +140,7 @@ const SiteIntro = () => {
       <div className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center">
         <motion.div
           className="mb-16"
-          initial={{ opacity: 0, y: 20, scale: 1, x: 0 }}
+          initial={{ y: 0, scale: 1, x: 0 }}
           animate={logoControls}
           onUpdate={() => {}}
           style={{ willChange: "transform, opacity", transformOrigin: "50% 50%" }}
