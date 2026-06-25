@@ -1,14 +1,31 @@
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { FadeRise, MaskedLines, MotionGroup } from "@/components/site/motion";
+import { FadeRise, MaskedLines, MotionGroup, SITE_EASE } from "@/components/site/motion";
 import goldenRoad from "@/assets/golden-road.png.asset.json";
 
-const HEADLINE_LINES = ["Navigate the future."];
-
 const HEADLINE_DELAY = 0.35;
-const TAIL_DELAY = 1.25;
-const SCROLL_CUE_DELAY = 1.7;
+const LINE_DURATION = 0.9;
+// After the masked line finishes revealing.
+const GOLD_IGNITE_DELAY = HEADLINE_DELAY + LINE_DURATION + 0.1; // ~1.35s
+const TAIL_DELAY = GOLD_IGNITE_DELAY + 0.35; // ~1.7s — subhead
+const CTA_DELAY_OFFSET = 0.18; // staggered within MotionGroup
+const META_DELAY = TAIL_DELAY + 0.7; // meta strip last
+const SCROLL_CUE_DELAY = META_DELAY + 0.15;
+
+const HEADLINE_LINES = [
+  <>
+    Navigate the{" "}
+    <motion.span
+      className="hero-v2-gold inline-block"
+      initial={{ opacity: 0, scale: 0.94, filter: "blur(6px)" }}
+      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+      transition={{ duration: 0.9, ease: SITE_EASE, delay: GOLD_IGNITE_DELAY }}
+    >
+      future.
+    </motion.span>
+  </>,
+];
 
 const HeroV2 = () => {
   const reduce = useReducedMotion();
@@ -22,6 +39,8 @@ const HeroV2 = () => {
   const headlineY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -60]);
   const bgScale = useTransform(scrollYProgress, [0, 1], [1, reduce ? 1 : 1.08]);
   const bgY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 40]);
+  // Particles drift at a different rate than the bg image for parallax depth.
+  const motesY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -80]);
 
   return (
     <section
@@ -29,6 +48,76 @@ const HeroV2 = () => {
       className="relative overflow-hidden bg-background text-off-white"
       style={{ height: "100vh", maxHeight: "100vh" }}
     >
+      {/* Component-scoped styles — gold word glow + repeating sheen + horizon line. */}
+      <style>{`
+        .hero-v2-gold {
+          color: hsl(var(--gold));
+          will-change: opacity, transform, text-shadow;
+        }
+        @media (prefers-reduced-motion: no-preference) {
+          .hero-v2-gold {
+            animation: heroV2GoldBreathe 7s ease-in-out ${GOLD_IGNITE_DELAY + 0.9}s infinite;
+          }
+        }
+        @keyframes heroV2GoldBreathe {
+          0%, 100% {
+            text-shadow:
+              0 0 14px hsl(var(--gold) / 0.18),
+              0 0 36px hsl(var(--gold) / 0.08);
+          }
+          50% {
+            text-shadow:
+              0 0 22px hsl(var(--gold) / 0.42),
+              0 0 64px hsl(var(--gold) / 0.22);
+          }
+        }
+        .hero-v2-sheen {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          background: linear-gradient(
+            105deg,
+            transparent 35%,
+            hsl(var(--gold) / 0.18) 48%,
+            hsl(var(--off-white) / 0.22) 50%,
+            hsl(var(--gold) / 0.18) 52%,
+            transparent 65%
+          );
+          mix-blend-mode: screen;
+          -webkit-mask-image: linear-gradient(#000, #000);
+          transform: translateX(-120%);
+        }
+        @media (prefers-reduced-motion: no-preference) {
+          .hero-v2-sheen {
+            animation: heroV2Sheen 8.5s ease-in-out ${TAIL_DELAY + 1}s infinite;
+          }
+        }
+        @keyframes heroV2Sheen {
+          0%   { transform: translateX(-120%); }
+          18%  { transform: translateX(120%); }
+          100% { transform: translateX(120%); }
+        }
+        .hero-v2-horizon {
+          height: 1px;
+          background: linear-gradient(
+            to right,
+            transparent 0%,
+            hsl(var(--gold) / 0.55) 50%,
+            transparent 100%
+          );
+          transform-origin: left center;
+        }
+        @media (prefers-reduced-motion: no-preference) {
+          .hero-v2-horizon {
+            animation: heroV2HorizonBreathe 7s ease-in-out ${TAIL_DELAY}s infinite;
+          }
+        }
+        @keyframes heroV2HorizonBreathe {
+          0%, 100% { opacity: 0.35; transform: scaleX(0.92); }
+          50%      { opacity: 0.85; transform: scaleX(1); }
+        }
+      `}</style>
+
       <motion.div
         style={{ scale: bgScale, y: bgY, willChange: "transform" }}
         className="absolute inset-0"
@@ -61,7 +150,12 @@ const HeroV2 = () => {
             pointerEvents: "none",
           }}
         />
-        <div className="hero-motes absolute inset-0 overflow-hidden pointer-events-none">
+
+        {/* Embers — parallax independent of background image. */}
+        <motion.div
+          style={{ y: motesY, willChange: "transform" }}
+          className="hero-motes absolute inset-0 overflow-hidden pointer-events-none"
+        >
           {Array.from({ length: 14 }).map((_, i) => (
             <span
               key={i}
@@ -77,7 +171,8 @@ const HeroV2 = () => {
               }}
             />
           ))}
-        </div>
+        </motion.div>
+
         <div
           className="absolute inset-x-0 bottom-0 h-40"
           style={{
@@ -111,7 +206,22 @@ const HeroV2 = () => {
                 stagger={0.18}
                 className="t-display text-off-white max-w-[18ch]"
               />
+              {/* One-shot CSS sweep on load (global class). */}
               <span aria-hidden className="hero-sweep" />
+              {/* Repeating sheen that re-runs every several seconds. */}
+              <span aria-hidden className="hero-v2-sheen" />
+            </motion.div>
+
+            {/* Faint breathing gold horizon line beneath the headline. */}
+            <motion.div
+              aria-hidden
+              initial={{ opacity: 0, scaleX: 0.6 }}
+              animate={{ opacity: reduce ? 0.5 : 1, scaleX: 1 }}
+              transition={{ duration: 1.1, ease: SITE_EASE, delay: TAIL_DELAY - 0.1 }}
+              style={{ transformOrigin: "left center", willChange: "transform, opacity" }}
+              className="mt-6 md:mt-8 max-w-[34ch]"
+            >
+              <span className="hero-v2-horizon block w-full" />
             </motion.div>
 
             <MotionGroup delayChildren={TAIL_DELAY}>
@@ -132,13 +242,24 @@ const HeroV2 = () => {
                   size="lg"
                   className="hero-cta luxe-cta t-label w-full sm:w-auto bg-gold text-background px-8 py-5 rounded-[4px]"
                 >
-                  <a href="#contact">Let's Build the Path Forward</a>
+                  <a href="#contact">Let's Build the Path Forward.</a>
                 </Button>
               </FadeRise>
             </MotionGroup>
           </div>
 
-          <div className="flex items-end justify-center gap-6">
+          <div className="flex items-end justify-between gap-6">
+            <FadeRise
+              as="div"
+              delay={META_DELAY}
+              y={10}
+              className="t-label text-off-white/40"
+            >
+              Southern California
+              <span className="mx-3 text-gold/60">|</span>
+              Available Globally
+            </FadeRise>
+
             <FadeRise
               y={14}
               delay={SCROLL_CUE_DELAY}
@@ -147,6 +268,11 @@ const HeroV2 = () => {
               <span className="t-label text-off-white/35">Scroll</span>
               <span className="hero-scroll-line block h-8 w-px bg-off-white/25" />
             </FadeRise>
+
+            {/* Right-side spacer to keep scroll cue visually centered like V1. */}
+            <div aria-hidden className="hidden md:block t-label opacity-0 select-none">
+              Southern California | Available Globally
+            </div>
           </div>
         </div>
       </motion.div>
