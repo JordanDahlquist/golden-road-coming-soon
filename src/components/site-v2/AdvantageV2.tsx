@@ -25,10 +25,9 @@ const AdvantageV2 = () => {
   const body2Y = useTransform(s2, [0, 1], reduce ? [0, 0] : [10, -10]);
 
   const igniteVariants = {
-    hidden: reduce ? { opacity: 1 } : { opacity: 0, filter: "brightness(0.6)" },
+    hidden: reduce ? { opacity: 1 } : { opacity: 0 },
     show: {
       opacity: 1,
-      filter: "brightness(1)",
       transition: { duration: reduce ? 0 : 1.1, ease: SITE_EASE, delay: reduce ? 0 : 0.35 },
     },
   } as const;
@@ -59,16 +58,10 @@ const AdvantageV2 = () => {
       />
 
       <style>{`
-        @keyframes adv-emph-glow {
-          0% { text-shadow: 0 0 0 hsl(40 74% 62% / 0); }
-          50% { text-shadow: 0 0 18px hsl(40 74% 62% / 0.35); }
-          100% { text-shadow: 0 0 6px hsl(40 74% 62% / 0.15); }
-        }
+        /* Quiet static gold halo behind emphasized italic phrases.
+           Static (not animated) to avoid per-frame repaints during scroll. */
         .adv-emph {
-          animation: adv-emph-glow 1.8s ease-out 0.45s both;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .adv-emph { animation: none; }
+          text-shadow: 0 0 6px hsl(40 74% 62% / 0.18);
         }
       `}</style>
 
@@ -188,8 +181,18 @@ const AdvantageV2 = () => {
         >
           <a
             href="#contact"
-            className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gold px-9 py-4 text-charcoal text-sm font-medium tracking-[0.18em] uppercase shadow-[0_10px_40px_-10px_hsl(40_74%_62%/0.55)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_18px_50px_-12px_hsl(40_74%_62%/0.7)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gold px-9 py-4 text-charcoal text-sm font-medium tracking-[0.18em] uppercase transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
+            {/* GPU-only glow layer — only opacity animates on hover. */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute -inset-4 rounded-full opacity-0 transition-opacity duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-100 motion-reduce:hidden"
+              style={{
+                background:
+                  "radial-gradient(ellipse at center, hsl(40 74% 62% / 0.6) 0%, hsl(40 74% 62% / 0.2) 45%, transparent 75%)",
+                filter: "blur(16px)",
+              }}
+            />
             <span className="relative z-10">Let's Build the Path Forward</span>
             <span
               aria-hidden

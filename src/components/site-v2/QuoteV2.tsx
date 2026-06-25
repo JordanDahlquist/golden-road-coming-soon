@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { SectionEnter, FadeRise, MaskedLines, SITE_EASE } from "@/components/site/motion";
 
 const QUOTE_LINES = [
@@ -11,6 +11,7 @@ const QUOTE_LINES = [
 const QuoteV2 = () => {
   const reduce = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
+  const loopsActive = useInView(sectionRef, { margin: "200px 0px 200px 0px" });
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -22,6 +23,7 @@ const QuoteV2 = () => {
   return (
     <section
       ref={sectionRef}
+      data-loops={loopsActive ? "active" : "paused"}
       className="relative overflow-hidden text-off-white"
       style={{ backgroundColor: "hsl(var(--black))" }}
     >
@@ -62,16 +64,18 @@ const QuoteV2 = () => {
           0%, 100% { opacity: 0.55; }
           50%      { opacity: 1; }
         }
+        .quote-v2-loop { animation-play-state: paused; }
+        [data-loops="active"] .quote-v2-loop { animation-play-state: running; }
       `}</style>
 
       {/* Atmospheric background — slow zoom + parallax + breathing glow */}
       <motion.div
         aria-hidden
-        style={{ scale: bgScale, y: bgY, willChange: "transform" }}
+        style={{ scale: bgScale, y: bgY }}
         className="absolute inset-0 pointer-events-none"
       >
         <div
-          className="quote-v2-glow-breathe absolute inset-x-0 bottom-0"
+          className="quote-v2-glow-breathe quote-v2-loop absolute inset-x-0 bottom-0"
           style={{
             height: "80%",
             background:
@@ -123,7 +127,7 @@ const QuoteV2 = () => {
           />
           {!reduce && (
             <span aria-hidden className="quote-v2-sweep-clip">
-              <span aria-hidden className="quote-v2-sweep" />
+              <span aria-hidden className="quote-v2-sweep quote-v2-loop" />
             </span>
           )}
         </div>

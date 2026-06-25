@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import {
   LineChart,
   Briefcase,
@@ -77,6 +78,8 @@ const TILES: Tile[] = [
 
 const ExpertiseV2 = () => {
   const reduce = useReducedMotion() ?? false;
+  const loopsRef = useRef<HTMLDivElement | null>(null);
+  const loopsActive = useInView(loopsRef, { margin: "200px 0px 200px 0px" });
 
   const flipInitial = reduce
     ? { opacity: 1, rotateY: 0 }
@@ -95,7 +98,6 @@ const ExpertiseV2 = () => {
   const flipStyle = {
     transformStyle: "preserve-3d" as const,
     transformOrigin: "left center",
-    willChange: "transform, opacity",
   };
   const viewport = { once: true, amount: 0.15 };
 
@@ -142,9 +144,11 @@ const ExpertiseV2 = () => {
         @media (prefers-reduced-motion: reduce) {
           .exp-feature-glow, .exp-feature-sheen { animation: none; opacity: 0; }
         }
+        .exp-v2-loop { animation-play-state: paused; }
+        [data-loops="active"] .exp-v2-loop { animation-play-state: running; }
       `}</style>
 
-      <div className="relative mx-auto w-full max-w-[1180px]">
+      <div ref={loopsRef} data-loops={loopsActive ? "active" : "paused"} className="relative mx-auto w-full max-w-[1180px]">
         <FadeRise trigger="child" as="p" className="t-eyebrow">
           KEY AREAS OF EXPERTISE
         </FadeRise>
@@ -173,7 +177,7 @@ const ExpertiseV2 = () => {
                 <>
                   <span
                     aria-hidden
-                    className="exp-feature-glow pointer-events-none absolute -inset-px rounded-xl"
+                    className="exp-feature-glow exp-v2-loop pointer-events-none absolute -inset-px rounded-xl"
                     style={{
                       background:
                         "radial-gradient(80% 60% at 30% 0%, hsl(40 74% 62% / 0.18) 0%, transparent 70%)",
@@ -182,7 +186,7 @@ const ExpertiseV2 = () => {
                   {!reduce && (
                     <span
                       aria-hidden
-                      className="exp-feature-sheen pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-gold/12 to-transparent"
+                      className="exp-feature-sheen exp-v2-loop pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-gold/12 to-transparent"
                     />
                   )}
                   <span
@@ -236,8 +240,18 @@ const ExpertiseV2 = () => {
 
             <a
               href="#contact"
-              className="group/btn relative mt-6 inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gold px-7 py-3 text-charcoal text-xs font-medium tracking-[0.18em] uppercase shadow-[0_10px_30px_-12px_hsl(40_74%_62%/0.55)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_16px_44px_-12px_hsl(40_74%_62%/0.7)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="group/btn relative mt-6 inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gold px-7 py-3 text-charcoal text-xs font-medium tracking-[0.18em] uppercase transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
             >
+              {/* GPU-only glow layer — only opacity animates on hover. */}
+              <span
+                aria-hidden
+                className="pointer-events-none absolute -inset-3 rounded-full opacity-0 transition-opacity duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:opacity-100 motion-reduce:hidden"
+                style={{
+                  background:
+                    "radial-gradient(ellipse at center, hsl(40 74% 62% / 0.55) 0%, hsl(40 74% 62% / 0.18) 45%, transparent 75%)",
+                  filter: "blur(14px)",
+                }}
+              />
               <span className="relative z-10">Let's Build the Path Forward</span>
               <ArrowRight size={14} strokeWidth={2} className="relative z-10 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-x-0.5" />
               <span

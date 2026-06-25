@@ -1,4 +1,4 @@
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Gauge, Compass, Building2, ShieldCheck } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -40,6 +40,8 @@ const ETHOS_CARDS: EthosCard[] = [
 const EthosV2 = () => {
   const reduce = useReducedMotion() ?? false;
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  // Pause looping breathing glows when the section is off-screen.
+  const loopsActive = useInView(sectionRef, { margin: "200px 0px 200px 0px" });
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -54,6 +56,7 @@ const EthosV2 = () => {
   return (
     <section
       ref={sectionRef}
+      data-loops={loopsActive ? "active" : "paused"}
       aria-labelledby="ethos-heading"
       className="relative isolate overflow-hidden text-off-white"
       style={{
@@ -99,21 +102,37 @@ const EthosV2 = () => {
           animation: ethos-rule-draw 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
         }
         @keyframes ethos-icon-breathe {
-          0%, 100% {
-            box-shadow: 0 0 0 1px rgba(229,181,85,0.18), 0 0 18px -4px rgba(229,181,85,0.12);
-          }
-          50% {
-            box-shadow: 0 0 0 1px rgba(229,181,85,0.35), 0 0 34px -2px rgba(229,181,85,0.28);
+          0%, 100% { opacity: 0.35; }
+          50%      { opacity: 1; }
+        }
+        .ethos-icon-glow {
+          position: absolute;
+          inset: -6px;
+          border-radius: 0.75rem;
+          pointer-events: none;
+          background: radial-gradient(
+            ellipse at center,
+            rgba(229,181,85,0.55) 0%,
+            rgba(229,181,85,0.18) 45%,
+            transparent 75%
+          );
+          filter: blur(10px);
+          mix-blend-mode: screen;
+          opacity: 0;
+        }
+        @media (prefers-reduced-motion: no-preference) {
+          .ethos-icon-glow {
+            animation: ethos-icon-breathe 5.5s ease-in-out infinite;
           }
         }
-        .ethos-icon-breathe {
-          animation: ethos-icon-breathe 5.5s ease-in-out infinite;
-        }
+        /* Pause looping animations when section is off-screen. */
+        .ethos-v2-loop { animation-play-state: paused; }
+        [data-loops="active"] .ethos-v2-loop { animation-play-state: running; }
         @media (prefers-reduced-motion: reduce) {
           .ethos-headline-sheen-anim,
           .ethos-card-sheen-anim,
           .ethos-rule-draw-anim,
-          .ethos-icon-breathe { animation: none !important; }
+          .ethos-icon-glow { animation: none !important; }
           .ethos-rule-draw-anim { transform: scaleX(1); opacity: 1; }
         }
       `}</style>
@@ -245,7 +264,6 @@ const EthosCardItem = ({
         border: "1px solid rgba(247,246,245,0.07)",
         transformStyle: "preserve-3d",
         transformOrigin: "center top",
-        willChange: "transform, opacity",
       }}
       className="luxe-card group relative overflow-hidden rounded-xl p-6 md:p-7 lg:p-8"
     >
@@ -270,14 +288,16 @@ const EthosCardItem = ({
       <div className="flex items-start gap-5 md:gap-6">
         <span
           aria-hidden="true"
-          className="ethos-icon-breathe inline-flex shrink-0 items-center justify-center rounded-lg h-12 w-12 md:h-14 md:w-14"
+          className="relative inline-flex shrink-0 items-center justify-center rounded-lg h-12 w-12 md:h-14 md:w-14"
           style={{
             border: "1px solid rgba(229,181,85,0.35)",
             background:
               "linear-gradient(160deg, rgba(229,181,85,0.10) 0%, rgba(229,181,85,0.02) 100%)",
           }}
         >
-          <Icon size={24} strokeWidth={1.4} className="text-gold" />
+          {/* Separate blurred glow layer — only opacity animates. */}
+          <span aria-hidden="true" className="ethos-icon-glow ethos-v2-loop" />
+          <Icon size={24} strokeWidth={1.4} className="relative text-gold" />
         </span>
         <div className="min-w-0 pt-1">
           <h3 className="t-card-title">{card.title}</h3>

@@ -1,10 +1,11 @@
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { SectionEnter, FadeRise, MaskedLines, SITE_EASE } from "@/components/site/motion";
 
 const PhilosophyV2 = () => {
   const reduce = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
+  const loopsActive = useInView(sectionRef, { margin: "200px 0px 200px 0px" });
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -17,6 +18,7 @@ const PhilosophyV2 = () => {
   return (
     <section
       ref={sectionRef}
+      data-loops={loopsActive ? "active" : "paused"}
       className="relative overflow-hidden bg-background text-off-white"
     >
       <style>{`
@@ -51,12 +53,14 @@ const PhilosophyV2 = () => {
           18%  { transform: translateX(160%); opacity: 0; }
           100% { transform: translateX(160%); opacity: 0; }
         }
+        .phil-v2-loop { animation-play-state: paused; }
+        [data-loops="active"] .phil-v2-loop { animation-play-state: running; }
       `}</style>
 
       {/* Soft golden-road glow + vignette */}
       <motion.div
         aria-hidden
-        style={{ y: glowY, willChange: "transform" }}
+        style={{ y: glowY }}
         className="absolute inset-0 pointer-events-none"
       >
         <div
@@ -78,7 +82,7 @@ const PhilosophyV2 = () => {
       </motion.div>
 
       <motion.div
-        style={{ y: textY, willChange: "transform" }}
+        style={{ y: textY }}
         className="relative z-10"
       >
         <SectionEnter
@@ -111,7 +115,7 @@ const PhilosophyV2 = () => {
             />
             {!reduce && (
               <span aria-hidden className="phil-v2-sweep-clip">
-                <span aria-hidden className="phil-v2-sweep" />
+                <span aria-hidden className="phil-v2-sweep phil-v2-loop" />
               </span>
             )}
           </div>
