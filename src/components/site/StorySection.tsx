@@ -127,8 +127,7 @@ const StorySection = () => {
                       className="absolute inset-y-0 -left-1/3 w-1/2 pointer-events-none"
                       style={{
                         background:
-                          "linear-gradient(110deg, transparent 0%, hsl(var(--gold) / 0.28) 50%, transparent 100%)",
-                        mixBlendMode: "screen",
+                          "linear-gradient(110deg, transparent 0%, hsl(var(--gold) / 0.22) 50%, transparent 100%)",
                       }}
                       initial={{ x: "-40%", opacity: 0 }}
                       whileInView={{ x: "260%", opacity: [0, 1, 0] }}
