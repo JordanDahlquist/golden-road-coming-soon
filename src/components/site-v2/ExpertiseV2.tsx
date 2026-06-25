@@ -123,9 +123,15 @@ const ExpertiseV2 = () => {
           0%, 100% { opacity: 0.35; }
           50% { opacity: 0.7; }
         }
+        .exp-feature-sheen {
+          transform: translateX(-200%) skewX(-14deg);
+          opacity: 0;
+        }
         @keyframes exp-feature-sheen {
-          0% { transform: translateX(-120%) skewX(-14deg); }
-          100% { transform: translateX(220%) skewX(-14deg); }
+          0%   { transform: translateX(-200%) skewX(-14deg); opacity: 0; }
+          8%   { opacity: 1; }
+          22%  { transform: translateX(500%) skewX(-14deg); opacity: 0; }
+          100% { transform: translateX(500%) skewX(-14deg); opacity: 0; }
         }
         .exp-feature-glow {
           animation: exp-feature-glow 6s ease-in-out infinite;
@@ -134,7 +140,7 @@ const ExpertiseV2 = () => {
           animation: exp-feature-sheen 7s cubic-bezier(0.22, 1, 0.36, 1) 1.2s infinite;
         }
         @media (prefers-reduced-motion: reduce) {
-          .exp-feature-glow, .exp-feature-sheen { animation: none; }
+          .exp-feature-glow, .exp-feature-sheen { animation: none; opacity: 0; }
         }
       `}</style>
 
