@@ -175,8 +175,18 @@ const ServicesV2 = () => {
                 <div className="mt-8 pt-2">
                   <a
                     href="#contact"
-                    className="group/btn relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gold px-7 py-3 text-charcoal text-xs font-medium tracking-[0.18em] uppercase shadow-[0_10px_30px_-12px_hsl(40_74%_62%/0.5)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_16px_44px_-12px_hsl(40_74%_62%/0.7)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                    className="group/btn relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gold px-7 py-3 text-charcoal text-xs font-medium tracking-[0.18em] uppercase transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                   >
+                    {/* GPU-only glow layer — only opacity animates on hover. */}
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute -inset-3 rounded-full opacity-0 transition-opacity duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:opacity-100 motion-reduce:hidden"
+                      style={{
+                        background:
+                          "radial-gradient(ellipse at center, hsl(40 74% 62% / 0.55) 0%, hsl(40 74% 62% / 0.18) 45%, transparent 75%)",
+                        filter: "blur(14px)",
+                      }}
+                    />
                     <span className="relative z-10">Let's Build the Path Forward</span>
                     <ArrowRight size={14} strokeWidth={2} className="relative z-10 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-x-0.5" />
                     <span
