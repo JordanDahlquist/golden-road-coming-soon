@@ -109,7 +109,11 @@ const PhilosophyV2 = () => {
               ]}
               className="t-h3 text-gold max-w-[30ch]"
             />
-            <span aria-hidden className="phil-v2-sweep" />
+            {!reduce && (
+              <span aria-hidden className="phil-v2-sweep-clip">
+                <span aria-hidden className="phil-v2-sweep" />
+              </span>
+            )}
           </div>
 
           <FadeRise trigger="child" className="mt-8 md:mt-10" delay={0.9}>
