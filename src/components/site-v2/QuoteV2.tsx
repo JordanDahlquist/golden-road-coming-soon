@@ -71,7 +71,7 @@ const QuoteV2 = () => {
       {/* Atmospheric background — slow zoom + parallax + breathing glow */}
       <motion.div
         aria-hidden
-        style={{ scale: bgScale, y: bgY, willChange: "transform" }}
+        style={{ scale: bgScale, y: bgY }}
         className="absolute inset-0 pointer-events-none"
       >
         <div
