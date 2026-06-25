@@ -153,31 +153,6 @@ const StoryV2 = () => {
               </p>
             </FadeRise>
 
-            <FadeRise trigger="child" as="div" className="mt-1">
-              <div className="relative flex gap-6 md:gap-7 items-start">
-                <div className="relative shrink-0 self-stretch w-px">
-                  <motion.span
-                    aria-hidden="true"
-                    className="absolute inset-x-0 top-0 bg-gold"
-                    initial={{ height: reduceMotion ? "100%" : "0%" }}
-                    whileInView={{ height: "100%" }}
-                    viewport={{ once: true, amount: 0.6 }}
-                    transition={{
-                      duration: reduceMotion ? 0 : 0.9,
-                      ease: SITE_EASE,
-                      delay: 0.15,
-                    }}
-                  />
-                </div>
-                <div>
-                  <p className="t-card-title italic text-off-white/95">
-                    Numbers tell a story, but leadership writes the script. At Golden Road Strategies, we ensure you have the financial foundation to execute your next chapter with absolute certainty.
-                  </p>
-                  <p className="mt-5 t-body-sm text-off-white/55 tracking-wide">
-                    Tracy Golden, Founder &amp; Principal Advisory Partner
-                  </p>
-                </div>
-              </div>
             </FadeRise>
           </div>
         </div>
