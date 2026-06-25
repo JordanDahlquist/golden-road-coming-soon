@@ -145,7 +145,7 @@ const EthosV2 = () => {
             OUR ETHOS
           </FadeRise>
 
-          <div className="relative inline-block">
+          <div className="relative inline-block overflow-hidden">
             <MaskedLines
               as="h2"
               trigger="in-view"
@@ -154,17 +154,19 @@ const EthosV2 = () => {
               className="relative mt-6 t-h2 text-off-white overflow-hidden"
             />
             {/* Headline sheen */}
-            <motion.span
-              aria-hidden
-              initial={reduce ? false : { opacity: 0 }}
-              whileInView={reduce ? undefined : { opacity: 1 }}
-              viewport={{ once: true, amount: 0.5 }}
-              onViewportEnter={(e) => {
-                const el = (e?.target as HTMLElement | undefined) ?? null;
-                el?.classList.add("ethos-headline-sheen-anim");
-              }}
-              className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-gold/20 to-transparent"
-            />
+            {!reduce && (
+              <motion.span
+                aria-hidden
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true, amount: 0.5 }}
+                onViewportEnter={(e) => {
+                  const el = (e?.target as HTMLElement | undefined) ?? null;
+                  el?.classList.add("ethos-headline-sheen-anim");
+                }}
+                className="ethos-headline-sheen pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-gold/20 to-transparent"
+              />
+            )}
           </div>
 
           {/* Drawn gold hairline accent */}
