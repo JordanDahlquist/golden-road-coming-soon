@@ -90,7 +90,7 @@ const SiteNav = () => {
           "fixed inset-x-0 top-0 z-50 w-full",
           "transition-[background-color,backdrop-filter,border-color,padding] duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
           scrolled
-            ? "bg-background/80 backdrop-blur-md border-b border-off-white/10 py-3"
+            ? "bg-background/95 border-b border-off-white/10 py-3"
             : "bg-transparent border-b border-transparent py-5",
         ].join(" ")}
       >
