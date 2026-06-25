@@ -25,10 +25,9 @@ const AdvantageV2 = () => {
   const body2Y = useTransform(s2, [0, 1], reduce ? [0, 0] : [10, -10]);
 
   const igniteVariants = {
-    hidden: reduce ? { opacity: 1 } : { opacity: 0, filter: "brightness(0.6)" },
+    hidden: reduce ? { opacity: 1 } : { opacity: 0 },
     show: {
       opacity: 1,
-      filter: "brightness(1)",
       transition: { duration: reduce ? 0 : 1.1, ease: SITE_EASE, delay: reduce ? 0 : 0.35 },
     },
   } as const;
@@ -59,16 +58,10 @@ const AdvantageV2 = () => {
       />
 
       <style>{`
-        @keyframes adv-emph-glow {
-          0% { text-shadow: 0 0 0 hsl(40 74% 62% / 0); }
-          50% { text-shadow: 0 0 18px hsl(40 74% 62% / 0.35); }
-          100% { text-shadow: 0 0 6px hsl(40 74% 62% / 0.15); }
-        }
+        /* Quiet static gold halo behind emphasized italic phrases.
+           Static (not animated) to avoid per-frame repaints during scroll. */
         .adv-emph {
-          animation: adv-emph-glow 1.8s ease-out 0.45s both;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .adv-emph { animation: none; }
+          text-shadow: 0 0 6px hsl(40 74% 62% / 0.18);
         }
       `}</style>
 
