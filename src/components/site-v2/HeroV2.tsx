@@ -221,6 +221,8 @@ const HeroV2 = () => {
                   <span aria-hidden className="hero-v2-sheen" />
                 </span>
               )}
+            </motion.div>
+
 
             {/* Faint breathing gold horizon line beneath the headline. */}
             <motion.div
