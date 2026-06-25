@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "framer-motion";
-import { RefreshCw, Target } from "lucide-react";
+import { RefreshCw, Target, ArrowRight } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { FadeRise, MaskedLines, SectionEnter, SITE_EASE } from "@/components/site/motion";
 
@@ -43,6 +43,20 @@ const ServicesV2 = () => {
         }}
       />
 
+      <style>{`
+        @keyframes svc-sheen {
+          0% { transform: translateX(-120%) skewX(-12deg); opacity: 0; }
+          20% { opacity: 1; }
+          100% { transform: translateX(220%) skewX(-12deg); opacity: 0; }
+        }
+        .svc-sheen-anim {
+          animation: svc-sheen 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .svc-sheen-anim { animation: none; }
+        }
+      `}</style>
+
       <div className="relative mx-auto w-full max-w-[1180px]">
         <FadeRise trigger="child" as="p" className="t-eyebrow">
           SERVICES
@@ -78,6 +92,7 @@ const ServicesV2 = () => {
 
           {OFFERS.map((offer, i) => {
             const isLeft = i === 0;
+            const index = i === 0 ? "01" : "02";
             return (
               <motion.article
                 key={offer.title}
@@ -103,9 +118,38 @@ const ServicesV2 = () => {
                   transformOrigin: isLeft ? "left center" : "right center",
                   willChange: "transform, opacity",
                 }}
-                className="luxe-card services-card group relative flex flex-col rounded-xl border border-off-white/[0.07] bg-secondary p-8 md:p-10"
+                onViewportEnter={(e) => {
+                  const el = (e?.target as HTMLElement | undefined) ?? null;
+                  el?.querySelector<HTMLElement>(".svc-sheen")?.classList.add("svc-sheen-anim");
+                }}
+                className="luxe-card services-card group relative flex flex-col overflow-hidden rounded-xl border border-off-white/[0.07] bg-secondary p-8 md:p-10"
               >
-                <div className="flex items-center gap-3">
+                {/* Gold corner accents */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute top-0 left-0 h-10 w-10 border-t border-l border-gold/40 rounded-tl-xl"
+                />
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute bottom-0 right-0 h-10 w-10 border-b border-r border-gold/40 rounded-br-xl"
+                />
+
+                {/* Sheen sweep */}
+                <span
+                  aria-hidden
+                  className="svc-sheen pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-gold/15 to-transparent"
+                />
+
+                {/* Index numeral */}
+                <div
+                  aria-hidden
+                  className="font-serif leading-none text-gold/85 select-none"
+                  style={{ fontSize: "clamp(2.75rem, 5vw, 4rem)" }}
+                >
+                  {index}
+                </div>
+
+                <div className="mt-6 flex items-center gap-3">
                   <span
                     className="flex h-10 w-10 items-center justify-center rounded-md border border-gold/30 text-gold/80 transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-gold group-hover:border-gold/70"
                     aria-hidden
@@ -116,9 +160,25 @@ const ServicesV2 = () => {
 
                 <h3 className="mt-6 t-h3 text-off-white">{offer.title}</h3>
 
+                <div aria-hidden className="mt-5 h-px w-16 bg-gold/50" />
+
                 <p className="mt-5 t-body text-off-white/65">
                   {offer.description}
                 </p>
+
+                <div className="mt-8 pt-2">
+                  <a
+                    href="#contact"
+                    className="group/btn relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gold px-7 py-3 text-charcoal text-xs font-medium tracking-[0.18em] uppercase shadow-[0_10px_30px_-12px_hsl(40_74%_62%/0.5)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_16px_44px_-12px_hsl(40_74%_62%/0.7)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+                  >
+                    <span className="relative z-10">Let's Build the Path Forward</span>
+                    <ArrowRight size={14} strokeWidth={2} className="relative z-10 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-x-0.5" />
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-x-full motion-reduce:hidden"
+                    />
+                  </a>
+                </div>
               </motion.article>
             );
           })}
