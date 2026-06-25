@@ -85,7 +85,7 @@ const HeroBackground = () => {
 
       {/* Film grain — analog texture */}
       <div
-        className="absolute inset-0 opacity-[0.14] mix-blend-overlay"
+        className="absolute inset-0 opacity-[0.08]"
         style={{
           backgroundImage: `url("${NOISE_SVG}")`,
           backgroundSize: "240px 240px",
