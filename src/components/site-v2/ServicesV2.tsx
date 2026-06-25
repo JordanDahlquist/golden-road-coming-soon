@@ -121,7 +121,6 @@ const ServicesV2 = () => {
                 style={{
                   transformStyle: "preserve-3d",
                   transformOrigin: isLeft ? "left center" : "right center",
-                  willChange: "transform, opacity",
                 }}
                 onViewportEnter={(e) => {
                   const el = (e?.target as HTMLElement | undefined) ?? null;
