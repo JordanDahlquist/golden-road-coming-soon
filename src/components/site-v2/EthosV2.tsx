@@ -39,7 +39,7 @@ const ETHOS_CARDS: EthosCard[] = [
 
 const EthosV2 = () => {
   const reduce = useReducedMotion() ?? false;
-  const sectionRef = useRef<HTMLElement | null>(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -52,16 +52,19 @@ const EthosV2 = () => {
   const headlineY = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["2%", "-2%"]);
 
   return (
-    <SectionEnter
-      as="section"
-      ref={sectionRef as never}
+    <section
+      ref={sectionRef}
       aria-labelledby="ethos-heading"
-      className="relative isolate overflow-hidden text-off-white px-6 md:px-12 lg:px-20 pt-20 md:pt-28 pb-24 md:pb-32"
-      amount={0.2}
+      className="relative isolate overflow-hidden text-off-white"
       style={{
         background:
           "linear-gradient(180deg, #1a1817 0%, #141312 50%, #0f0e0d 100%)",
       }}
+    >
+    <SectionEnter
+      as="div"
+      className="relative px-6 md:px-12 lg:px-20 pt-20 md:pt-28 pb-24 md:pb-32"
+      amount={0.2}
     >
       {/* Component-scoped keyframes */}
       <style>{`
