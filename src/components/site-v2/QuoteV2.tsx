@@ -127,7 +127,7 @@ const QuoteV2 = () => {
           />
           {!reduce && (
             <span aria-hidden className="quote-v2-sweep-clip">
-              <span aria-hidden className="quote-v2-sweep" />
+              <span aria-hidden className="quote-v2-sweep quote-v2-loop" />
             </span>
           )}
         </div>
