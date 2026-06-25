@@ -34,9 +34,8 @@ const HeroBackground = () => {
         className="hero-horizon absolute -bottom-[20%] left-1/2 -translate-x-1/2 h-[110vh] w-[170vw]"
         style={{
           background:
-            "radial-gradient(ellipse 70% 80% at 50% 100%, hsl(var(--gold) / 0.55) 0%, hsl(var(--gold) / 0.30) 18%, hsl(var(--gold) / 0.14) 36%, hsl(var(--gold) / 0.05) 55%, transparent 75%)",
+            "radial-gradient(ellipse 70% 80% at 50% 100%, hsl(var(--gold) / 0.45) 0%, hsl(var(--gold) / 0.24) 18%, hsl(var(--gold) / 0.11) 36%, hsl(var(--gold) / 0.04) 55%, transparent 75%)",
           willChange: "transform, opacity",
-          mixBlendMode: "screen",
         }}
       />
 
@@ -45,10 +44,9 @@ const HeroBackground = () => {
         className="hero-horizon hero-horizon--alt absolute -bottom-[18%] left-[55%] -translate-x-1/2 h-[70vh] w-[80vh] rounded-full"
         style={{
           background:
-            "radial-gradient(closest-side, hsl(var(--gold) / 0.45), hsl(var(--gold) / 0.15) 45%, transparent 75%)",
+            "radial-gradient(closest-side, hsl(var(--gold) / 0.36), hsl(var(--gold) / 0.12) 45%, transparent 75%)",
           willChange: "transform, opacity",
-          filter: "blur(20px)",
-          mixBlendMode: "screen",
+          filter: "blur(10px)",
         }}
       />
 
@@ -57,10 +55,9 @@ const HeroBackground = () => {
         className="hero-shaft absolute -top-[10%] right-[8%] h-[130vh] w-[45vw] origin-top"
         style={{
           background:
-            "linear-gradient(180deg, hsl(var(--gold) / 0.16) 0%, hsl(var(--gold) / 0.06) 40%, transparent 75%)",
+            "linear-gradient(180deg, hsl(var(--gold) / 0.12) 0%, hsl(var(--gold) / 0.05) 40%, transparent 75%)",
           transform: "rotate(16deg)",
-          filter: "blur(60px)",
-          mixBlendMode: "screen",
+          filter: "blur(10px)",
           willChange: "opacity, transform",
         }}
       />
@@ -70,8 +67,7 @@ const HeroBackground = () => {
         className="absolute -top-[15%] -left-[10%] h-[70vh] w-[70vh] rounded-full"
         style={{
           background:
-            "radial-gradient(closest-side, hsl(var(--off-white) / 0.06), transparent 70%)",
-          mixBlendMode: "screen",
+            "radial-gradient(closest-side, hsl(var(--off-white) / 0.05), transparent 70%)",
         }}
       />
 
@@ -89,7 +85,7 @@ const HeroBackground = () => {
 
       {/* Film grain — analog texture */}
       <div
-        className="absolute inset-0 opacity-[0.14] mix-blend-overlay"
+        className="absolute inset-0 opacity-[0.08]"
         style={{
           backgroundImage: `url("${NOISE_SVG}")`,
           backgroundSize: "240px 240px",

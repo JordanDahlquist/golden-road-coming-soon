@@ -103,7 +103,7 @@ const ContactSection = () => {
         <div className="absolute inset-x-0 bottom-0 h-[55%] bg-[radial-gradient(ellipse_60%_70%_at_50%_100%,rgba(229,181,85,0.22),transparent_70%)]" />
         {/* Subtle film grain */}
         <div
-          className="absolute inset-0 opacity-[0.06] mix-blend-overlay"
+          className="absolute inset-0 opacity-[0.04]"
           style={{
             backgroundImage:
               "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='0.55'/></svg>\")",
@@ -202,7 +202,7 @@ const ContactSection = () => {
                 className="pointer-events-none absolute -inset-6 -z-10 rounded-[20px] bg-[radial-gradient(ellipse_at_50%_50%,rgba(229,181,85,0.18),transparent_70%)] blur-2xl"
               />
               <div
-                className="relative rounded-[12px] border border-gold/20 bg-charcoal/95 p-7 md:p-10 backdrop-blur-sm"
+                className="relative rounded-[12px] border border-gold/20 bg-charcoal/95 p-7 md:p-10"
                 style={{
                   boxShadow:
                     "0 30px 80px -20px rgba(0,0,0,0.7), 0 0 0 1px rgba(229,181,85,0.06), inset 0 1px 0 rgba(247,246,245,0.04)",
