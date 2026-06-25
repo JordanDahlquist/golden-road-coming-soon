@@ -69,7 +69,6 @@ const HeroV2 = () => {
             transparent 72%
           );
           filter: blur(18px);
-          mix-blend-mode: screen;
           opacity: 0;
         }
         @media (prefers-reduced-motion: no-preference) {
@@ -99,7 +98,7 @@ const HeroV2 = () => {
             hsl(var(--gold) / 0.18) 52%,
             transparent 65%
           );
-          mix-blend-mode: screen;
+          
           transform: translateX(-160%);
           opacity: 0;
         }
@@ -165,7 +164,7 @@ const HeroV2 = () => {
             height: "62%",
             background:
               "radial-gradient(ellipse 70% 55% at 50% 75%, hsl(var(--gold) / 0.32) 0%, hsl(var(--gold) / 0.14) 28%, hsl(var(--gold) / 0.05) 52%, transparent 75%)",
-            mixBlendMode: "screen",
+            
             pointerEvents: "none",
           }}
         />
