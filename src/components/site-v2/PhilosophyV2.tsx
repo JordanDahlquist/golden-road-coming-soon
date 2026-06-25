@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { SectionEnter, FadeRise, MaskedLines, SITE_EASE } from "@/components/site/motion";
 
 const PhilosophyV2 = () => {
