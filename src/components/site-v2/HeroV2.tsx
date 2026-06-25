@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { FadeRise, MaskedLines, MotionGroup, SITE_EASE } from "@/components/site/motion";
 import goldenRoad from "@/assets/golden-road.png.asset.json";
@@ -9,27 +9,31 @@ const LINE_DURATION = 0.9;
 // After the masked line finishes revealing.
 const GOLD_IGNITE_DELAY = HEADLINE_DELAY + LINE_DURATION + 0.1; // ~1.35s
 const TAIL_DELAY = GOLD_IGNITE_DELAY + 0.35; // ~1.7s — subhead
-const CTA_DELAY_OFFSET = 0.18; // staggered within MotionGroup
 const META_DELAY = TAIL_DELAY + 0.7; // meta strip last
 const SCROLL_CUE_DELAY = META_DELAY + 0.15;
 
 const HEADLINE_LINES = [
   <>
     Navigate the{" "}
-    <motion.span
-      className="hero-v2-gold inline-block"
-      initial={{ opacity: 0, scale: 0.94, filter: "blur(6px)" }}
-      animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-      transition={{ duration: 0.9, ease: SITE_EASE, delay: GOLD_IGNITE_DELAY }}
-    >
-      future.
-    </motion.span>
+    <span className="hero-v2-gold-wrap relative inline-block align-baseline">
+      <span aria-hidden="true" className="hero-v2-gold-glow hero-v2-loop" />
+      <motion.span
+        className="hero-v2-gold relative inline-block"
+        initial={{ opacity: 0, scale: 0.94 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.9, ease: SITE_EASE, delay: GOLD_IGNITE_DELAY }}
+      >
+        future.
+      </motion.span>
+    </span>
   </>,
 ];
 
 const HeroV2 = () => {
   const reduce = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
+  // Pause continuous loops when the hero is well off-screen.
+  const loopsActive = useInView(sectionRef, { margin: "200px 0px 200px 0px" });
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -45,31 +49,37 @@ const HeroV2 = () => {
   return (
     <section
       ref={sectionRef}
+      data-loops={loopsActive ? "active" : "paused"}
       className="relative overflow-hidden bg-background text-off-white"
       style={{ height: "100vh", maxHeight: "100vh" }}
     >
-      {/* Component-scoped styles — gold word glow + repeating sheen + horizon line. */}
+      {/* Component-scoped styles — gold word glow (opacity layer), repeating sheen, horizon line. */}
       <style>{`
-        .hero-v2-gold {
-          color: hsl(var(--gold));
-          will-change: opacity, transform, text-shadow;
+        .hero-v2-gold { color: hsl(var(--gold)); }
+        /* Static blurred gold glow layer behind the word — only opacity animates. */
+        .hero-v2-gold-glow {
+          position: absolute;
+          inset: -0.35em -0.25em;
+          z-index: 0;
+          pointer-events: none;
+          background: radial-gradient(
+            ellipse at center,
+            hsl(var(--gold) / 0.55) 0%,
+            hsl(var(--gold) / 0.18) 45%,
+            transparent 72%
+          );
+          filter: blur(18px);
+          mix-blend-mode: screen;
+          opacity: 0;
         }
         @media (prefers-reduced-motion: no-preference) {
-          .hero-v2-gold {
+          .hero-v2-gold-glow {
             animation: heroV2GoldBreathe 7s ease-in-out ${GOLD_IGNITE_DELAY + 0.9}s infinite;
           }
         }
         @keyframes heroV2GoldBreathe {
-          0%, 100% {
-            text-shadow:
-              0 0 14px hsl(var(--gold) / 0.18),
-              0 0 36px hsl(var(--gold) / 0.08);
-          }
-          50% {
-            text-shadow:
-              0 0 22px hsl(var(--gold) / 0.42),
-              0 0 64px hsl(var(--gold) / 0.22);
-          }
+          0%, 100% { opacity: 0.30; }
+          50%      { opacity: 0.95; }
         }
         .hero-v2-sheen-clip {
           position: absolute;
@@ -123,10 +133,13 @@ const HeroV2 = () => {
           0%, 100% { opacity: 0.35; transform: scaleX(0.92); }
           50%      { opacity: 0.85; transform: scaleX(1); }
         }
+        /* Pause every looping element when the section is off-screen. */
+        .hero-v2-loop { animation-play-state: paused; }
+        [data-loops="active"] .hero-v2-loop { animation-play-state: running; }
       `}</style>
 
       <motion.div
-        style={{ scale: bgScale, y: bgY, willChange: "transform" }}
+        style={{ scale: bgScale, y: bgY }}
         className="absolute inset-0"
         aria-hidden
       >
@@ -153,14 +166,13 @@ const HeroV2 = () => {
             background:
               "radial-gradient(ellipse 70% 55% at 50% 75%, hsl(var(--gold) / 0.32) 0%, hsl(var(--gold) / 0.14) 28%, hsl(var(--gold) / 0.05) 52%, transparent 75%)",
             mixBlendMode: "screen",
-            willChange: "opacity, transform",
             pointerEvents: "none",
           }}
         />
 
         {/* Embers — parallax independent of background image. */}
         <motion.div
-          style={{ y: motesY, willChange: "transform" }}
+          style={{ y: motesY }}
           className="hero-motes absolute inset-0 overflow-hidden pointer-events-none"
         >
           {Array.from({ length: 14 }).map((_, i) => (
@@ -197,13 +209,13 @@ const HeroV2 = () => {
       </motion.div>
 
       <motion.div
-        style={{ opacity: handoffOpacity, willChange: "opacity" }}
+        style={{ opacity: handoffOpacity }}
         className="relative z-10 h-full flex flex-col px-6 md:px-12 lg:px-20"
       >
         <div className="w-full max-w-[1400px] mx-auto h-full flex flex-col justify-between pt-20 md:pt-[100px] pb-8 md:pb-10">
           <div className="flex-1 flex flex-col justify-center min-h-0">
             <motion.div
-              style={{ y: headlineY, willChange: "transform" }}
+              style={{ y: headlineY }}
               className="hero-headline-sweep relative"
             >
               <MaskedLines
@@ -218,7 +230,7 @@ const HeroV2 = () => {
                   {/* One-shot CSS sweep on load (global class). */}
                   <span aria-hidden className="hero-sweep" />
                   {/* Repeating sheen that re-runs every several seconds. */}
-                  <span aria-hidden className="hero-v2-sheen" />
+                  <span aria-hidden className="hero-v2-sheen hero-v2-loop" />
                 </span>
               )}
             </motion.div>
@@ -230,10 +242,10 @@ const HeroV2 = () => {
               initial={{ opacity: 0, scaleX: 0.6 }}
               animate={{ opacity: reduce ? 0.5 : 1, scaleX: 1 }}
               transition={{ duration: 1.1, ease: SITE_EASE, delay: TAIL_DELAY - 0.1 }}
-              style={{ transformOrigin: "left center", willChange: "transform, opacity" }}
+              style={{ transformOrigin: "left center" }}
               className="mt-6 md:mt-8 max-w-[34ch]"
             >
-              <span className="hero-v2-horizon block w-full" />
+              <span className="hero-v2-horizon hero-v2-loop block w-full" />
             </motion.div>
 
             <MotionGroup delayChildren={TAIL_DELAY}>
