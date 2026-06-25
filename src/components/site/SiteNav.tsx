@@ -163,7 +163,7 @@ const SiteNav = () => {
         aria-modal="true"
         aria-label="Site menu"
         className={[
-          "md:hidden fixed inset-0 z-[60] bg-background/95 backdrop-blur-lg",
+          "md:hidden fixed inset-0 z-[60] bg-background/95",
           "transition-opacity duration-[250ms] ease-[cubic-bezier(0.22,1,0.36,1)]",
           open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none",
         ].join(" ")}
