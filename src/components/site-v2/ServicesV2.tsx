@@ -44,16 +44,21 @@ const ServicesV2 = () => {
       />
 
       <style>{`
+        .svc-sheen {
+          transform: translateX(-200%) skewX(-12deg);
+          opacity: 0;
+        }
         @keyframes svc-sheen {
-          0% { transform: translateX(-120%) skewX(-12deg); opacity: 0; }
-          20% { opacity: 1; }
-          100% { transform: translateX(220%) skewX(-12deg); opacity: 0; }
+          0%   { transform: translateX(-200%) skewX(-12deg); opacity: 0; }
+          20%  { opacity: 1; }
+          70%  { opacity: 1; }
+          100% { transform: translateX(500%) skewX(-12deg); opacity: 0; }
         }
         .svc-sheen-anim {
           animation: svc-sheen 1.4s cubic-bezier(0.22, 1, 0.36, 1) 0.4s both;
         }
         @media (prefers-reduced-motion: reduce) {
-          .svc-sheen-anim { animation: none; }
+          .svc-sheen, .svc-sheen-anim { animation: none; opacity: 0; }
         }
       `}</style>
 
@@ -135,10 +140,12 @@ const ServicesV2 = () => {
                 />
 
                 {/* Sheen sweep */}
-                <span
-                  aria-hidden
-                  className="svc-sheen pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-gold/15 to-transparent"
-                />
+                {!reduce && (
+                  <span
+                    aria-hidden
+                    className="svc-sheen pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-gold/15 to-transparent"
+                  />
+                )}
 
                 {/* Index numeral */}
                 <div

@@ -71,6 +71,12 @@ const HeroV2 = () => {
               0 0 64px hsl(var(--gold) / 0.22);
           }
         }
+        .hero-v2-sheen-clip {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+        }
         .hero-v2-sheen {
           position: absolute;
           inset: 0;
@@ -84,8 +90,8 @@ const HeroV2 = () => {
             transparent 65%
           );
           mix-blend-mode: screen;
-          -webkit-mask-image: linear-gradient(#000, #000);
-          transform: translateX(-120%);
+          transform: translateX(-160%);
+          opacity: 0;
         }
         @media (prefers-reduced-motion: no-preference) {
           .hero-v2-sheen {
@@ -93,9 +99,10 @@ const HeroV2 = () => {
           }
         }
         @keyframes heroV2Sheen {
-          0%   { transform: translateX(-120%); }
-          18%  { transform: translateX(120%); }
-          100% { transform: translateX(120%); }
+          0%   { transform: translateX(-160%); opacity: 0; }
+          4%   { opacity: 1; }
+          14%  { transform: translateX(160%); opacity: 0; }
+          100% { transform: translateX(160%); opacity: 0; }
         }
         .hero-v2-horizon {
           height: 1px;
@@ -206,11 +213,16 @@ const HeroV2 = () => {
                 stagger={0.18}
                 className="t-display text-off-white max-w-[18ch]"
               />
-              {/* One-shot CSS sweep on load (global class). */}
-              <span aria-hidden className="hero-sweep" />
-              {/* Repeating sheen that re-runs every several seconds. */}
-              <span aria-hidden className="hero-v2-sheen" />
+              {!reduce && (
+                <span aria-hidden className="hero-v2-sheen-clip">
+                  {/* One-shot CSS sweep on load (global class). */}
+                  <span aria-hidden className="hero-sweep" />
+                  {/* Repeating sheen that re-runs every several seconds. */}
+                  <span aria-hidden className="hero-v2-sheen" />
+                </span>
+              )}
             </motion.div>
+
 
             {/* Faint breathing gold horizon line beneath the headline. */}
             <motion.div
