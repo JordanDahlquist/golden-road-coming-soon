@@ -11,6 +11,7 @@ const QUOTE_LINES = [
 const QuoteV2 = () => {
   const reduce = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
+  const loopsActive = useInView(sectionRef, { margin: "200px 0px 200px 0px" });
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -22,6 +23,7 @@ const QuoteV2 = () => {
   return (
     <section
       ref={sectionRef}
+      data-loops={loopsActive ? "active" : "paused"}
       className="relative overflow-hidden text-off-white"
       style={{ backgroundColor: "hsl(var(--black))" }}
     >
