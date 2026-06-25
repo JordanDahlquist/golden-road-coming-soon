@@ -46,7 +46,7 @@ const StoryV2 = () => {
                 style={{
                   background:
                     "radial-gradient(45% 45% at 15% 90%, hsl(var(--gold) / 0.22) 0%, transparent 70%)",
-                  filter: "blur(20px)",
+                  filter: "blur(10px)",
                 }}
               />
 

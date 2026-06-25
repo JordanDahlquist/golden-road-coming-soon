@@ -68,7 +68,7 @@ const HeroV2 = () => {
             hsl(var(--gold) / 0.18) 45%,
             transparent 72%
           );
-          filter: blur(18px);
+          filter: blur(10px);
           opacity: 0;
         }
         @media (prefers-reduced-motion: no-preference) {
