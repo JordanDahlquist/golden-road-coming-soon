@@ -31,7 +31,6 @@ const Hero = () => {
   });
   const handoffOpacity = useTransform(scrollYProgress, [0, 0.85], [1, reduce ? 1 : 0]);
   const headlineY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -60]);
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1, reduce ? 1 : 1.08]);
   const bgY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 40]);
 
   return (
