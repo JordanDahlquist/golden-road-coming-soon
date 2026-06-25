@@ -5,6 +5,7 @@ import { SectionEnter, FadeRise, MaskedLines, SITE_EASE } from "@/components/sit
 const PhilosophyV2 = () => {
   const reduce = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
+  const loopsActive = useInView(sectionRef, { margin: "200px 0px 200px 0px" });
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -17,6 +18,7 @@ const PhilosophyV2 = () => {
   return (
     <section
       ref={sectionRef}
+      data-loops={loopsActive ? "active" : "paused"}
       className="relative overflow-hidden bg-background text-off-white"
     >
       <style>{`
