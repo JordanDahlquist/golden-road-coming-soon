@@ -140,10 +140,12 @@ const ServicesV2 = () => {
                 />
 
                 {/* Sheen sweep */}
-                <span
-                  aria-hidden
-                  className="svc-sheen pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-gold/15 to-transparent"
-                />
+                {!reduce && (
+                  <span
+                    aria-hidden
+                    className="svc-sheen pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-gold/15 to-transparent"
+                  />
+                )}
 
                 {/* Index numeral */}
                 <div
