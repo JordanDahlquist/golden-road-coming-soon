@@ -264,7 +264,6 @@ const EthosCardItem = ({
         border: "1px solid rgba(247,246,245,0.07)",
         transformStyle: "preserve-3d",
         transformOrigin: "center top",
-        willChange: "transform, opacity",
       }}
       className="luxe-card group relative overflow-hidden rounded-xl p-6 md:p-7 lg:p-8"
     >
