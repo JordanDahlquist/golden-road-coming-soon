@@ -181,8 +181,18 @@ const AdvantageV2 = () => {
         >
           <a
             href="#contact"
-            className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gold px-9 py-4 text-charcoal text-sm font-medium tracking-[0.18em] uppercase shadow-[0_10px_40px_-10px_hsl(40_74%_62%/0.55)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_18px_50px_-12px_hsl(40_74%_62%/0.7)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="group relative inline-flex items-center justify-center overflow-hidden rounded-full bg-gold px-9 py-4 text-charcoal text-sm font-medium tracking-[0.18em] uppercase transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           >
+            {/* GPU-only glow layer — only opacity animates on hover. */}
+            <span
+              aria-hidden
+              className="pointer-events-none absolute -inset-4 rounded-full opacity-0 transition-opacity duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:opacity-100 motion-reduce:hidden"
+              style={{
+                background:
+                  "radial-gradient(ellipse at center, hsl(40 74% 62% / 0.6) 0%, hsl(40 74% 62% / 0.2) 45%, transparent 75%)",
+                filter: "blur(16px)",
+              }}
+            />
             <span className="relative z-10">Let's Build the Path Forward</span>
             <span
               aria-hidden
