@@ -1,8 +1,8 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import { Gauge, Compass, Building2, ShieldCheck } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { SITE_EASE } from "@/lib/motion";
-import { FadeRise, MaskedLines, SectionEnter } from "@/components/site/motion";
+import { FadeRise, MaskedLines, SectionEnter, SITE_EASE } from "@/components/site/motion";
 
 type EthosCard = {
   icon: LucideIcon;
@@ -39,62 +39,164 @@ const ETHOS_CARDS: EthosCard[] = [
 
 const EthosV2 = () => {
   const reduce = useReducedMotion() ?? false;
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Parallax: background glow rises a bit faster than the cards.
+  const glowY = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["8%", "-12%"]);
+  const cardsY = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["3%", "-3%"]);
+  const headlineY = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["2%", "-2%"]);
 
   return (
-    <SectionEnter
-      as="section"
+    <section
+      ref={sectionRef}
       aria-labelledby="ethos-heading"
-      className="relative isolate overflow-hidden bg-background text-off-white px-6 md:px-12 lg:px-20 pt-20 md:pt-28 pb-24 md:pb-32"
+      className="relative isolate overflow-hidden text-off-white"
+      style={{
+        background:
+          "linear-gradient(180deg, #1a1817 0%, #141312 50%, #0f0e0d 100%)",
+      }}
+    >
+    <SectionEnter
+      as="div"
+      className="relative px-6 md:px-12 lg:px-20 pt-20 md:pt-28 pb-24 md:pb-32"
       amount={0.2}
     >
+      {/* Component-scoped keyframes */}
+      <style>{`
+        @keyframes ethos-headline-sheen {
+          0% { transform: translateX(-120%) skewX(-12deg); opacity: 0; }
+          15% { opacity: 1; }
+          100% { transform: translateX(220%) skewX(-12deg); opacity: 0; }
+        }
+        .ethos-headline-sheen-anim {
+          animation: ethos-headline-sheen 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
+        }
+        @keyframes ethos-card-sheen {
+          0% { transform: translateX(-120%) skewX(-14deg); opacity: 0; }
+          20% { opacity: 1; }
+          100% { transform: translateX(240%) skewX(-14deg); opacity: 0; }
+        }
+        .ethos-card-sheen-anim {
+          animation: ethos-card-sheen 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
+        }
+        @keyframes ethos-rule-draw {
+          0% { transform: scaleX(0); opacity: 0; }
+          100% { transform: scaleX(1); opacity: 1; }
+        }
+        .ethos-rule-draw-anim {
+          transform-origin: center;
+          animation: ethos-rule-draw 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+        }
+        @keyframes ethos-icon-breathe {
+          0%, 100% {
+            box-shadow: 0 0 0 1px rgba(229,181,85,0.18), 0 0 18px -4px rgba(229,181,85,0.12);
+          }
+          50% {
+            box-shadow: 0 0 0 1px rgba(229,181,85,0.35), 0 0 34px -2px rgba(229,181,85,0.28);
+          }
+        }
+        .ethos-icon-breathe {
+          animation: ethos-icon-breathe 5.5s ease-in-out infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .ethos-headline-sheen-anim,
+          .ethos-card-sheen-anim,
+          .ethos-rule-draw-anim,
+          .ethos-icon-breathe { animation: none !important; }
+          .ethos-rule-draw-anim { transform: scaleX(1); opacity: 1; }
+        }
+      `}</style>
+
+      {/* Parallax background glow — gold light rising from below */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          y: glowY,
+          background:
+            "radial-gradient(70% 45% at 50% 95%, hsl(40 74% 62% / 0.12) 0%, transparent 70%), radial-gradient(55% 35% at 50% 60%, hsl(40 74% 62% / 0.04) 0%, transparent 75%)",
+        }}
+      />
+
+      {/* Soft vignette for focus */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(120% 60% at 50% 0%, hsl(30 4% 18% / 0.55) 0%, transparent 60%), radial-gradient(60% 40% at 15% 100%, hsl(40 74% 62% / 0.07) 0%, transparent 70%)",
+            "radial-gradient(120% 80% at 50% 50%, transparent 55%, rgba(0,0,0,0.45) 100%)",
         }}
       />
 
       <div className="relative mx-auto w-full max-w-[1200px]">
-        <FadeRise as="p" trigger="in-view" className="t-eyebrow">
-          OUR ETHOS
-        </FadeRise>
+        <motion.div style={{ y: headlineY }}>
+          <FadeRise as="p" trigger="in-view" className="t-eyebrow">
+            OUR ETHOS
+          </FadeRise>
 
-        <MaskedLines
-          as="h2"
-          trigger="in-view"
-          stagger={0.08}
-          lines={[<>The Roadmap for Capital & Clarity</>]}
-          className="mt-6 t-h2 text-off-white"
-          // id consumed via aria-labelledby on section
-        />
-
-        <div id="ethos-heading" className="relative mt-20 md:mt-24">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7">
-            {ETHOS_CARDS.map((card, i) => {
-              const offsetClass =
-                i === 1
-                  ? "md:translate-y-8"
-                  : i === 2
-                  ? "md:-translate-y-2"
-                  : i === 3
-                  ? "md:translate-y-10"
-                  : "";
-              return (
-                <EthosCardItem
-                  key={card.title}
-                  card={card}
-                  index={i}
-                  reduce={reduce}
-                  className={offsetClass}
-                />
-              );
-            })}
+          <div className="relative inline-block">
+            <MaskedLines
+              as="h2"
+              trigger="in-view"
+              stagger={0.08}
+              lines={[<>The Roadmap for Capital & Clarity</>]}
+              className="relative mt-6 t-h2 text-off-white overflow-hidden"
+            />
+            {/* Headline sheen */}
+            <motion.span
+              aria-hidden
+              initial={reduce ? false : { opacity: 0 }}
+              whileInView={reduce ? undefined : { opacity: 1 }}
+              viewport={{ once: true, amount: 0.5 }}
+              onViewportEnter={(e) => {
+                const el = (e?.target as HTMLElement | undefined) ?? null;
+                el?.classList.add("ethos-headline-sheen-anim");
+              }}
+              className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-gold/20 to-transparent"
+            />
           </div>
-        </div>
+
+          {/* Drawn gold hairline accent */}
+          <motion.span
+            aria-hidden
+            initial={reduce ? false : { opacity: 0 }}
+            whileInView={reduce ? undefined : { opacity: 1 }}
+            viewport={{ once: true, amount: 0.5 }}
+            onViewportEnter={(e) => {
+              const el = (e?.target as HTMLElement | undefined) ?? null;
+              el?.classList.add("ethos-rule-draw-anim");
+            }}
+            className="mt-6 block h-px w-40 md:w-56 bg-gradient-to-r from-transparent via-gold/60 to-transparent"
+          />
+        </motion.div>
+
+        <motion.div
+          id="ethos-heading"
+          className="relative mt-20 md:mt-24"
+          style={{ y: cardsY }}
+        >
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-7"
+            style={{ perspective: "1400px", perspectiveOrigin: "50% 30%" }}
+          >
+            {ETHOS_CARDS.map((card, i) => (
+              <EthosCardItem
+                key={card.title}
+                card={card}
+                index={i}
+                reduce={reduce}
+              />
+            ))}
+          </div>
+        </motion.div>
       </div>
     </SectionEnter>
+    </section>
   );
 };
 
@@ -102,58 +204,44 @@ const EthosCardItem = ({
   card,
   index,
   reduce,
-  className = "",
 }: {
   card: EthosCard;
   index: number;
   reduce: boolean;
-  className?: string;
 }) => {
   const Icon = card.icon;
 
-  const initial = reduce
-    ? { opacity: 1, y: 0, boxShadow: "0 0 0 rgba(229,181,85,0)" }
-    : { opacity: 0, y: 36, boxShadow: "0 0 0 rgba(229,181,85,0)" };
-
-  const animateInView = reduce
-    ? { opacity: 1, y: 0 }
-    : {
-        opacity: 1,
-        y: 0,
-        boxShadow: [
-          "0 0 0 rgba(229,181,85,0)",
-          "0 0 0 1px rgba(229,181,85,0.35), 0 14px 40px -14px rgba(229,181,85,0.22)",
-          "0 0 0 1px rgba(229,181,85,0.10), 0 10px 28px -18px rgba(229,181,85,0.10)",
-        ],
-      };
-
   const surface =
     "linear-gradient(160deg, #34322f 0%, #2c2a28 55%, #252321 100%)";
-  const border = "1px solid rgba(247,246,245,0.07)";
 
   return (
     <motion.article
-      initial={initial}
-      whileInView={animateInView}
-      viewport={{ once: true, amount: 0.25 }}
+      initial={
+        reduce
+          ? { opacity: 1, rotateX: 0, y: 0 }
+          : { opacity: 0, rotateX: -28, y: 24 }
+      }
+      whileInView={{ opacity: 1, rotateX: 0, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{
-        duration: reduce ? 0 : 1.05,
+        duration: reduce ? 0 : 0.95,
         ease: SITE_EASE,
-        delay: reduce ? 0 : 0.08 + index * 0.12,
-        boxShadow: {
-          duration: reduce ? 0 : 1.6,
-          ease: SITE_EASE,
-          delay: reduce ? 0 : 0.35 + index * 0.12,
-          times: [0, 0.45, 1],
-        },
+        delay: reduce ? 0 : 0.12 + index * 0.14,
       }}
-      className={`group relative overflow-hidden rounded-xl p-6 md:p-7 lg:p-8 ${className}`}
+      onViewportEnter={(e) => {
+        const el = (e?.target as HTMLElement | undefined) ?? null;
+        el?.querySelector<HTMLElement>(".ethos-sheen")?.classList.add("ethos-card-sheen-anim");
+      }}
       style={{
         background: surface,
-        border,
-        willChange: "transform, opacity, box-shadow",
+        border: "1px solid rgba(247,246,245,0.07)",
+        transformStyle: "preserve-3d",
+        transformOrigin: "center top",
+        willChange: "transform, opacity",
       }}
+      className="luxe-card group relative overflow-hidden rounded-xl p-6 md:p-7 lg:p-8"
     >
+      {/* Top hairline */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-px"
@@ -163,10 +251,16 @@ const EthosCardItem = ({
         }}
       />
 
+      {/* One-time gold sheen sweep on entrance */}
+      <span
+        aria-hidden
+        className="ethos-sheen pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-gold/15 to-transparent"
+      />
+
       <div className="flex items-start gap-5 md:gap-6">
         <span
           aria-hidden="true"
-          className="inline-flex shrink-0 items-center justify-center rounded-lg h-12 w-12 md:h-14 md:w-14"
+          className="ethos-icon-breathe inline-flex shrink-0 items-center justify-center rounded-lg h-12 w-12 md:h-14 md:w-14"
           style={{
             border: "1px solid rgba(229,181,85,0.35)",
             background:
