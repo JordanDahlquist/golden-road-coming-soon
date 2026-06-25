@@ -82,7 +82,7 @@ const PhilosophyV2 = () => {
       </motion.div>
 
       <motion.div
-        style={{ y: textY, willChange: "transform" }}
+        style={{ y: textY }}
         className="relative z-10"
       >
         <SectionEnter
