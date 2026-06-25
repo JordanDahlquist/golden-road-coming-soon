@@ -139,10 +139,7 @@ const EthosV2 = () => {
             OUR ETHOS
           </FadeRise>
 
-          <div
-            className="relative inline-block"
-            onViewportEnter={undefined}
-          >
+          <div className="relative inline-block">
             <MaskedLines
               as="h2"
               trigger="in-view"
