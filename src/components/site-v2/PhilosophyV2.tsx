@@ -60,7 +60,7 @@ const PhilosophyV2 = () => {
       {/* Soft golden-road glow + vignette */}
       <motion.div
         aria-hidden
-        style={{ y: glowY, willChange: "transform" }}
+        style={{ y: glowY }}
         className="absolute inset-0 pointer-events-none"
       >
         <div
