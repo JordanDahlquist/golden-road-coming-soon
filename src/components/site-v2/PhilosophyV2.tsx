@@ -20,6 +20,12 @@ const PhilosophyV2 = () => {
       className="relative overflow-hidden bg-background text-off-white"
     >
       <style>{`
+        .phil-v2-sweep-clip {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+        }
         .phil-v2-sweep {
           position: absolute;
           inset: 0;
@@ -33,15 +39,17 @@ const PhilosophyV2 = () => {
             transparent 62%
           );
           mix-blend-mode: screen;
-          transform: translateX(-130%);
+          transform: translateX(-160%);
+          opacity: 0;
         }
         @media (prefers-reduced-motion: no-preference) {
           .phil-v2-sweep { animation: philV2Sweep 9s ease-in-out 1.6s infinite; }
         }
         @keyframes philV2Sweep {
-          0%   { transform: translateX(-130%); }
-          22%  { transform: translateX(130%); }
-          100% { transform: translateX(130%); }
+          0%   { transform: translateX(-160%); opacity: 0; }
+          4%   { opacity: 1; }
+          18%  { transform: translateX(160%); opacity: 0; }
+          100% { transform: translateX(160%); opacity: 0; }
         }
       `}</style>
 
