@@ -115,7 +115,7 @@ const PhilosophyV2 = () => {
             />
             {!reduce && (
               <span aria-hidden className="phil-v2-sweep-clip">
-                <span aria-hidden className="phil-v2-sweep" />
+                <span aria-hidden className="phil-v2-sweep phil-v2-loop" />
               </span>
             )}
           </div>
