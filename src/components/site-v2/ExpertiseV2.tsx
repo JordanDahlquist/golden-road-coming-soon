@@ -179,10 +179,12 @@ const ExpertiseV2 = () => {
                         "radial-gradient(80% 60% at 30% 0%, hsl(40 74% 62% / 0.18) 0%, transparent 70%)",
                     }}
                   />
-                  <span
-                    aria-hidden
-                    className="exp-feature-sheen pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-gold/12 to-transparent"
-                  />
+                  {!reduce && (
+                    <span
+                      aria-hidden
+                      className="exp-feature-sheen pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-gold/12 to-transparent"
+                    />
+                  )}
                   <span
                     aria-hidden
                     className="absolute top-5 left-5 h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_10px_2px_hsl(40_74%_62%/0.55)]"
