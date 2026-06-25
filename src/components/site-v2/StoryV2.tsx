@@ -37,7 +37,7 @@ const StoryV2 = () => {
           <FadeRise
             trigger="child"
             as="div"
-            className="md:col-span-5 relative w-full"
+            className="md:col-span-5 order-1 relative w-full"
           >
             <div className="relative">
               <div
@@ -122,7 +122,7 @@ const StoryV2 = () => {
             </div>
           </FadeRise>
 
-          <div className="md:col-span-7 flex flex-col gap-9 md:gap-11">
+          <div className="md:col-span-7 order-2 md:order-3 flex flex-col gap-9 md:gap-11">
             <FadeRise trigger="child" as="div">
               <p className="t-h3 text-off-white">
                 I didn't learn corporate strategy from a textbook; I built it at the executive table.
@@ -152,34 +152,38 @@ const StoryV2 = () => {
                 We provide elite, forward-looking strategic financial leadership for organizations that have outgrown traditional accounting but aren't looking for the rigid overhead of a traditional, full-time executive placement. By blending the commercial foresight of a strategic growth advisor with the fiscal discipline of a battle-tested CFO, I help modern leadership teams cut through economic noise, protect their enterprise value, and clear a predictable path to the future.
               </p>
             </FadeRise>
-
-            <FadeRise trigger="child" as="div" className="mt-1">
-              <div className="relative flex gap-6 md:gap-7 items-start">
-                <div className="relative shrink-0 self-stretch w-px">
-                  <motion.span
-                    aria-hidden="true"
-                    className="absolute inset-x-0 top-0 bg-gold"
-                    initial={{ height: reduceMotion ? "100%" : "0%" }}
-                    whileInView={{ height: "100%" }}
-                    viewport={{ once: true, amount: 0.6 }}
-                    transition={{
-                      duration: reduceMotion ? 0 : 0.9,
-                      ease: SITE_EASE,
-                      delay: 0.15,
-                    }}
-                  />
-                </div>
-                <div>
-                  <p className="t-card-title italic text-off-white/95">
-                    Numbers tell a story, but leadership writes the script. At Golden Road Strategies, we ensure you have the financial foundation to execute your next chapter with absolute certainty.
-                  </p>
-                  <p className="mt-5 t-body-sm text-off-white/55 tracking-wide">
-                    Tracy Golden, Founder &amp; Principal Advisory Partner
-                  </p>
-                </div>
-              </div>
-            </FadeRise>
           </div>
+
+          <FadeRise
+            trigger="child"
+            as="div"
+            className="md:col-span-5 order-3 md:order-2 md:pt-2"
+          >
+            <div className="relative flex gap-6 md:gap-7 items-start">
+              <div className="relative shrink-0 self-stretch w-px">
+                <motion.span
+                  aria-hidden="true"
+                  className="absolute inset-x-0 top-0 bg-gold"
+                  initial={{ height: reduceMotion ? "100%" : "0%" }}
+                  whileInView={{ height: "100%" }}
+                  viewport={{ once: true, amount: 0.6 }}
+                  transition={{
+                    duration: reduceMotion ? 0 : 0.9,
+                    ease: SITE_EASE,
+                    delay: 0.15,
+                  }}
+                />
+              </div>
+              <div>
+                <p className="t-card-title italic text-off-white/95">
+                  Numbers tell a story, but leadership writes the script. At Golden Road Strategies, we ensure you have the financial foundation to execute your next chapter with absolute certainty.
+                </p>
+                <p className="mt-5 t-body-sm text-off-white/55 tracking-wide">
+                  Tracy Golden, Founder &amp; Principal Advisory Partner
+                </p>
+              </div>
+            </div>
+          </FadeRise>
         </div>
       </div>
     </SectionEnter>
