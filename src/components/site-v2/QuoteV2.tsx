@@ -75,7 +75,7 @@ const QuoteV2 = () => {
         className="absolute inset-0 pointer-events-none"
       >
         <div
-          className="quote-v2-glow-breathe absolute inset-x-0 bottom-0"
+          className="quote-v2-glow-breathe quote-v2-loop absolute inset-x-0 bottom-0"
           style={{
             height: "80%",
             background:
