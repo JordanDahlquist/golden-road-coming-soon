@@ -68,18 +68,24 @@ const EthosV2 = () => {
     >
       {/* Component-scoped keyframes */}
       <style>{`
+        .ethos-headline-sheen, .ethos-sheen {
+          transform: translateX(-200%) skewX(-12deg);
+          opacity: 0;
+        }
         @keyframes ethos-headline-sheen {
-          0% { transform: translateX(-120%) skewX(-12deg); opacity: 0; }
-          15% { opacity: 1; }
-          100% { transform: translateX(220%) skewX(-12deg); opacity: 0; }
+          0%   { transform: translateX(-200%) skewX(-12deg); opacity: 0; }
+          15%  { opacity: 1; }
+          70%  { opacity: 1; }
+          100% { transform: translateX(500%) skewX(-12deg); opacity: 0; }
         }
         .ethos-headline-sheen-anim {
           animation: ethos-headline-sheen 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.6s both;
         }
         @keyframes ethos-card-sheen {
-          0% { transform: translateX(-120%) skewX(-14deg); opacity: 0; }
-          20% { opacity: 1; }
-          100% { transform: translateX(240%) skewX(-14deg); opacity: 0; }
+          0%   { transform: translateX(-200%) skewX(-14deg); opacity: 0; }
+          20%  { opacity: 1; }
+          70%  { opacity: 1; }
+          100% { transform: translateX(500%) skewX(-14deg); opacity: 0; }
         }
         .ethos-card-sheen-anim {
           animation: ethos-card-sheen 1.5s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
