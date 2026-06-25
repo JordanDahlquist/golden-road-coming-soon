@@ -213,11 +213,14 @@ const HeroV2 = () => {
                 stagger={0.18}
                 className="t-display text-off-white max-w-[18ch]"
               />
-              {/* One-shot CSS sweep on load (global class). */}
-              <span aria-hidden className="hero-sweep" />
-              {/* Repeating sheen that re-runs every several seconds. */}
-              <span aria-hidden className="hero-v2-sheen" />
-            </motion.div>
+              {!reduce && (
+                <span aria-hidden className="hero-v2-sheen-clip">
+                  {/* One-shot CSS sweep on load (global class). */}
+                  <span aria-hidden className="hero-sweep" />
+                  {/* Repeating sheen that re-runs every several seconds. */}
+                  <span aria-hidden className="hero-v2-sheen" />
+                </span>
+              )}
 
             {/* Faint breathing gold horizon line beneath the headline. */}
             <motion.div
