@@ -144,9 +144,11 @@ const ExpertiseV2 = () => {
         @media (prefers-reduced-motion: reduce) {
           .exp-feature-glow, .exp-feature-sheen { animation: none; opacity: 0; }
         }
+        .exp-v2-loop { animation-play-state: paused; }
+        [data-loops="active"] .exp-v2-loop { animation-play-state: running; }
       `}</style>
 
-      <div className="relative mx-auto w-full max-w-[1180px]">
+      <div ref={loopsRef} data-loops={loopsActive ? "active" : "paused"} className="relative mx-auto w-full max-w-[1180px]">
         <FadeRise trigger="child" as="p" className="t-eyebrow">
           KEY AREAS OF EXPERTISE
         </FadeRise>
