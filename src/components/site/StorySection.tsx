@@ -104,10 +104,10 @@ const StorySection = () => {
                   {/* warm grade overlay */}
                   <div
                     aria-hidden="true"
-                    className="absolute inset-0 mix-blend-soft-light"
+                    className="absolute inset-0"
                     style={{
                       background:
-                        "linear-gradient(160deg, hsl(var(--gold) / 0.18) 0%, transparent 45%, hsl(var(--charcoal-deep) / 0.55) 100%)",
+                        "linear-gradient(160deg, hsl(var(--gold) / 0.14) 0%, transparent 45%, hsl(var(--charcoal-deep) / 0.55) 100%)",
                     }}
                   />
                   {/* shadow deepen bottom */}
