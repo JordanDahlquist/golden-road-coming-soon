@@ -199,6 +199,7 @@ const EthosV2 = () => {
         </motion.div>
       </div>
     </SectionEnter>
+    </section>
   );
 };
 
