@@ -40,11 +40,11 @@ const Hero = () => {
       style={{ height: "100vh", maxHeight: "100vh" }}
     >
       <motion.div
-        style={{ scale: bgScale, y: bgY, willChange: "transform" }}
+        style={{ y: bgY, willChange: "transform" }}
         className="absolute inset-0"
         aria-hidden
       >
-        <div className="hero-pushin absolute inset-0">
+        <div className="absolute inset-0">
           <img
             src={goldenRoad.url}
             alt=""
