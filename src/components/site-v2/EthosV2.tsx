@@ -40,6 +40,8 @@ const ETHOS_CARDS: EthosCard[] = [
 const EthosV2 = () => {
   const reduce = useReducedMotion() ?? false;
   const sectionRef = useRef<HTMLDivElement | null>(null);
+  // Pause looping breathing glows when the section is off-screen.
+  const loopsActive = useInView(sectionRef, { margin: "200px 0px 200px 0px" });
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -54,6 +56,7 @@ const EthosV2 = () => {
   return (
     <section
       ref={sectionRef}
+      data-loops={loopsActive ? "active" : "paused"}
       aria-labelledby="ethos-heading"
       className="relative isolate overflow-hidden text-off-white"
       style={{
