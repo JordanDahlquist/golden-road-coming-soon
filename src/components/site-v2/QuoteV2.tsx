@@ -64,6 +64,8 @@ const QuoteV2 = () => {
           0%, 100% { opacity: 0.55; }
           50%      { opacity: 1; }
         }
+        .quote-v2-loop { animation-play-state: paused; }
+        [data-loops="active"] .quote-v2-loop { animation-play-state: running; }
       `}</style>
 
       {/* Atmospheric background — slow zoom + parallax + breathing glow */}
