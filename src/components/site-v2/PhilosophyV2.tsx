@@ -40,7 +40,7 @@ const PhilosophyV2 = () => {
             hsl(var(--gold) / 0.18) 51%,
             transparent 62%
           );
-          mix-blend-mode: screen;
+          
           transform: translateX(-160%);
           opacity: 0;
         }
@@ -69,7 +69,7 @@ const PhilosophyV2 = () => {
             height: "70%",
             background:
               "radial-gradient(ellipse 65% 60% at 50% 95%, hsl(var(--gold) / 0.18) 0%, hsl(var(--gold) / 0.08) 35%, transparent 70%)",
-            mixBlendMode: "screen",
+            
           }}
         />
         <div

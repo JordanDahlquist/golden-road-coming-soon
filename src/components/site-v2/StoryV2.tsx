@@ -46,7 +46,7 @@ const StoryV2 = () => {
                 style={{
                   background:
                     "radial-gradient(45% 45% at 15% 90%, hsl(var(--gold) / 0.22) 0%, transparent 70%)",
-                  filter: "blur(20px)",
+                  filter: "blur(10px)",
                 }}
               />
 
@@ -83,7 +83,7 @@ const StoryV2 = () => {
                   />
                   <div
                     aria-hidden="true"
-                    className="absolute inset-0 mix-blend-soft-light"
+                    className="absolute inset-0"
                     style={{
                       background:
                         "linear-gradient(160deg, hsl(var(--gold) / 0.18) 0%, transparent 45%, hsl(var(--charcoal-deep) / 0.55) 100%)",
@@ -105,7 +105,7 @@ const StoryV2 = () => {
                       style={{
                         background:
                           "linear-gradient(110deg, transparent 0%, hsl(var(--gold) / 0.28) 50%, transparent 100%)",
-                        mixBlendMode: "screen",
+                        
                       }}
                       initial={{ x: "-40%", opacity: 0 }}
                       whileInView={{ x: "260%", opacity: [0, 1, 0] }}

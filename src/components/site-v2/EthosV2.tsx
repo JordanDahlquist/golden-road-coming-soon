@@ -117,7 +117,7 @@ const EthosV2 = () => {
             transparent 75%
           );
           filter: blur(10px);
-          mix-blend-mode: screen;
+          
           opacity: 0;
         }
         @media (prefers-reduced-motion: no-preference) {

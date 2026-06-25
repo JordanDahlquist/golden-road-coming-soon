@@ -46,7 +46,7 @@ const QuoteV2 = () => {
             hsl(var(--gold) / 0.16) 51%,
             transparent 62%
           );
-          mix-blend-mode: screen;
+          
           transform: translateX(-160%);
           opacity: 0;
         }
@@ -80,7 +80,7 @@ const QuoteV2 = () => {
             height: "80%",
             background:
               "radial-gradient(ellipse 60% 55% at 50% 90%, hsl(var(--gold) / 0.22) 0%, hsl(var(--gold) / 0.09) 35%, transparent 70%)",
-            mixBlendMode: "screen",
+            
           }}
         />
         <div

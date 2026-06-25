@@ -190,7 +190,7 @@ const AdvantageV2 = () => {
               style={{
                 background:
                   "radial-gradient(ellipse at center, hsl(40 74% 62% / 0.6) 0%, hsl(40 74% 62% / 0.2) 45%, transparent 75%)",
-                filter: "blur(16px)",
+                filter: "blur(10px)",
               }}
             />
             <span className="relative z-10">Let's Build the Path Forward</span>
