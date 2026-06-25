@@ -26,6 +26,12 @@ const QuoteV2 = () => {
       style={{ backgroundColor: "hsl(var(--black))" }}
     >
       <style>{`
+        .quote-v2-sweep-clip {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+          pointer-events: none;
+        }
         .quote-v2-sweep {
           position: absolute;
           inset: 0;
@@ -39,16 +45,18 @@ const QuoteV2 = () => {
             transparent 62%
           );
           mix-blend-mode: screen;
-          transform: translateX(-130%);
+          transform: translateX(-160%);
+          opacity: 0;
         }
         @media (prefers-reduced-motion: no-preference) {
           .quote-v2-sweep { animation: quoteV2Sweep 10s ease-in-out 1.8s infinite; }
           .quote-v2-glow-breathe { animation: quoteV2Breathe 9s ease-in-out infinite; }
         }
         @keyframes quoteV2Sweep {
-          0%   { transform: translateX(-130%); }
-          22%  { transform: translateX(130%); }
-          100% { transform: translateX(130%); }
+          0%   { transform: translateX(-160%); opacity: 0; }
+          4%   { opacity: 1; }
+          18%  { transform: translateX(160%); opacity: 0; }
+          100% { transform: translateX(160%); opacity: 0; }
         }
         @keyframes quoteV2Breathe {
           0%, 100% { opacity: 0.55; }
