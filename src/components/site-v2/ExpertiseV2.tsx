@@ -177,7 +177,7 @@ const ExpertiseV2 = () => {
                 <>
                   <span
                     aria-hidden
-                    className="exp-feature-glow pointer-events-none absolute -inset-px rounded-xl"
+                    className="exp-feature-glow exp-v2-loop pointer-events-none absolute -inset-px rounded-xl"
                     style={{
                       background:
                         "radial-gradient(80% 60% at 30% 0%, hsl(40 74% 62% / 0.18) 0%, transparent 70%)",
@@ -186,7 +186,7 @@ const ExpertiseV2 = () => {
                   {!reduce && (
                     <span
                       aria-hidden
-                      className="exp-feature-sheen pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-gold/12 to-transparent"
+                      className="exp-feature-sheen exp-v2-loop pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-gold/12 to-transparent"
                     />
                   )}
                   <span
