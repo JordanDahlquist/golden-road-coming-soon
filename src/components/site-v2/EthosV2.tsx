@@ -1,4 +1,4 @@
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Gauge, Compass, Building2, ShieldCheck } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
