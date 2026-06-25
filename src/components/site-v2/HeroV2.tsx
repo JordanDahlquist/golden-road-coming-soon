@@ -58,14 +58,16 @@ const HeroV2 = () => {
         /* Static blurred gold glow layer behind the word — only opacity animates. */
         .hero-v2-gold-glow {
           position: absolute;
-          inset: -0.35em -0.25em;
+          inset: -1.1em -0.55em;
           z-index: 0;
           pointer-events: none;
           background: radial-gradient(
-            ellipse at center,
-            hsl(var(--gold) / 0.55) 0%,
-            hsl(var(--gold) / 0.18) 45%,
-            transparent 72%
+            ellipse 80% 60% at center,
+            hsl(var(--gold) / 0.58) 0%,
+            hsl(var(--gold) / 0.24) 28%,
+            hsl(var(--gold) / 0.08) 52%,
+            hsl(var(--gold) / 0.03) 72%,
+            transparent 88%
           );
           filter: blur(8px);
           opacity: 0;
