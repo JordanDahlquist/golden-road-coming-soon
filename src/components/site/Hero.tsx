@@ -65,29 +65,36 @@ const Hero = () => {
             top: "38%",
             height: "62%",
             background:
-              "radial-gradient(ellipse 70% 55% at 50% 75%, hsl(var(--gold) / 0.32) 0%, hsl(var(--gold) / 0.14) 28%, hsl(var(--gold) / 0.05) 52%, transparent 75%)",
-            mixBlendMode: "screen",
-            willChange: "opacity, transform",
+              "radial-gradient(ellipse 70% 55% at 50% 75%, hsl(var(--gold) / 0.26) 0%, hsl(var(--gold) / 0.11) 28%, hsl(var(--gold) / 0.04) 52%, transparent 75%)",
+            willChange: "opacity",
             pointerEvents: "none",
           }}
         />
-        <div className="hero-motes absolute inset-0 overflow-hidden pointer-events-none">
-          {Array.from({ length: 14 }).map((_, i) => (
-            <span
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          {!reduce && Array.from({ length: 7 }).map((_, i) => (
+            <motion.span
               key={i}
-              className="hero-mote"
+              aria-hidden
+              className="absolute rounded-full"
               style={{
                 left: `${(i * 53 + 7) % 100}%`,
                 bottom: `${-10 + ((i * 17) % 30)}%`,
-                animationDelay: `${(i * 1.7) % 12}s`,
-                animationDuration: `${18 + (i % 5) * 4}s`,
-                opacity: 0.18 + ((i % 3) * 0.06),
-                width: i % 4 === 0 ? "2px" : "1.5px",
-                height: i % 4 === 0 ? "2px" : "1.5px",
+                width: "2px",
+                height: "2px",
+                background: "hsl(var(--gold) / 0.8)",
+              }}
+              initial={{ y: 0, opacity: 0 }}
+              animate={{ y: [-20, -260], opacity: [0, 0.7, 0] }}
+              transition={{
+                duration: 18 + (i % 5) * 4,
+                delay: (i * 1.7) % 12,
+                repeat: Infinity,
+                ease: "linear",
               }}
             />
           ))}
         </div>
+
         <div
           className="absolute inset-x-0 bottom-0 h-40"
           style={{
