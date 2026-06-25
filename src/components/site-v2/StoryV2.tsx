@@ -153,7 +153,6 @@ const StoryV2 = () => {
               </p>
             </FadeRise>
 
-            </FadeRise>
           </div>
         </div>
       </div>
