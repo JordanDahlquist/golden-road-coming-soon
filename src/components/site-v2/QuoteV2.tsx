@@ -121,7 +121,11 @@ const QuoteV2 = () => {
             lines={QUOTE_LINES}
             className="t-quote text-gold max-w-[48ch] relative z-10"
           />
-          <span aria-hidden className="quote-v2-sweep" />
+          {!reduce && (
+            <span aria-hidden className="quote-v2-sweep-clip">
+              <span aria-hidden className="quote-v2-sweep" />
+            </span>
+          )}
         </div>
 
         <FadeRise trigger="child" className="mt-10 md:mt-12 flex flex-col items-center gap-4" delay={1.1}>
