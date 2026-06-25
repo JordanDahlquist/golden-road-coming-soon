@@ -78,6 +78,8 @@ const TILES: Tile[] = [
 
 const ExpertiseV2 = () => {
   const reduce = useReducedMotion() ?? false;
+  const loopsRef = useRef<HTMLDivElement | null>(null);
+  const loopsActive = useInView(loopsRef, { margin: "200px 0px 200px 0px" });
 
   const flipInitial = reduce
     ? { opacity: 1, rotateY: 0 }
@@ -96,7 +98,6 @@ const ExpertiseV2 = () => {
   const flipStyle = {
     transformStyle: "preserve-3d" as const,
     transformOrigin: "left center",
-    willChange: "transform, opacity",
   };
   const viewport = { once: true, amount: 0.15 };
 
