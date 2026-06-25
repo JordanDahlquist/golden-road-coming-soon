@@ -102,21 +102,37 @@ const EthosV2 = () => {
           animation: ethos-rule-draw 1.1s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
         }
         @keyframes ethos-icon-breathe {
-          0%, 100% {
-            box-shadow: 0 0 0 1px rgba(229,181,85,0.18), 0 0 18px -4px rgba(229,181,85,0.12);
-          }
-          50% {
-            box-shadow: 0 0 0 1px rgba(229,181,85,0.35), 0 0 34px -2px rgba(229,181,85,0.28);
+          0%, 100% { opacity: 0.35; }
+          50%      { opacity: 1; }
+        }
+        .ethos-icon-glow {
+          position: absolute;
+          inset: -6px;
+          border-radius: 0.75rem;
+          pointer-events: none;
+          background: radial-gradient(
+            ellipse at center,
+            rgba(229,181,85,0.55) 0%,
+            rgba(229,181,85,0.18) 45%,
+            transparent 75%
+          );
+          filter: blur(10px);
+          mix-blend-mode: screen;
+          opacity: 0;
+        }
+        @media (prefers-reduced-motion: no-preference) {
+          .ethos-icon-glow {
+            animation: ethos-icon-breathe 5.5s ease-in-out infinite;
           }
         }
-        .ethos-icon-breathe {
-          animation: ethos-icon-breathe 5.5s ease-in-out infinite;
-        }
+        /* Pause looping animations when section is off-screen. */
+        .ethos-v2-loop { animation-play-state: paused; }
+        [data-loops="active"] .ethos-v2-loop { animation-play-state: running; }
         @media (prefers-reduced-motion: reduce) {
           .ethos-headline-sheen-anim,
           .ethos-card-sheen-anim,
           .ethos-rule-draw-anim,
-          .ethos-icon-breathe { animation: none !important; }
+          .ethos-icon-glow { animation: none !important; }
           .ethos-rule-draw-anim { transform: scaleX(1); opacity: 1; }
         }
       `}</style>
