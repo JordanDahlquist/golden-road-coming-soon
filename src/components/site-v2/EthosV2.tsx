@@ -288,14 +288,16 @@ const EthosCardItem = ({
       <div className="flex items-start gap-5 md:gap-6">
         <span
           aria-hidden="true"
-          className="ethos-icon-breathe inline-flex shrink-0 items-center justify-center rounded-lg h-12 w-12 md:h-14 md:w-14"
+          className="relative inline-flex shrink-0 items-center justify-center rounded-lg h-12 w-12 md:h-14 md:w-14"
           style={{
             border: "1px solid rgba(229,181,85,0.35)",
             background:
               "linear-gradient(160deg, rgba(229,181,85,0.10) 0%, rgba(229,181,85,0.02) 100%)",
           }}
         >
-          <Icon size={24} strokeWidth={1.4} className="text-gold" />
+          {/* Separate blurred glow layer — only opacity animates. */}
+          <span aria-hidden="true" className="ethos-icon-glow ethos-v2-loop" />
+          <Icon size={24} strokeWidth={1.4} className="relative text-gold" />
         </span>
         <div className="min-w-0 pt-1">
           <h3 className="t-card-title">{card.title}</h3>
