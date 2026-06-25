@@ -41,7 +41,6 @@ const HeroV2 = () => {
   });
   const handoffOpacity = useTransform(scrollYProgress, [0, 0.85], [1, reduce ? 1 : 0]);
   const headlineY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -60]);
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1, reduce ? 1 : 1.08]);
   const bgY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : 40]);
   // Particles drift at a different rate than the bg image for parallax depth.
   const motesY = useTransform(scrollYProgress, [0, 1], [0, reduce ? 0 : -80]);
@@ -53,7 +52,7 @@ const HeroV2 = () => {
       className="relative overflow-hidden bg-background text-off-white"
       style={{ height: "100vh", maxHeight: "100vh" }}
     >
-      {/* Component-scoped styles — gold word glow (opacity layer), repeating sheen, horizon line. */}
+      {/* Component-scoped styles — gold word glow (opacity layer), repeating sheen, horizon line, embers. */}
       <style>{`
         .hero-v2-gold { color: hsl(var(--gold)); }
         /* Static blurred gold glow layer behind the word — only opacity animates. */
@@ -68,7 +67,7 @@ const HeroV2 = () => {
             hsl(var(--gold) / 0.18) 45%,
             transparent 72%
           );
-          filter: blur(10px);
+          filter: blur(8px);
           opacity: 0;
         }
         @media (prefers-reduced-motion: no-preference) {
@@ -98,7 +97,6 @@ const HeroV2 = () => {
             hsl(var(--gold) / 0.18) 52%,
             transparent 65%
           );
-          
           transform: translateX(-160%);
           opacity: 0;
         }
@@ -132,17 +130,42 @@ const HeroV2 = () => {
           0%, 100% { opacity: 0.35; transform: scaleX(0.92); }
           50%      { opacity: 0.85; transform: scaleX(1); }
         }
+        .hero-v2-ember {
+          position: absolute;
+          width: 2px;
+          height: 2px;
+          border-radius: 9999px;
+          pointer-events: none;
+          background: hsl(var(--gold) / 0.8);
+        }
+        @media (prefers-reduced-motion: no-preference) {
+          .hero-v2-ember {
+            opacity: 0;
+            animation: heroV2EmberDrift linear infinite;
+          }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .hero-v2-ember {
+            opacity: 0.45;
+          }
+        }
+        @keyframes heroV2EmberDrift {
+          0%   { transform: translateY(0); opacity: 0; }
+          10%  { opacity: 0.8; }
+          90%  { opacity: 0.8; }
+          100% { transform: translateY(-120vh); opacity: 0; }
+        }
         /* Pause every looping element when the section is off-screen. */
         .hero-v2-loop { animation-play-state: paused; }
         [data-loops="active"] .hero-v2-loop { animation-play-state: running; }
       `}</style>
 
       <motion.div
-        style={{ scale: bgScale, y: bgY }}
+        style={{ y: bgY }}
         className="absolute inset-0"
         aria-hidden
       >
-        <div className="hero-pushin absolute inset-0">
+        <div className="absolute inset-0">
           <img
             src={goldenRoad.url}
             alt=""
@@ -164,7 +187,6 @@ const HeroV2 = () => {
             height: "62%",
             background:
               "radial-gradient(ellipse 70% 55% at 50% 75%, hsl(var(--gold) / 0.32) 0%, hsl(var(--gold) / 0.14) 28%, hsl(var(--gold) / 0.05) 52%, transparent 75%)",
-            
             pointerEvents: "none",
           }}
         />
@@ -172,20 +194,17 @@ const HeroV2 = () => {
         {/* Embers — parallax independent of background image. */}
         <motion.div
           style={{ y: motesY }}
-          className="hero-motes absolute inset-0 overflow-hidden pointer-events-none"
+          className="absolute inset-0 overflow-hidden pointer-events-none"
         >
-          {Array.from({ length: 14 }).map((_, i) => (
+          {Array.from({ length: 7 }).map((_, i) => (
             <span
               key={i}
-              className="hero-mote"
+              className="hero-v2-ember hero-v2-loop"
               style={{
                 left: `${(i * 53 + 7) % 100}%`,
                 bottom: `${-10 + ((i * 17) % 30)}%`,
                 animationDelay: `${(i * 1.7) % 12}s`,
                 animationDuration: `${18 + (i % 5) * 4}s`,
-                opacity: 0.18 + ((i % 3) * 0.06),
-                width: i % 4 === 0 ? "2px" : "1.5px",
-                height: i % 4 === 0 ? "2px" : "1.5px",
               }}
             />
           ))}
@@ -233,7 +252,6 @@ const HeroV2 = () => {
                 </span>
               )}
             </motion.div>
-
 
             {/* Faint breathing gold horizon line beneath the headline. */}
             <motion.div
