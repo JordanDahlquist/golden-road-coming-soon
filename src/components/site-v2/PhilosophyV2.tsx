@@ -53,6 +53,8 @@ const PhilosophyV2 = () => {
           18%  { transform: translateX(160%); opacity: 0; }
           100% { transform: translateX(160%); opacity: 0; }
         }
+        .phil-v2-loop { animation-play-state: paused; }
+        [data-loops="active"] .phil-v2-loop { animation-play-state: running; }
       `}</style>
 
       {/* Soft golden-road glow + vignette */}
