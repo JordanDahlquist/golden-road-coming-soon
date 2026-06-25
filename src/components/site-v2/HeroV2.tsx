@@ -15,17 +15,14 @@ const SCROLL_CUE_DELAY = META_DELAY + 0.15;
 const HEADLINE_LINES = [
   <>
     Navigate the{" "}
-    <span className="hero-v2-gold-wrap relative inline-block align-baseline">
-      <span aria-hidden="true" className="hero-v2-gold-glow hero-v2-loop" />
-      <motion.span
-        className="hero-v2-gold relative inline-block"
-        initial={{ opacity: 0, scale: 0.94 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.9, ease: SITE_EASE, delay: GOLD_IGNITE_DELAY }}
-      >
-        future.
-      </motion.span>
-    </span>
+    <motion.span
+      className="hero-v2-gold relative inline-block"
+      initial={{ opacity: 0, scale: 0.94 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.9, ease: SITE_EASE, delay: GOLD_IGNITE_DELAY }}
+    >
+      future.
+    </motion.span>
   </>,
 ];
 
@@ -52,34 +49,11 @@ const HeroV2 = () => {
       className="relative overflow-hidden bg-background text-off-white"
       style={{ height: "100vh", maxHeight: "100vh" }}
     >
-      {/* Component-scoped styles — gold word glow (opacity layer), repeating sheen, horizon line, embers. */}
+      {/* Component-scoped styles — gold word drop glow, repeating sheen, horizon line, embers. */}
       <style>{`
-        .hero-v2-gold { color: hsl(var(--gold)); }
-        /* Static blurred gold glow layer behind the word — only opacity animates. */
-        .hero-v2-gold-glow {
-          position: absolute;
-          inset: -2.5em -1.5em;
-          z-index: 0;
-          pointer-events: none;
-          background: radial-gradient(
-            ellipse 5em 2em at center,
-            hsl(var(--gold) / 0.55) 0%,
-            hsl(var(--gold) / 0.22) 18%,
-            hsl(var(--gold) / 0.08) 35%,
-            hsl(var(--gold) / 0.03) 50%,
-            transparent 72%
-          );
-          filter: blur(8px);
-          opacity: 0;
-        }
-        @media (prefers-reduced-motion: no-preference) {
-          .hero-v2-gold-glow {
-            animation: heroV2GoldBreathe 7s ease-in-out ${GOLD_IGNITE_DELAY + 0.9}s infinite;
-          }
-        }
-        @keyframes heroV2GoldBreathe {
-          0%, 100% { opacity: 0.30; }
-          50%      { opacity: 0.95; }
+        .hero-v2-gold {
+          color: hsl(var(--gold));
+          text-shadow: 0 0 18px hsl(var(--gold) / 0.32), 0 0 36px hsl(var(--gold) / 0.14);
         }
         .hero-v2-sheen-clip {
           position: absolute;
