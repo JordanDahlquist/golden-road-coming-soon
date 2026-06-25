@@ -7,6 +7,8 @@ import {
   Handshake,
   ShieldCheck,
   GitBranch,
+  ArrowRight,
+  Compass,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { FadeRise, SectionEnter, SITE_EASE } from "@/components/site/motion";
@@ -70,7 +72,6 @@ const TILES: Tile[] = [
     line: "Bridging the gap between the CEO's vision and the organization's financial reality to ensure seamless operational transitions.",
     icon: GitBranch,
     span: "lg:col-span-2 lg:row-span-1",
-    feature: true,
   },
 ];
 
@@ -98,6 +99,9 @@ const ExpertiseV2 = () => {
   };
   const viewport = { once: true, amount: 0.15 };
 
+  // CTA tile enters last
+  const ctaIndex = TILES.length;
+
   return (
     <SectionEnter
       as="section"
@@ -113,6 +117,26 @@ const ExpertiseV2 = () => {
             "radial-gradient(120% 60% at 50% 0%, hsl(30 4% 18% / 0.55) 0%, transparent 60%), radial-gradient(60% 40% at 85% 100%, hsl(40 74% 62% / 0.07) 0%, transparent 70%)",
         }}
       />
+
+      <style>{`
+        @keyframes exp-feature-glow {
+          0%, 100% { opacity: 0.35; }
+          50% { opacity: 0.7; }
+        }
+        @keyframes exp-feature-sheen {
+          0% { transform: translateX(-120%) skewX(-14deg); }
+          100% { transform: translateX(220%) skewX(-14deg); }
+        }
+        .exp-feature-glow {
+          animation: exp-feature-glow 6s ease-in-out infinite;
+        }
+        .exp-feature-sheen {
+          animation: exp-feature-sheen 7s cubic-bezier(0.22, 1, 0.36, 1) 1.2s infinite;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .exp-feature-glow, .exp-feature-sheen { animation: none; }
+        }
+      `}</style>
 
       <div className="relative mx-auto w-full max-w-[1180px]">
         <FadeRise trigger="child" as="p" className="t-eyebrow">
@@ -132,43 +156,88 @@ const ExpertiseV2 = () => {
               transition={flipTransition(i)}
               style={flipStyle}
               className={[
-                "luxe-card expertise-tile group relative flex flex-col rounded-xl border border-off-white/[0.07] bg-secondary p-6 md:p-7",
+                "luxe-card expertise-tile group relative flex flex-col overflow-hidden rounded-xl p-6 md:p-7",
                 tile.span,
-                tile.feature ? "lg:p-9" : "",
+                tile.feature
+                  ? "lg:p-9 border border-gold/45 bg-gradient-to-br from-secondary via-secondary to-[hsl(40_55%_18%/0.55)]"
+                  : "border border-off-white/[0.07] bg-secondary",
               ].join(" ")}
             >
-              <span
-                className="absolute top-5 right-5 t-label text-gold/80"
-                aria-hidden
+              {tile.feature && (
+                <>
+                  <span
+                    aria-hidden
+                    className="exp-feature-glow pointer-events-none absolute -inset-px rounded-xl"
+                    style={{
+                      background:
+                        "radial-gradient(80% 60% at 30% 0%, hsl(40 74% 62% / 0.18) 0%, transparent 70%)",
+                    }}
+                  />
+                  <span
+                    aria-hidden
+                    className="exp-feature-sheen pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 bg-gradient-to-r from-transparent via-gold/12 to-transparent"
+                  />
+                  <span
+                    aria-hidden
+                    className="absolute top-5 left-5 h-1.5 w-1.5 rounded-full bg-gold shadow-[0_0_10px_2px_hsl(40_74%_62%/0.55)]"
+                  />
+                </>
+              )}
+
+              <FadeRise
+                trigger="in-view"
+                as="span"
+                delay={i * 0.13 + 0.2}
+                className="absolute top-5 right-5 t-label text-gold/85"
               >
-                {tile.index}
-              </span>
+                <span aria-hidden>{tile.index}</span>
+              </FadeRise>
 
               <div
-                className="flex h-10 w-10 items-center justify-center rounded-md border border-gold/30 text-gold/80 transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-gold group-hover:border-gold/70"
+                className="relative flex h-10 w-10 items-center justify-center rounded-md border border-gold/30 text-gold/80 transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-gold group-hover:border-gold/70"
                 aria-hidden
               >
                 <tile.icon size={18} strokeWidth={1.5} />
               </div>
 
-              <h3 className={tile.feature ? "mt-6 t-card-title" : "mt-6 t-tile-title text-off-white"}>
+              <h3 className={"relative " + (tile.feature ? "mt-6 t-card-title" : "mt-6 t-tile-title text-off-white")}>
                 {tile.title}
               </h3>
 
-              <p className="mt-3 t-body-sm text-off-white/60">
+              <p className="relative mt-3 t-body-sm text-off-white/60">
                 {tile.line}
               </p>
-
-              {tile.feature && (
-                <span
-                  aria-hidden
-                  className="mt-auto pt-8 t-label text-off-white/35"
-                >
-                  Featured capability
-                </span>
-              )}
             </motion.article>
           ))}
+
+          {/* 8th cell — CTA tile */}
+          <motion.article
+            initial={flipInitial}
+            whileInView={flipAnimate}
+            viewport={viewport}
+            transition={flipTransition(ctaIndex)}
+            style={flipStyle}
+            className="luxe-card expertise-tile group relative flex flex-col items-start justify-between overflow-hidden rounded-xl border border-gold/30 bg-gradient-to-br from-secondary to-[hsl(40_55%_16%/0.45)] p-6 md:p-7 lg:col-span-2 lg:row-span-1"
+          >
+            <div
+              className="flex h-10 w-10 items-center justify-center rounded-md border border-gold/50 text-gold transition-colors duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:border-gold/80"
+              aria-hidden
+            >
+              <Compass size={18} strokeWidth={1.5} />
+            </div>
+
+            <a
+              href="#contact"
+              className="group/btn relative mt-6 inline-flex items-center justify-center gap-2 overflow-hidden rounded-full bg-gold px-7 py-3 text-charcoal text-xs font-medium tracking-[0.18em] uppercase shadow-[0_10px_30px_-12px_hsl(40_74%_62%/0.55)] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-0.5 hover:shadow-[0_16px_44px_-12px_hsl(40_74%_62%/0.7)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            >
+              <span className="relative z-10">Let's Build the Path Forward</span>
+              <ArrowRight size={14} strokeWidth={2} className="relative z-10 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-x-0.5" />
+              <span
+                aria-hidden
+                className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/btn:translate-x-full motion-reduce:hidden"
+              />
+            </a>
+          </motion.article>
         </div>
       </div>
     </SectionEnter>
