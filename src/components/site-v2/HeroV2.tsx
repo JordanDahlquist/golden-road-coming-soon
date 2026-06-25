@@ -49,7 +49,7 @@ const HeroV2 = () => {
       className="relative overflow-hidden bg-background text-off-white"
       style={{ height: "100vh", maxHeight: "100vh" }}
     >
-      {/* Component-scoped styles — gold word glow (opacity layer), repeating sheen, horizon line, embers. */}
+      {/* Component-scoped styles — gold word drop glow, repeating sheen, horizon line, embers. */}
       <style>{`
         .hero-v2-gold {
           color: hsl(var(--gold));
