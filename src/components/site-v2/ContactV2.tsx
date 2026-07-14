@@ -288,7 +288,7 @@ const ContactV2 = () => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         className={`luxe-input flex min-h-[130px] w-full rounded-[6px] border px-4 py-3 t-body-sm text-off-white placeholder:text-off-white/30 resize-y ${touched.message && !form.message.trim() ? "border-gold/60" : "border-off-white/10"} bg-[#1a1817]`}
-                        placeholder="Where are you stuck?"
+                        placeholder="What are your challenges?"
                         aria-describedby={touched.message && !form.message.trim() ? "contact-message-error" : undefined}
                       />
                       {touched.message && !form.message.trim() && (
