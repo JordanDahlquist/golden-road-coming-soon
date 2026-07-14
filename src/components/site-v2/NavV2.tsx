@@ -125,7 +125,7 @@ const NavV2 = () => {
             onClick={(e) => handleAnchor(e, "#contact")}
             className="luxe-cta hidden md:inline-flex items-center justify-center bg-gold text-charcoal-deep font-sans uppercase tracking-[0.16em] text-[11px] lg:text-xs px-5 py-2.5 rounded-sm"
           >
-            Let's Build the Path Forward
+            START THE CONVERSATION
           </a>
 
           <button
@@ -193,7 +193,7 @@ const NavV2 = () => {
               onClick={(e) => handleAnchor(e, "#contact")}
               className="luxe-cta inline-flex w-full items-center justify-center bg-gold text-charcoal-deep font-sans uppercase tracking-[0.18em] text-sm px-6 py-4 rounded-sm"
             >
-              Let's Build the Path Forward
+              START THE CONVERSATION
             </a>
           </div>
         </nav>
