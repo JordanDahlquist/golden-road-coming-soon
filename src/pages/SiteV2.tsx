@@ -34,6 +34,7 @@ const SiteV2 = () => {
       <div id="story" className={ANCHOR_CLASS}>
         <StoryV2 />
       </div>
+      <TrustSection />
       <ContactV2 />
     </main>
   );
