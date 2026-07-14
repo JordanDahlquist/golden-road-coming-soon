@@ -8,6 +8,7 @@ import AdvantageV2 from "@/components/site-v2/AdvantageV2";
 import EthosV2 from "@/components/site-v2/EthosV2";
 import StoryV2 from "@/components/site-v2/StoryV2";
 import ContactV2 from "@/components/site-v2/ContactV2";
+import TrustSection from "@/components/site/TrustSection";
 
 const ANCHOR_CLASS = "scroll-mt-24 md:scroll-mt-28";
 
@@ -33,6 +34,7 @@ const SiteV2 = () => {
       <div id="story" className={ANCHOR_CLASS}>
         <StoryV2 />
       </div>
+      <TrustSection />
       <ContactV2 />
     </main>
   );
