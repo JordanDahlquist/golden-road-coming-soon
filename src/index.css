@@ -6,7 +6,7 @@
    Premium, sophisticated aesthetic with gold as hero color
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fahkwang:wght@300;400;500;600&family=DM+Sans:wght@200;300;400;500;600&display=swap');
 
 /* Hide nav logo while the /site intro overlay is morphing into it. */
 html.intro-active #nav-logo { opacity: 0 !important; }
