@@ -289,7 +289,7 @@ const HeroV2 = () => {
 
             {/* Right-side spacer to keep scroll cue visually centered like V1. */}
             <div aria-hidden className="hidden md:block t-label opacity-0 select-none">
-              Southern California | Available Globally
+              Referral-Led Practice | EST. 2017
             </div>
           </div>
         </div>
