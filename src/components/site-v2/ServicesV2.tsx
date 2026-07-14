@@ -79,7 +79,7 @@ const ServicesV2 = () => {
           as="p"
           className="mt-5 max-w-xl t-lead text-off-white/55"
         >
-          We partner with your leadership team to cut through fiscal noise, craft rigorous, data-driven frameworks, and instill the financial governance required to support aggressive enterprise growth.
+          We partner with your leadership team to cut through fiscal noise, craft rigorous, data-driven frameworks, and instill the financial governance required to enhance and support strategic enterprise growth.
         </FadeRise>
 
         <div
