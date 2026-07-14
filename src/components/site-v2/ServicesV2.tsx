@@ -14,7 +14,7 @@ const OFFERS: [Offer, Offer] = [
     icon: RefreshCw,
     title: "Strategic Planning & Capital Optimization",
     description:
-      "We design custom, long-range financial blueprints for mid-market businesses and emerging enterprises looking to scale. From capital structure optimization and profitability forecasting to defining core KPIs, we build the sustainable financial engines that drive predictable growth.",
+      "We design custom, long-range financial blueprints for small to mid-market businesses and emerging enterprises looking to scale. From capital structure optimization and profitability forecasting to defining core KPIs, we build the sustainable financial engines that drive predictable growth.",
   },
   {
     icon: Target,
