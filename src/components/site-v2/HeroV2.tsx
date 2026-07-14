@@ -273,9 +273,9 @@ const HeroV2 = () => {
               y={10}
               className="t-label text-off-white/40"
             >
-              Southern California
+              Referral-Led Practice
               <span className="mx-3 text-gold/60">|</span>
-              Available Globally
+              EST. 2017
             </FadeRise>
 
             <FadeRise
@@ -289,7 +289,7 @@ const HeroV2 = () => {
 
             {/* Right-side spacer to keep scroll cue visually centered like V1. */}
             <div aria-hidden className="hidden md:block t-label opacity-0 select-none">
-              Southern California | Available Globally
+              Referral-Led Practice | EST. 2017
             </div>
           </div>
         </div>
