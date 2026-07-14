@@ -159,7 +159,7 @@ const StoryV2 = () => {
 
             <FadeRise trigger="child" as="div">
               <p className="t-body text-off-white/70 max-w-[60ch]">
-                With 25+ years of experience leading finance, operations and corporate strategy within high-stakes professional services environments, I've served as the architect behind sustainable scale, system modernizations, and complex enterprise growth. As a seasoned Chief Financial Officer, I have navigated organizations through diverse economic cycles, restructuring legacy operations into agile, high-margin strategic assets.
+                With 30+ years of experience leading finance, operations and corporate strategy within high-stakes professional services environments, I've served as the architect behind sustainable scale, system modernizations, and complex enterprise growth. As a seasoned Chief Financial Officer, I have navigated organizations through diverse economic cycles, restructuring legacy operations into agile, high-margin strategic assets.
               </p>
             </FadeRise>
 
