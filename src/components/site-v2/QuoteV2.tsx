@@ -109,7 +109,7 @@ const QuoteV2 = () => {
             left: "50%",
             transform: "translateX(-50%)",
             fontSize: "clamp(14rem, 28vw, 26rem)",
-            fontFamily: "'Cormorant Garamond', serif",
+            fontFamily: "'Fahkwang', sans-serif",
             lineHeight: 0.8,
           }}
         >

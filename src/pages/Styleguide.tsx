@@ -255,7 +255,7 @@ export default function Styleguide() {
         <section>
           <div className="mb-10">
             <h2 className="font-serif text-3xl md:text-4xl text-off-white">Typography</h2>
-            <p className="mt-2 font-sans text-sm text-muted-foreground">Cormorant Garamond (serif) for headings. Montserrat (sans) for body. All sizes in rem.</p>
+            <p className="mt-2 font-sans text-sm text-muted-foreground">Fahkwang (sans) for headings. DM Sans (sans) for body. All sizes in rem.</p>
           </div>
 
           <div className="space-y-10">
