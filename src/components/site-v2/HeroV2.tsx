@@ -218,6 +218,7 @@ const HeroV2 = () => {
                 delayChildren={HEADLINE_DELAY}
                 stagger={0.18}
                 className="t-display text-off-white max-w-[18ch]"
+                lineClassName="pb-[0.15em]"
               />
               {!reduce && (
                 <span aria-hidden className="hero-v2-sheen-clip">

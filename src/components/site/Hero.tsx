@@ -130,6 +130,7 @@ const Hero = () => {
                 delayChildren={HEADLINE_DELAY}
                 stagger={0.18}
                 className="t-display text-off-white max-w-[18ch]"
+                lineClassName="pb-[0.15em]"
               />
               <span aria-hidden className="hero-sweep" />
             </motion.div>
