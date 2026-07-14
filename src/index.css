@@ -512,8 +512,8 @@ html.intro-active #nav-logo { opacity: 0 !important; }
 /* ─────────────────────────────────────────────────────────────
    SITEWIDE TYPE SCALE — single source of truth.
    Apply these role classes everywhere; do not set ad-hoc text-[…]
-   sizes/tracking/leading for these roles. Cormorant Garamond for
-   display/headings, Montserrat for eyebrows / body / labels.
+   sizes/tracking/leading for these roles. Fahkwang for
+   display/headings, DM Sans for eyebrows / body / labels.
    ───────────────────────────────────────────────────────────── */
 @layer components {
   /* Small uppercase gold label above headlines — identical sitewide. */
