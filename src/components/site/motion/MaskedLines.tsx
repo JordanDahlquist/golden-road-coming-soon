@@ -76,7 +76,7 @@ const MaskedLines = ({
       {lines.map((line, i) => (
         <span
           key={i}
-          className={`block overflow-hidden ${lineClassName ?? ""}`}
+          className={`block overflow-hidden pb-[0.18em] ${lineClassName ?? ""}`}
           data-masked-line={i}
         >
           <motion.span
@@ -86,6 +86,7 @@ const MaskedLines = ({
             {line}
           </motion.span>
         </span>
+
       ))}
     </MotionTag>
   );
