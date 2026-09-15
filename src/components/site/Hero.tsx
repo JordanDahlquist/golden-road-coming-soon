@@ -203,7 +203,7 @@ const Hero = () => {
             >
               Referral-led practice
               <span className="mx-3 text-off-white/25">·</span>
-              Est. of a 25-year career
+              Est. 2017
             </FadeRise>
           </div>
         </div>
