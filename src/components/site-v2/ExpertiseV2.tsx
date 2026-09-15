@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import {
   LineChart,
@@ -80,6 +80,14 @@ const ExpertiseV2 = () => {
   const reduce = useReducedMotion() ?? false;
   const loopsRef = useRef<HTMLDivElement | null>(null);
   const loopsActive = useInView(loopsRef, { margin: "200px 0px 200px 0px" });
+  const gridRef = useRef<HTMLDivElement | null>(null);
+  const gridInView = useInView(gridRef, { once: true, amount: 0.1 });
+  const [fallbackReady, setFallbackReady] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setFallbackReady(true), 1600);
+    return () => clearTimeout(t);
+  }, []);
+  const show = reduce || gridInView || fallbackReady;
 
   const flipInitial = reduce
     ? { opacity: 1, rotateY: 0 }
