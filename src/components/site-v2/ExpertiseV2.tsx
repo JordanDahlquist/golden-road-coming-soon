@@ -162,6 +162,7 @@ const ExpertiseV2 = () => {
         </FadeRise>
 
         <div
+          ref={gridRef}
           className="mt-14 md:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:auto-rows-[minmax(200px,auto)] gap-5 md:gap-6"
           style={{ perspective: "1200px", perspectiveOrigin: "50% 40%" }}
         >
@@ -169,8 +170,7 @@ const ExpertiseV2 = () => {
             <motion.article
               key={tile.index}
               initial={flipInitial}
-              whileInView={flipAnimate}
-              viewport={viewport}
+              animate={show ? flipAnimate : flipInitial}
               transition={flipTransition(i)}
               style={flipStyle}
               className={[
