@@ -107,7 +107,7 @@ const ExpertiseV2 = () => {
     transformStyle: "preserve-3d" as const,
     transformOrigin: "left center",
   };
-  const viewport = { once: true, amount: 0.15 };
+  
 
   // CTA tile enters last
   const ctaIndex = TILES.length;
