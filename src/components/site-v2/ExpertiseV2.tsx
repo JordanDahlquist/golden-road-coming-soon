@@ -233,8 +233,7 @@ const ExpertiseV2 = () => {
           {/* 8th cell — CTA tile */}
           <motion.article
             initial={flipInitial}
-            whileInView={flipAnimate}
-            viewport={viewport}
+            animate={show ? flipAnimate : flipInitial}
             transition={flipTransition(ctaIndex)}
             style={flipStyle}
             className="luxe-card expertise-tile group relative flex flex-col items-start justify-between overflow-hidden rounded-xl border border-gold/30 bg-gradient-to-br from-secondary to-[hsl(40_55%_16%/0.45)] p-6 md:p-7 lg:col-span-2 lg:row-span-1"
