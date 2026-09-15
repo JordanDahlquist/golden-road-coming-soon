@@ -93,6 +93,7 @@ const ServicesV2 = () => {
         </FadeRise>
 
         <div
+          ref={gridRef}
           className="relative mt-14 md:mt-16 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-12"
           style={{ perspective: "1200px", perspectiveOrigin: "50% 40%" }}
         >
@@ -116,8 +117,13 @@ const ServicesV2 = () => {
                     ? { opacity: 1, rotateY: 0 }
                     : { opacity: 0, rotateY: isLeft ? -88 : 88 }
                 }
-                whileInView={{ opacity: 1, rotateY: 0 }}
-                viewport={{ once: true, amount: 0.15 }}
+                animate={
+                  show
+                    ? { opacity: 1, rotateY: 0 }
+                    : reduce
+                      ? { opacity: 1, rotateY: 0 }
+                      : { opacity: 0, rotateY: isLeft ? -88 : 88 }
+                }
                 transition={{
                   duration: reduce ? 0 : 0.78,
                   ease: SITE_EASE,
