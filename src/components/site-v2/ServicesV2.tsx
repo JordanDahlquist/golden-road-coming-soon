@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { RefreshCw, Target, ArrowRight } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { FadeRise, MaskedLines, SectionEnter, SITE_EASE } from "@/components/site/motion";
@@ -26,6 +27,15 @@ const OFFERS: [Offer, Offer] = [
 
 const ServicesV2 = () => {
   const reduce = useReducedMotion() ?? false;
+  const gridRef = useRef<HTMLDivElement | null>(null);
+  const gridInView = useInView(gridRef, { once: true, amount: 0.1 });
+  const [fallbackReady, setFallbackReady] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setFallbackReady(true), 1600);
+    return () => clearTimeout(t);
+  }, []);
+  const show = reduce || gridInView || fallbackReady;
+
 
   return (
     <SectionEnter
