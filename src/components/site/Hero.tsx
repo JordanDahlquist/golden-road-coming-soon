@@ -179,9 +179,7 @@ const Hero = () => {
               y={10}
               className="t-label text-off-white/40"
             >
-              Southern California
-              <span className="mx-3 text-off-white/25">/</span>
-              Available Globally
+              SOUTHERN CALIFORNIA BASED/AVAILABLE GLOBALLY
             </FadeRise>
 
             <FadeRise
