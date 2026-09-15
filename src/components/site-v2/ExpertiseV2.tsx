@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import {
   LineChart,
@@ -80,6 +80,14 @@ const ExpertiseV2 = () => {
   const reduce = useReducedMotion() ?? false;
   const loopsRef = useRef<HTMLDivElement | null>(null);
   const loopsActive = useInView(loopsRef, { margin: "200px 0px 200px 0px" });
+  const gridRef = useRef<HTMLDivElement | null>(null);
+  const gridInView = useInView(gridRef, { once: true, amount: 0.1 });
+  const [fallbackReady, setFallbackReady] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setFallbackReady(true), 1600);
+    return () => clearTimeout(t);
+  }, []);
+  const show = reduce || gridInView || fallbackReady;
 
   const flipInitial = reduce
     ? { opacity: 1, rotateY: 0 }
@@ -99,7 +107,7 @@ const ExpertiseV2 = () => {
     transformStyle: "preserve-3d" as const,
     transformOrigin: "left center",
   };
-  const viewport = { once: true, amount: 0.15 };
+  
 
   // CTA tile enters last
   const ctaIndex = TILES.length;
@@ -154,6 +162,7 @@ const ExpertiseV2 = () => {
         </FadeRise>
 
         <div
+          ref={gridRef}
           className="mt-14 md:mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:auto-rows-[minmax(200px,auto)] gap-5 md:gap-6"
           style={{ perspective: "1200px", perspectiveOrigin: "50% 40%" }}
         >
@@ -161,8 +170,7 @@ const ExpertiseV2 = () => {
             <motion.article
               key={tile.index}
               initial={flipInitial}
-              whileInView={flipAnimate}
-              viewport={viewport}
+              animate={show ? flipAnimate : flipInitial}
               transition={flipTransition(i)}
               style={flipStyle}
               className={[
@@ -225,8 +233,7 @@ const ExpertiseV2 = () => {
           {/* 8th cell — CTA tile */}
           <motion.article
             initial={flipInitial}
-            whileInView={flipAnimate}
-            viewport={viewport}
+            animate={show ? flipAnimate : flipInitial}
             transition={flipTransition(ctaIndex)}
             style={flipStyle}
             className="luxe-card expertise-tile group relative flex flex-col items-start justify-between overflow-hidden rounded-xl border border-gold/30 bg-gradient-to-br from-secondary to-[hsl(40_55%_16%/0.45)] p-6 md:p-7 lg:col-span-2 lg:row-span-1"
