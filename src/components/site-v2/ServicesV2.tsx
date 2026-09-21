@@ -74,6 +74,15 @@ const ServicesV2 = () => {
       `}</style>
 
       <div className="relative mx-auto w-full max-w-[1180px]">
+        <FadeRise trigger="child" as="div" className="mb-7">
+          <img
+            src={monogram}
+            alt=""
+            aria-hidden
+            className="h-12 w-12 opacity-90 drop-shadow-[0_2px_12px_rgba(229,181,85,0.25)]"
+          />
+        </FadeRise>
+
         <FadeRise trigger="child" as="p" className="t-eyebrow">
           SERVICES
         </FadeRise>
