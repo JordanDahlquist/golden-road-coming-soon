@@ -90,6 +90,20 @@ const TrustSection = () => {
       />
 
       <div className="relative mx-auto w-full max-w-[1200px] px-6 md:px-12 lg:px-20 pt-24 md:pt-32 pb-28 md:pb-40">
+        {/* Monogram mark */}
+        <FadeRise
+          as="div"
+          trigger="in-view"
+          className="mb-7"
+        >
+          <img
+            src={monogram}
+            alt=""
+            aria-hidden
+            className="h-12 w-12 opacity-90 drop-shadow-[0_2px_12px_rgba(229,181,85,0.25)]"
+          />
+        </FadeRise>
+
         {/* Eyebrow */}
         <FadeRise
           as="p"
