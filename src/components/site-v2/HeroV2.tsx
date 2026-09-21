@@ -266,32 +266,23 @@ const HeroV2 = () => {
             </MotionGroup>
           </div>
 
-          <div className="flex items-end justify-between gap-6">
-            <FadeRise
-              as="div"
-              delay={META_DELAY}
-              y={10}
-              className="t-label text-off-white/40"
-            >
+          <FadeRise
+            as="div"
+            delay={META_DELAY}
+            y={10}
+            className="flex flex-col gap-5 border-t border-off-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between"
+          >
+            <span className="t-label text-off-white/40">
               BASED IN SOUTHERN CALIFORNIA
               <span className="mx-3 text-gold/60">/</span>
               AVAILABLE GLOBALLY
-            </FadeRise>
+            </span>
 
-            <FadeRise
-              y={14}
-              delay={SCROLL_CUE_DELAY}
-              className="pointer-events-none flex flex-col items-center gap-2"
-            >
+            <span className="pointer-events-none flex items-center gap-3">
               <span className="t-label text-off-white/35">Scroll</span>
-              <span className="hero-scroll-line block h-8 w-px bg-off-white/25" />
-            </FadeRise>
-
-            {/* Right-side spacer to keep scroll cue visually centered like V1. */}
-            <div aria-hidden className="hidden md:block t-label opacity-0 select-none">
-              Southern California Based / Available Globally
-            </div>
-          </div>
+              <span className="hero-scroll-line block h-px w-10 bg-off-white/25" />
+            </span>
+          </FadeRise>
         </div>
       </motion.div>
     </section>
