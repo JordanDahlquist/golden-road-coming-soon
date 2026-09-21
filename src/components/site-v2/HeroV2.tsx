@@ -274,6 +274,12 @@ const HeroV2 = () => {
               y={10}
               className="t-label text-off-white/40"
             >
+              <img
+                src={monogram}
+                alt="Golden Road Strategies"
+                className="h-7 md:h-8 w-auto mb-3 opacity-90 select-none"
+                draggable={false}
+              />
               BASED IN SOUTHERN CALIFORNIA
               <span className="mx-3 text-gold/60">/</span>
               AVAILABLE GLOBALLY
