@@ -281,7 +281,18 @@ const HeroV2 = () => {
 
             <span className="pointer-events-none flex items-center gap-3">
               <span className="t-label text-off-white/35">Scroll</span>
-              <span className="hero-scroll-line block h-px w-10 bg-off-white/25" />
+              <svg
+                className="hero-bounce h-4 w-4 text-off-white/35"
+                viewBox="0 0 16 16"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M8 2v10M4 9l4 4 4-4" />
+              </svg>
             </span>
           </FadeRise>
         </div>
