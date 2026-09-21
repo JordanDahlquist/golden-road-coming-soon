@@ -13,46 +13,46 @@ type Testimonial = {
 
 const TESTIMONIALS: Testimonial[] = [
   {
-    name: "Sarah Chen",
-    title: "CEO, [SaaS company]",
+    name: "Jordan Dahlquist",
+    title: "Co-Founder & CEO",
     quote:
-      "She found the levers in our financials we didn't know existed. We made our next raise from a position of clarity, not panic.",
-    initials: "SC",
+      "Tracy possesses a deep understanding of financial strategies, with a knack for identifying efficiencies and streamlining operations that directly impact the bottom line.",
+    initials: "JD",
   },
   {
-    name: "Michael Torres",
-    title: "Founder & CEO, [services firm]",
+    name: "Michael Greenberg",
+    title: "Founder & CEO",
     quote:
-      "The first finance leader who actually understood operations. She built the architecture we needed to scale past our ceiling.",
-    initials: "MT",
+      "She has been a trusted advisor throughout my decades-long entrepreneurial journey.",
+    initials: "MG",
   },
   {
-    name: "Jennifer Walsh",
-    title: "Board Chair",
+    name: "Dax Cornelius",
+    title: "Co-Founder & CEO",
     quote:
-      "Strategic, direct, and refreshingly honest. She tells you the truth the business needs, not the story you want to hear.",
-    initials: "JW",
+      "Tracy not only underpromised and overdelivered in every aspect, she simultaneously drove me to be a better leader.",
+    initials: "DC",
   },
   {
-    name: "David Kim",
-    title: "Founder",
+    name: "Chris Hubble",
+    title: "Founder & CEO",
     quote:
-      "We went from lagging spreadsheets to forward visibility in months. Decisions got faster and the whole company felt it.",
-    initials: "DK",
+      "She possesses an innate talent for understanding the broader market dynamics and industry trends, allowing her to develop innovative financial strategies that kept our organization ahead of the curve.",
+    initials: "CH",
   },
   {
-    name: "Rachel Adams",
-    title: "CEO, [growth-stage company]",
+    name: "Shana Starr",
+    title: "Co-Founder & CEO",
     quote:
-      "She gave us CFO-level leadership without the full-time overhead. Exactly the third option we'd been looking for.",
-    initials: "RA",
+      "She helped me scale my business and grow my revenue 3X in less than two years.",
+    initials: "SS",
   },
   {
-    name: "Thomas Reed",
-    title: "Managing Partner",
+    name: "R. Cary Hampton",
+    title: "Co-Founder",
     quote:
-      "Institutional-grade frameworks, delivered fast. She took friction out of our scaling and it showed in every quarter after.",
-    initials: "TR",
+      "Her business acumen and cross-functional expertise made her the ideal partner for getting my business off the ground and scaling it over a multi-year period.",
+    initials: "RC",
   },
 ];
 
