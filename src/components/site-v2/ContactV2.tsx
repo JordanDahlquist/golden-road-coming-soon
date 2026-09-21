@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Linkedin, Mail, MapPin } from "lucide-react";
 import { FadeRise, MaskedLines, SectionEnter } from "@/components/site/motion";
 import goldenRoad from "@/assets/golden-road.png.asset.json";
+import monogram from "@/assets/logo-monogram.png";
 
 const RECIPIENT = "info@goldenroadstrategies.com";
 
@@ -325,6 +326,26 @@ const ContactV2 = () => {
           </div>
         </div>
       </SectionEnter>
+
+      {/* Footer band */}
+      <footer className="relative px-6 md:px-12 lg:px-20 pb-14 pt-4">
+        <div className="mx-auto w-full max-w-[1180px] flex flex-col items-center gap-6 text-center">
+          <FadeRise trigger="in-view" as="div" className="flex flex-col items-center gap-5">
+            <span aria-hidden className="h-px w-24 bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
+            <img
+              src={monogram}
+              alt="Golden Road Strategies"
+              className="h-14 w-14 opacity-95 drop-shadow-[0_2px_16px_rgba(229,181,85,0.3)]"
+            />
+            <p className="t-label tracking-[0.32em] uppercase text-off-white/55">
+              Golden Road Strategies
+            </p>
+            <p className="t-label text-off-white/35">
+              © {new Date().getFullYear()} Golden Road Strategies. All rights reserved.
+            </p>
+          </FadeRise>
+        </div>
+      </footer>
     </section>
   );
 };
