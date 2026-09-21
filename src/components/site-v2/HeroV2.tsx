@@ -271,10 +271,12 @@ const HeroV2 = () => {
             y={10}
             className="flex flex-col gap-5 border-t border-off-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between"
           >
-            <span className="t-label text-off-white/40">
-              BASED IN SOUTHERN CALIFORNIA
-              <span className="mx-3 text-gold/60">/</span>
-              AVAILABLE GLOBALLY
+            <span className="t-label text-off-white/40 flex flex-col">
+              <span>BASED IN SOUTHERN CALIFORNIA</span>
+              <span className="flex items-center gap-3">
+                <span className="text-gold/60">/</span>
+                <span>AVAILABLE GLOBALLY</span>
+              </span>
             </span>
 
             <span className="pointer-events-none flex items-center gap-3">
