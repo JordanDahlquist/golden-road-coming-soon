@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { SectionEnter, FadeRise, MaskedLines, SITE_EASE } from "@/components/site/motion";
+import monogram from "@/assets/logo-monogram.png";
 
 const PhilosophyV2 = () => {
   const reduce = useReducedMotion();
@@ -97,6 +98,14 @@ const PhilosophyV2 = () => {
               viewport={{ once: true, amount: 0.4 }}
               transition={{ duration: 1, ease: SITE_EASE, delay: 0.1 }}
               aria-hidden="true"
+            />
+          </FadeRise>
+
+          <FadeRise trigger="child" className="mb-7 flex justify-center">
+            <img
+              src={monogram}
+              alt="Golden Road Strategies"
+              className="h-12 w-12 opacity-90 drop-shadow-[0_2px_12px_rgba(229,181,85,0.25)]"
             />
           </FadeRise>
 
