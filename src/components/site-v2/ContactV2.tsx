@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Linkedin, Mail, MapPin } from "lucide-react";
 import { FadeRise, MaskedLines, SectionEnter } from "@/components/site/motion";
 import goldenRoad from "@/assets/golden-road.png.asset.json";
+import monogram from "@/assets/logo-monogram.png";
 
 const RECIPIENT = "info@goldenroadstrategies.com";
 
