@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { FadeRise, MaskedLines, MotionGroup, SITE_EASE } from "@/components/site/motion";
-import goldenRoad from "@/assets/golden-road.png.asset.json";
+import goldenRoad from "@/assets/hero-sunrise-flipped.png.asset.json";
 
 const HEADLINE_DELAY = 0.35;
 const LINE_DURATION = 0.9;
