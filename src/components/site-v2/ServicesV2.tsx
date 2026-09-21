@@ -3,6 +3,7 @@ import { motion, useInView, useReducedMotion } from "framer-motion";
 import { RefreshCw, Target, ArrowRight } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { FadeRise, MaskedLines, SectionEnter, SITE_EASE } from "@/components/site/motion";
+import monogram from "@/assets/logo-monogram.png";
 
 type Offer = {
   icon: LucideIcon;
