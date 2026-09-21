@@ -269,31 +269,26 @@ const HeroV2 = () => {
             as="div"
             delay={META_DELAY}
             y={10}
-            className="flex flex-col gap-5 border-t border-off-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between"
+            className="flex flex-col items-center gap-4 border-t border-off-white/10 pt-5"
           >
-            <span className="t-label text-off-white/40 flex flex-col">
-              <span>BASED IN SOUTHERN CALIFORNIA</span>
-              <span className="flex items-center gap-3">
-                <span className="text-gold/60">/</span>
-                <span>AVAILABLE GLOBALLY</span>
-              </span>
+            <span className="t-label text-off-white/45 text-center leading-relaxed">
+              BASED IN SOUTHERN CALIFORNIA
+              <span className="text-gold/50 mx-2">/</span>
+              AVAILABLE GLOBALLY
             </span>
 
-            <span className="pointer-events-none flex items-center gap-3">
-              <span className="t-label text-off-white/35">Scroll</span>
-              <svg
-                className="hero-bounce h-4 w-4 text-off-white/35"
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M8 2v10M4 9l4 4 4-4" />
-              </svg>
-            </span>
+            <svg
+              className="hero-bounce h-4 w-4 text-off-white/35"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M8 2v10M4 9l4 4 4-4" />
+            </svg>
           </FadeRise>
         </div>
       </motion.div>
