@@ -3,6 +3,7 @@ import { motion, useInView, useReducedMotion, useScroll, useTransform } from "fr
 import { Button } from "@/components/ui/button";
 import { FadeRise, MaskedLines, MotionGroup, SITE_EASE } from "@/components/site/motion";
 import goldenRoad from "@/assets/hero-sunrise-flipped.png.asset.json";
+import monogram from "@/assets/logo-monogram.png";
 
 const HEADLINE_DELAY = 0.35;
 const LINE_DURATION = 0.9;
