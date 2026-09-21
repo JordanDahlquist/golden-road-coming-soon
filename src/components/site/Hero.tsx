@@ -4,7 +4,7 @@ import { ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { FadeRise, MaskedLines, MotionGroup } from "./motion";
 import RotatingWord from "./RotatingWord";
-import goldenRoad from "@/assets/golden-road.png.asset.json";
+import goldenRoad from "@/assets/hero-sunrise-flipped.png.asset.json";
 
 const ROTATING_WORDS = ["demands", "requires", "deserves", "runs on"];
 
