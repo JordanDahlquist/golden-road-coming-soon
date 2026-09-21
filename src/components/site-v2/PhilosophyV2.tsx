@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { SectionEnter, FadeRise, MaskedLines, SITE_EASE } from "@/components/site/motion";
+import monogram from "@/assets/logo-monogram.png";
 
 const PhilosophyV2 = () => {
   const reduce = useReducedMotion();
