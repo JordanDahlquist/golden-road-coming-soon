@@ -10,7 +10,6 @@ const LINE_DURATION = 0.9;
 const GOLD_IGNITE_DELAY = HEADLINE_DELAY + LINE_DURATION + 0.1; // ~1.35s
 const TAIL_DELAY = GOLD_IGNITE_DELAY + 0.35; // ~1.7s — subhead
 const META_DELAY = TAIL_DELAY + 0.7; // meta strip last
-const SCROLL_CUE_DELAY = META_DELAY + 0.15;
 
 const HEADLINE_LINES = [
   <>
