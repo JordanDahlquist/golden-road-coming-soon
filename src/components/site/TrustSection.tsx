@@ -119,8 +119,8 @@ const TrustSection = () => {
           trigger="in-view"
           stagger={0.08}
           lines={[
-            <>Trusted by the people</>,
-            <>who answer to the board.</>,
+            <>Trusted by Boards</>,
+            <>and those who answer to them.</>,
           ]}
           className="mt-6 t-h2 text-off-white"
         />
