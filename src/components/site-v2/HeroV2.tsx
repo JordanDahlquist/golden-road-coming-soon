@@ -269,7 +269,7 @@ const HeroV2 = () => {
             as="div"
             delay={META_DELAY}
             y={10}
-            className="flex flex-col items-center gap-4 border-t border-off-white/10 pt-5"
+            className="flex flex-col items-center gap-4"
           >
             <span className="t-label text-off-white/45 text-center leading-relaxed">
               BASED IN SOUTHERN CALIFORNIA
