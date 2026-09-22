@@ -313,7 +313,7 @@ const ContactV2 = () => {
                         </p>
                       )}
                       <p className="mt-4 text-center t-label text-off-white/40">
-                        Replies typically within one business day.
+                        REPLIES TYPICALLY WITHIN ONE BUSINESS DAY
                       </p>
                       <p className="mt-3 text-center t-label text-off-white/50">
                         Southern California &nbsp;|&nbsp; Available Globally
